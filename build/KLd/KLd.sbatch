@@ -3,14 +3,14 @@
 #SBATCH --job-name=KLd
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT
 #
 # Processors:
-#SBATCH --ntasks=256
-#SBATCH --nodes=16
+#SBATCH --ntasks=32
+#SBATCH --nodes=2
 #
 # Wall clock limit:
-#SBATCH --time=4-00:00:00
+#SBATCH --time=7-00:00:00
 #
 # Email at end:
 #SBATCH --mail-user=sxd190113@utdallas.edu
