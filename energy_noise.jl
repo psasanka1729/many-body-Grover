@@ -5,14 +5,28 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"6_Grover_gates_data.txt" # Change for every L.
+file = raw"6_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
 Gates_data_3 = M[:,3];
 
-Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-SEED = 1000
+U_0_gate_number =  (L            # L X gate on left of MCX
+                  + 1            # H gate on left of MCX
+                  + 2*L^2-6*L+5  # MCX gate
+                  + 1            # H gate on right of MCX
+                  + L)           # L X gate on right of MCX
+
+U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
+                  + L-1          # L-1 X gate on left of MCX
+                  + 1            # Z gate on left of MCX
+                  + 2*L^2-6*L+5  # MCX gate
+                  + 1            # Z gate on right of MCX
+                  + L-1          # L-1 H gate on right of MCX   
+                  + L-1)          # L-1 X gate on right of MCX)             
+Number_of_Gates = U_0_gate_number+U_x_gate_number
+
+SEED = 4003
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -21,11 +35,19 @@ NOISE = 2*rand(Float64,Number_of_Gates).-1;
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
 H = (1/sqrt(2))*[1 1;1 -1]
-Rx(theta)=exp(-1im*(theta/2)*[1 1;1 1]);
+Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
 Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
-CX(noise) = exp(-1im*((pi/2+noise))*[1 1;1 1]);
+CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
+Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
 Identity(dimension) = 1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
+
+U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
+U_0[1,1] = -1
+A = ones(2^L,2^L);
+U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
+G_exact = U_x*U_0;
+#V = py"eigu"(G_exact)[2];
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
     
@@ -92,6 +114,78 @@ function CU(U,c,t)
     return PI_0_matrix + PI_1_matrix     
 end;
 
+function Grover_operator(DELTA)
+    
+    U_x_delta = sparse(Identity(2^L));
+
+    # U_x
+    for i = U_0_gate_number+1 : U_0_gate_number+U_x_gate_number
+        if Gates_data_1[i] == "H"
+            
+            
+            epsilon = NOISE[i]
+            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
+            U_x_delta *= h_matrix
+
+            
+        elseif Gates_data_1[i] == "X"
+        
+            epsilon = NOISE[i]    
+            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
+            U_x_delta *= x_matrix
+            
+        elseif Gates_data_1[i] == "Z"
+
+            epsilon = NOISE[i]    
+            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
+            U_x_delta *= z_matrix
+            
+        else
+
+            epsilon = NOISE[i]      
+            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+            U_x_delta *= rx_matrix
+            
+        end
+    end
+    
+    U_0_delta = sparse(Identity(2^L));
+    
+ 
+    # U_0
+    for i = 1 : U_0_gate_number
+        if Gates_data_1[i] == "H"
+        
+            epsilon = NOISE[i]      
+            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
+            U_0_delta *= h_matrix
+            
+        elseif Gates_data_1[i] == "X"
+  
+            epsilon = NOISE[i]     
+            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
+            U_0_delta *= x_matrix
+            
+        elseif Gates_data_1[i] == "Z"
+
+            epsilon = NOISE[i]    
+            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
+            U_x_delta *= z_matrix  
+            
+        else
+        
+            epsilon = NOISE[i]     
+            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+            U_0_delta *= rx_matrix
+            
+        end
+    end
+        
+    GROVER_DELTA = U_x_delta*U_0_delta
+    
+    return collect(GROVER_DELTA)
+end;
+
 using PyCall
 py"""
 import numpy
@@ -149,66 +243,6 @@ def eigu(U,tol=1e-9):
     inds=numpy.argsort(numpy.imag(numpy.log(U_1)))
     return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
 """
-
-function Grover_operator(DELTA)
-    
-    U_x_delta = sparse(Identity(2^L));
-
-    # U_x
-    for i = (2*L^2-4*L+5)+1 : 2*(2*L^2-6*L+5)+2*L+4*L-4
-        if Gates_data_1[i] == "H"
-            
-            
-            epsilon = NOISE[i]
-            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            U_x_delta *= h_matrix
-
-            
-        elseif Gates_data_1[i] == "X"
-        
-            epsilon = NOISE[i]    
-            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= x_matrix
-            
-        else
-
-            epsilon = NOISE[i]      
-            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            U_x_delta *= rx_matrix
-            
-        end
-    end
-    
-    U_0_delta = sparse(Identity(2^L));
-    
-    #u0_list = []
-    # U_0
-    for i = 1 : 2*L^2-4*L+5
-        if Gates_data_1[i] == "H"
-        
-            epsilon = NOISE[i]      
-            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            U_0_delta *= h_matrix
-            
-        elseif Gates_data_1[i] == "X"
-  
-            epsilon = NOISE[i]     
-            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            U_0_delta *= x_matrix
-            
-        else
-        
-            epsilon = NOISE[i]     
-            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            U_0_delta *= rx_matrix
-            
-        end
-    end
-        
-    GROVER_DELTA = U_x_delta*U_0_delta
-    
-    return collect(GROVER_DELTA)
-end;
 
 function Entropy(Psi)   
     
@@ -405,10 +439,16 @@ def Write_file(Noise, Energy, Entropy):
     f = open('plot_data'+'.txt', 'a')
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
+# delta_index runs from 0 to 255.
+delta_index = parse(Int64,ARGS[1])
 
-Num = 20
+Delta = LinRange(0.0,0.35,256+1)
+delta_start = Delta[delta_index+1]
+delta_end = Delta[delta_index+2]
+Num = 5
+
 for i=0:Num
-    delta = 0.3*(i/Num)
+    delta = Delta_start+(i/Num)*(Delta_end-Delta_start)
     Op = Grover_operator(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
@@ -419,3 +459,11 @@ for i=0:Num
         py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
     end
 end
+
+#Delta = LinRange(0.0,0.35,17)
+
+#=
+for i = 0:length(Delta)-2
+    println(Delta[i+1],Delta[i+2])
+end
+=#
