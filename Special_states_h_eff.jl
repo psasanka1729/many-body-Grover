@@ -474,9 +474,19 @@ function Pauli_coefficients(B)
 end;
 
 py"""
-f = open('special_states_data'+'.txt', 'w')
+f = open('Pauli_coefficients_data'+'.txt', 'w')
+def Write_file_Pauli(b_0, b_1, b_2, b_3):
+    f = open('Pauli_coefficients_data'+'.txt', 'a')
+    f.write(str(b_0) +'\t'+ str(b_1)+ '\t' + str(b_2) +'\t' + str(b_3) +'\n')
+"""
+
+PC = Pauli_coefficients(B_matrix())
+py"Write_file_Pauli"(PC[1],PC[2],PC[3],PC[4])
+
+py"""
+f = open('special_states_eigenvalues_data'+'.txt', 'w')
 def Write_file(eigenvalue_1, eigenvalue_2):
-    f = open('special_states_data'+'.txt', 'a')
+    f = open('special_states_eigenvalues_data'+'.txt', 'a')
     f.write(str(eigenvalue_1) +'\t'+ str(eigenvalue_2)+'\n')
 """
 
