@@ -1,26 +1,41 @@
-L = 6;
+L = 4;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"6_Grover_gates_data.txt" # Change for every L.
+file = raw"4_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
 Gates_data_3 = M[:,3];
 
-Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-SEED = parse(Int64,ARGS[1]);
+U_0_gate_number =  (L            # L X gate on left of MCX
+                  + 1            # H gate on left of MCX
+                  + 2*L^2-6*L+5  # MCX gate
+                  + 1            # H gate on right of MCX
+                  + L)           # L X gate on right of MCX
+
+U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
+                  + L-1          # L-1 X gate on left of MCX
+                  + 1            # Z gate on left of MCX
+                  + 2*L^2-6*L+5  # MCX gate
+                  + 1            # Z gate on right of MCX
+                  + L-1          # L-1 H gate on right of MCX   
+                  + L-1)          # L-1 X gate on right of MCX)             
+Number_of_Gates = U_0_gate_number+U_x_gate_number
+
+SEED = 1942
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
 H = (1/sqrt(2))*[1 1;1 -1]
-Rx(theta)=exp(-1im*(theta/2)*[1 1;1 1]);
+Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
 Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
-CX(noise) = exp(-1im*((pi/2+noise))*[1 1;1 1]);
+CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
+Z_gate(noise) = exp(-1im*(pi/2+noise)*(I2-Z)) #Hadamard(noise)*CX(noise)*Hadamard(noise); # noise
 Identity(dimension) = 1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
 
@@ -154,32 +169,9 @@ U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
 V = py"eigu"(G_exact)[2];
 
-function x_bar(n)
-    k_n = (2*pi*n)/(2^L-2)
-    s = zeros(2^L-2,1)
-    for j = 1:2^L-2
-        sigma_z_basis = zeros(2^L-2,1);
-        sigma_z_basis[j] = 1
-        s += exp(1im*j*k_n) * sigma_z_basis
-    end
-    return s/sqrt(2^L-1)
-end;
-#= 
-The following function returns the basis transformation matrix U such that
-U\x_bar_k> = \k> for k = 1 2 ... 2^L-2. The two special states are neglected. 
-=#
-function Basis_Change_Matrix()
-    local U = zeros((2^L)-2,(2^L)-2)
-    for k = 1:2^L-2
-        sigma_z_basis = zeros(2^L-2,1);
-        sigma_z_basis[k] = 1
-        U += sigma_z_basis * (x_bar(k))'
-    end
-    return U
-end;
-
-function Special_states_matrix()
-    DELTA = 0.0
+#DELTA = 0.01
+function Eigenvalues(DELTA)
+    
     U_list = [];
     U_noise_list = [];
     U_x_delta = sparse(Identity(2^L));
@@ -191,14 +183,14 @@ function Special_states_matrix()
     Gates_data_new_3 = []
     
     # U_x
-    for i = (2*L^2-4*L+5)+1 : 2*(2*L^2-6*L+5)+2*L+4*L-4
+    for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
         if Gates_data_1[i] == "H"
             
             
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)
             h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            #U_x_delta *= h_matrix
+            U_x_delta *= h_matrix
         
             push!(Gates_data_new_1,"H")
             push!(Gates_data_new_2,0.0)
@@ -213,7 +205,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            #U_x_delta *= x_matrix
+            U_x_delta *= x_matrix
         
             push!(Gates_data_new_1,"X")
             push!(Gates_data_new_2,0.0)
@@ -223,13 +215,28 @@ function Special_states_matrix()
         
             push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
             
+        elseif Gates_data_1[i] == "Z"
+        
+            epsilon = NOISE[i]
+            push!(NOISE_list,epsilon)        
+            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
+            U_x_delta *= z_matrix
+        
+            push!(Gates_data_new_1,"Z")
+            push!(Gates_data_new_2,0.0)
+            push!(Gates_data_new_3,Gates_data_3[i]) 
+        
+            push!(U_noise_list,z_matrix) # Noise.
+        
+            push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            
         else
             #push!(ux_list,"CRX")
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            #U_x_delta *= rx_matrix
+            U_x_delta *= rx_matrix
         
             push!(Gates_data_new_1,Gates_data_1[i])
             push!(Gates_data_new_2,Gates_data_2[i])
@@ -246,13 +253,13 @@ function Special_states_matrix()
     
     #u0_list = []
     # U_0
-    for i = 1 : 2*L^2-4*L+5
+    for i = 1 : U_0_gate_number
         if Gates_data_1[i] == "H"
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            #U_0_delta *= h_matrix
+            U_0_delta *= h_matrix
         
             push!(Gates_data_new_1,"H")
             push!(Gates_data_new_2,0.0)
@@ -268,7 +275,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            #U_0_delta *= x_matrix
+            U_0_delta *= x_matrix
         
             push!(Gates_data_new_1,"X")
             push!(Gates_data_new_2,0.0)
@@ -278,13 +285,28 @@ function Special_states_matrix()
         
             push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
             
+        elseif Gates_data_1[i] == "Z"
+        
+            epsilon = NOISE[i]
+            push!(NOISE_list,epsilon)        
+            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
+            U_x_delta *= z_matrix
+        
+            push!(Gates_data_new_1,"Z")
+            push!(Gates_data_new_2,0.0)
+            push!(Gates_data_new_3,Gates_data_3[i]) 
+        
+            push!(U_noise_list,z_matrix) # Noise.
+        
+            push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            
         else
             #push!(u0_list,"CRX")
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            #U_0_delta *= rx_matrix
+            U_0_delta *= rx_matrix
         
             push!(Gates_data_new_1,Gates_data_1[i])
             push!(Gates_data_new_2,Gates_data_2[i])
@@ -297,7 +319,7 @@ function Special_states_matrix()
         end
     end
         
-    #GROVER_DELTA = U_x_delta*U_0_delta
+    GROVER_DELTA = U_x_delta*U_0_delta
     
     function kth_term(k)
 
@@ -315,15 +337,20 @@ function Special_states_matrix()
             elseif Gates_data_new_1[k] == "X"
 
                 Qubit = Gates_data_new_3[k] # qubit.
-                H_k = Matrix_Gate([1 1;1 1],Qubit) #= H_X = X+I2. =#
+                H_k = Matrix_Gate([1 0;0 1]-[0 1;1 0],Qubit) #= H_X = I2-X. =#
+            
+            elseif Gates_data_new_1[k] == "Z"
 
+                Qubit = Gates_data_new_3[k] # qubit.
+                H_k = Matrix_Gate([1 0;0 1]-[1 0;0 -1],Qubit) #= H_Z = I2-Z. =#
+            
             else
         
                 Angle = Gates_data_new_1[k]
                 Control_Qubit = int(Gates_data_new_2[k])
                 Target_Qubit = int(Gates_data_new_3[k])
-                #= H = ((I-Z)/2)_c \otimes ((I+X)/2)_t.=#
-                Matrices = Dict("I" => [1 0;0 1],"U" => [1 1;1 1]/2, "PI_1" => (I2-Z)/2)
+                #= H = ((I-Z)/2)_c \otimes ((I-X)/2)_t.=#
+                Matrices = Dict("I" => [1 0;0 1],"U" => [1 -1;-1 1]/2, "PI_1" => (I2-Z)/2)
                 p1 = fill("I", L)
                 p1[Control_Qubit] = "PI_1"
                 p1[Target_Qubit] = "U"
@@ -335,7 +362,7 @@ function Special_states_matrix()
     
     
         return f_k*H_k*(f_k')
-    end;        
+    end; 
     
     
     #= The following loop sums over all epsilon to get H_eff. =#
@@ -343,104 +370,29 @@ function Special_states_matrix()
     for i = 1:length(U_list)
         h_eff += NOISE_list[i]*kth_term(i)
     end        
-    #= 
-    Construction of block 2x2 H_eff matrix.
-    =#
-    
-    # Defining the state |0> in sigma_z basis.
-    ket_0 = zeros(2^L)
-    ket_0[1] = 1
-    
-    # Defining the state |x_bar> in sigma_z basis.
-    N = 2^L
-    ket_x = (1/sqrt(N))*ones(N)
-    ket_xbar = sqrt(N/(N-1))*ket_x-1/sqrt(N-1)*ket_0 # Normalization checked.
-    
-    # Matrix elements of h_eff in |0> and |xbar> basis.
-    h_0_0 = ket_0' * h_eff * ket_0
-    h_0_xbar = ket_0' * h_eff * ket_xbar
-    h_xbar_0 = ket_xbar' * h_eff * ket_0
-    h_xbar_xbar = ket_xbar' * h_eff * ket_xbar
-    
 
-    # h_eff block matrix.
-    h_eff_block = [ h_0_0 h_0_xbar; h_xbar_0 h_xbar_xbar]
-    
+    #h_eff = DELTA * h_eff # Matrix in Z basis.
+    h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
 
-    # G_0 block matrix.
-    N = 2^L
-    G_0_block = [2/N-1 -2*sqrt(N-1)/N;2*sqrt(N-1)/N 2/N-1]
+    h_eff_D = h_eff_D[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
+    E_eff_D = eigvals(h_eff_D) # Diagonalizing H_eff matrix.
     
-    return h_eff_block*G_0_block # h_eff * G_0.
+    E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.    
+
+    
+    return E_eff_D_sorted
+    #return GROVER_DELTA
 end;
 
-Block = Special_states_matrix();
+U = Eigenvalues(0.0);
 
-using QuadGK
-
-function B_matrix()
-    N = 2^L
-    theta = asin(2*sqrt(N-1)/N)
-    
-    # Eigenstates of tau_y in the |0> and |xbar> basis.
-    y_s_p = (1/sqrt(2))*[1 1im]'
-    y_s_n = (1/sqrt(2))*[1 -1im]'
-    
-    Block = Special_states_matrix()
-    
-    # -1 -1 element.
-    f_11(z) = 1/(exp(1im*theta)+z) * y_s_n'*Block*y_s_n * 1/(exp(1im*theta)+z)
-    
-    # -1 1 element.
-    f_12(z) = 1/(exp(1im*theta)+z) * y_s_n'*Block*y_s_p * 1/(exp(-1im*theta)+z)
-    
-    # 1 -1 element.
-    f_21(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Block*y_s_n * 1/(exp(1im*theta)+z)
-    
-    # 1 1 element.
-    f_22(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Block*y_s_p * 1/(exp(-1im*theta)+z)
-    
-    
-    #= Integration of the elements.=#
-    
-    I_11,est = quadgk(f_11, 1.e-6, 10^9, rtol=1e-10)
-    I_12,est = quadgk(f_12, 1.e-6, 10^9, rtol=1e-10)
-    I_21,est = quadgk(f_21, 1.e-6, 10^9, rtol=1e-10)
-    I_22,est = quadgk(f_22, 1.e-6, 10^9, rtol=1e-10)
-    
-    # Returns the B matrix.
-    return [[I_11 I_12]; [I_21 I_22]]
-    
-end
-
-function Pauli_coefficients(B)
-    
-    sigma_x = [[0 1];
-               [1 0]]
-    
-    sigma_y = [[0 -1im];
-               [1im 0]]
-    
-    sigma_z = [[1 0];
-               [0 -1]]
-    
-    B_0 = tr(B)/2
-    B_1 = tr(sigma_x*B)/2
-    B_2 = tr(sigma_y*B)/2
-    B_3 = tr(sigma_z*B)/2
-    
-    return B_0,B_1,B_2,B_3
-end;
+Trace_H_square(X) = sum(X.^2);
 
 py"""
-f = open('special_states_data'+'.txt', 'w')
-def Write_file(eigenvalue_1, eigenvalue_2):
-    f = open('special_states_data'+'.txt', 'a')
-    f.write(str(eigenvalue_1) +'\t'+ str(eigenvalue_2)+'\n')
+f = open('trace_data'+'.txt', 'w')
+def Write_file2(trace):
+    f = open('trace_data'+'.txt', 'a')
+    f.write(str(trace) +'\n')
 """
 
-Bm = B_matrix();
-Special_eigenvalues = eigvals(Bm)
-py"Write_file"(Special_eigenvalues[1],Special_eigenvalues[2])
-
-#Pauli_coefficients(Bm)
+py"Write_file2"(Trace_H_square(U))
