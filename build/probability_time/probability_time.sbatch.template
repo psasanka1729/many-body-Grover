@@ -1,0 +1,34 @@
+#!/bin/bash
+# Job name:
+#SBATCH --job-name=probability_time
+#
+# Partition:
+#SBATCH --partition=*partition*
+#
+# Processors:
+#SBATCH --ntasks=*nnn*
+#SBATCH --nodes=*NNN*
+#
+# Wall clock limit:
+#SBATCH --time=*ttt*
+#
+# Email at end:
+#SBATCH --mail-user=*myemail*
+#SBATCH --mail-type=END
+#
+# Specify output files:
+#SBATCH -o probability_time.o%j
+#------------------------------------------------------
+
+echo "Starting job probability_time"
+
+module load launcher
+
+export LAUNCHER_PLUGIN_DIR=$LAUNCHER_DIR/plugins
+export LAUNCHER_RMI=SLURM
+export LAUNCHER_JOB_FILE=probability_time.task
+export LAUNCHER_SCHED=interleaved
+
+$LAUNCHER_DIR/paramrun
+
+echo "Job probability_time complete"
