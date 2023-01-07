@@ -443,10 +443,10 @@ def Write_file(Noise, Energy, Entropy):
 # delta_index runs from 0 to 255.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.35,256+1)
+Delta = LinRange(0.0,0.05,256+1)
 Delta_start = Delta[delta_index+1]
 Delta_end = Delta[delta_index+2]
-Num = 5
+Num = 2
 
 for i=0:Num
     delta = Delta_start+(i/Num)*(Delta_end-Delta_start)
@@ -460,11 +460,3 @@ for i=0:Num
         py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
     end
 end
-
-#Delta = LinRange(0.0,0.35,17)
-
-#=
-for i = 0:length(Delta)-2
-    println(Delta[i+1],Delta[i+2])
-end
-=#
