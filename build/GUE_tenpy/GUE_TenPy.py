@@ -60,7 +60,7 @@ def KLd(Eigenvector_matrix):
 
 f_KLd = open('KLd_data'+'.txt', 'w')
 KLd_calculated = KLd(v)
-for k in range(1,2**L-1):
+for k in range(2**L-1):
     f_KLd = open('KLd_data'+'.txt', 'a')
     f_KLd.write(str(k) + '\t'+ str(KLd_calculated[k]) +'\n')
 f_KLd.close()
