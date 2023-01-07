@@ -471,7 +471,7 @@ def Write_file(Index, KL_div):
     f = open('KL_data'+'.txt', 'a')
     f.write(str(Index) +'\t'+ str(KL_div)+'\n')
 """
+KLd_calculated = KLd(H_eff_D)
 for k = 1:2^L-1
-    #py"Write_file"(k,KLd(H_eff_D)[k])
-    println(KLd(H_eff_D)[k])
+    py"Write_file"(k,KLd_calculated[k])
 end
