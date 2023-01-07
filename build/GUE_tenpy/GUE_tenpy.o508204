@@ -1,0 +1,6 @@
+Starting job GUE_tenpy
+WARNING (01/06/23 18:57:27): LAUNCHER_WORKDIR variable not set. Using current directory.
+ERROR (01/06/23 18:57:27): LAUNCHER_JOB_FILE (GUE_tenpy.task) is empty. This could be caused if the file is DOS formatted.
+NOTICE (01/06/23 18:57:27): Consider using dos2unix on your file to convert the newline characters.
+Launcher exited without completing.
+Job GUE_tenpy complete
