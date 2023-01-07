@@ -1,3 +1,82 @@
+commit 31a6d79e62bbf0ae9521cd54aa07ecee6a595e19
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Jan 6 19:19:57 2023 -0600
+
+    Commit before run KLd_10
+
+commit 70cae4f27dc28a96348fcd1180d50093c3f790eb
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Jan 6 19:02:17 2023 -0600
+
+    Commit before run GUE_tenpy
+
+commit fe886721b6d268ef21861df2f8a7f4940e8c1446
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Jan 6 18:58:09 2023 -0600
+
+    Commit before run GUE_tenpy
+
+commit 0edc32497688057aa97921f87cd1612c2f312436
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Jan 6 18:56:11 2023 -0600
+
+    Commit before run GUE_tenpy
+
+commit ebff81b378a20dfab568e9a3c3475d5e16209240
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Jan 6 18:52:22 2023 -0600
+
+    Commit before run GUE_tenpy
+
+commit f7b9f21c930027af350ad04c1e5b2cea5a725463
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Jan 6 18:51:06 2023 -0600
+
+    Commit before run GUE_tenpy
+
+commit 3611f3f23c627d27f8800d92a7db6a6bbb9bac29
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Jan 6 18:50:15 2023 -0600
+
+    Commit before run GUE_tenpy
+
+commit fdba965ff56c3b1a9669329318308a1387c6a635
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Jan 6 16:59:38 2023 -0600
+
+    Commit before run probability_time
+
+commit 1c32886be6be1ad03de950dc98b86e0032bc549e
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Fri Jan 6 16:58:23 2023 -0600
+
+    linear depth decomposition of mcx L = 14
+
+commit 9644074504f3edbac67a76414cceb4838b71360b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Jan 6 16:57:37 2023 -0600
+
+    cluster backup
+
+commit 2a41a04f7e094acbbf7b369e06504d6a62790ec8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Jan 5 23:18:12 2023 -0600
+
+    Commit before run phi_delta
+
+commit e62864e09dce9f8442912c5c436923a6c6f73a8a
+Merge: f4d327a 8d840da
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Jan 5 15:57:33 2023 -0600
+
+    Merge https://github.com/psasanka1729/many-body-Grover into main
+
+commit 8d840da5fc45a462bca372bebe9414cc3245d756
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Thu Jan 5 15:56:53 2023 -0600
+
+    writes Pauli coefficients and eigenvalues
+
 commit f4d327a8315e897cb81cfd002ebb0ea66d051dcc
 Merge: bc5de11 b263268
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
