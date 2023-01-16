@@ -27,11 +27,10 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 # Good seeds = 10, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = parse(Int64,ARGS[1])
+SEED = 256+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
-#length(NOISE)
 
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
@@ -480,7 +479,9 @@ def Write_file_Pauli(b_0, b_1, b_2, b_3):
     f.write(str(b_0) +'\t'+ str(b_1)+ '\t' + str(b_2) +'\t' + str(b_3) +'\n')
 """
 
-PC = Pauli_coefficients(B_matrix())
+Bm = B_matrix()
+
+PC = Pauli_coefficients(Bm)
 py"Write_file_Pauli"(PC[1],PC[2],PC[3],PC[4])
 
 py"""
@@ -490,7 +491,6 @@ def Write_file(eigenvalue_1, eigenvalue_2):
     f.write(str(eigenvalue_1) +'\t'+ str(eigenvalue_2)+'\n')
 """
 
-Bm = B_matrix();
 
 # Diagonalize the special state matrix.
 Special_eigenvalues = eigvals(Bm)
