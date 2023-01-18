@@ -3,14 +3,14 @@
 #SBATCH --job-name=beta
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT
 #
 # Processors:
-#SBATCH --ntasks=256
-#SBATCH --nodes=16
+#SBATCH --ntasks=64
+#SBATCH --nodes=4
 #
 # Wall clock limit:
-#SBATCH --time=4-00:00:00
+#SBATCH --time=7-00:00:00
 #
 # Email at end:
 #SBATCH --mail-user=sxd190113@utdallas.edu
