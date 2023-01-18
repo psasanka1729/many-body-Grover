@@ -1,10 +1,10 @@
-L = 10;
+L = 8;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"10_new_Grover_gates_data.txt" # Change for every L.
+file = raw"8_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -371,7 +371,6 @@ function Eigenvalues(DELTA)
         h_eff += NOISE_list[i]*kth_term(i)
     end        
 
-    #h_eff = DELTA * h_eff # Matrix in Z basis.
     h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
 
     h_eff_D = h_eff_D[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
@@ -381,7 +380,6 @@ function Eigenvalues(DELTA)
 
     
     return E_eff_D_sorted
-    #return GROVER_DELTA
 end;
 
 U = Eigenvalues(0.0);
