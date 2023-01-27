@@ -25,7 +25,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -376,7 +376,6 @@ function Eigenvalues(DELTA)
         h_eff += NOISE_list[i]*kth_term(i)
     end        
 
-    #h_eff = DELTA * h_eff # Matrix in Z basis.
     h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
 
     h_eff_D = h_eff_D[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
@@ -386,7 +385,6 @@ function Eigenvalues(DELTA)
 
     
     return E_exact, E_eff_D_sorted
-    #return GROVER_DELTA
 end;
 
 Eff = Eigenvalues(0.0)[2];
@@ -404,5 +402,4 @@ The length of the eigenvector array is 2^-2.
 =#
 for i = 1:2^L-2 # relative index i.e length of the eigenvector array.
     py"Write_file"(i+2,Eff[i])
-    #println(Eff[i])
 end
