@@ -385,7 +385,7 @@ end;
 
 U = Eigenvalues(0.0);
 
-Trace_H_square(X) = tr(X*X);
+Trace_H_square(matrix) = tr(matrix*matrix);
 
 py"""
 f = open('trace_data'+'.txt', 'w')
