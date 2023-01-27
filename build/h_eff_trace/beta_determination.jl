@@ -374,13 +374,12 @@ function Eigenvalues(DELTA)
     h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
 
     h_eff_D = h_eff_D[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
-    E_eff_D = eigvals(h_eff_D) # Diagonalizing H_eff matrix.
+    #E_eff_D = eigvals(h_eff_D) # Diagonalizing H_eff matrix.
     
-    E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.    
+    #E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.    
 
     
-    return E_eff_D_sorted
-    #return GROVER_DELTA
+    return h_eff_D
 end;
 
 U = Eigenvalues(0.0);

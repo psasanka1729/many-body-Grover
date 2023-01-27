@@ -6,12 +6,12 @@ Closest candidates are:
   *(::StridedVecOrMat, !Matched::Adjoint{<:Any, <:LinearAlgebra.LQPackedQ}) at /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/LinearAlgebra/src/lq.jl:266
   ...
 Stacktrace:
- [1] Trace_H_square(X::Vector{Float64})
+ [1] Trace_H_square(matrix::Vector{Float64})
    @ Main ~/many-body-Grover/build/h_eff_trace/beta_determination.jl:388
  [2] top-level scope
    @ ~/.julia/packages/PyCall/ygXW2/src/pyeval.jl:232
 in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/beta_determination.jl:397
 
-real	8m13.309s
-user	6m8.618s
-sys	2m25.526s
+real	8m17.863s
+user	6m7.572s
+sys	2m25.713s
