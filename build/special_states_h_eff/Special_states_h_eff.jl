@@ -367,9 +367,6 @@ function Special_states_matrix()
         return f_k*H_k*(f_k')
     end; 
     
-    #EIGU = py"eigu"(collect(GROVER_DELTA))
-    #E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
-    #E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
     
     #= The following loop sums over all epsilon to get H_eff. =#
     h_eff = zeros(2^L,2^L);
