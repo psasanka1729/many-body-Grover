@@ -25,7 +25,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1000+parse(Int64,ARGS[1])
+SEED = 4000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -366,9 +366,9 @@ function Eigenvalues(DELTA)
         return f_k*H_k*(f_k')
     end; 
     
-    EIGU = py"eigu"(collect(GROVER_DELTA))
-    E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
-    E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
+    #EIGU = py"eigu"(collect(GROVER_DELTA))
+    #E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
+    #E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
     
     #= The following loop sums over all epsilon to get H_eff. =#
     h_eff = zeros(2^L,2^L);
@@ -384,10 +384,10 @@ function Eigenvalues(DELTA)
     E_eff_D_sorted = sort(real(E_eff_D)); # Soring the eigenvalues in descending order.    
 
     
-    return E_exact, E_eff_D_sorted
+    return E_eff_D_sorted
 end;
 
-Eff = Eigenvalues(0.0)[2];
+Eff = Eigenvalues(0.0);
 
 
 py"""
