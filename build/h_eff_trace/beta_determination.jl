@@ -25,7 +25,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1000+parse(Int64,ARGS[1])
+SEED = 4000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -393,4 +393,4 @@ def Write_file2(trace):
     f.write(str(trace) +'\n')
 """
 
-py"Write_file2"(Trace_H_square(U))
+py"Write_file2"(real(Trace_H_square(U)))
