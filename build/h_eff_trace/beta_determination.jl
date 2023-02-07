@@ -1,10 +1,10 @@
-L = 6;
+L = 8;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"6_new_Grover_gates_data.txt" # Change for every L.
+file = raw"8_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -25,7 +25,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 4000+parse(Int64,ARGS[1])
+SEED = 8000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -374,6 +374,9 @@ function Eigenvalues(DELTA)
     h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
 
     h_eff_D = h_eff_D[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
+
+    h_eff_D = (h_eff_D - mean(h_eff_D))/std(h_eff_D)
+
     #E_eff_D = eigvals(h_eff_D) # Diagonalizing H_eff matrix.
     
     #E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.    
