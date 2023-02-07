@@ -379,6 +379,9 @@ function Eigenvalues(DELTA)
     h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
 
     h_eff_D = h_eff_D[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
+
+    h_eff_D = (h_eff_D.-mean(h_eff_D))/std(h_eff_D)
+
     E_eff_D = eigvals(h_eff_D) # Diagonalizing H_eff matrix.
     
     E_eff_D_sorted = sort(real(E_eff_D)); # Soring the eigenvalues in descending order.    
