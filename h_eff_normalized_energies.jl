@@ -495,6 +495,19 @@ function Eigenvalues(DELTA)
     #return GROVER_DELTA
 end;
 
-Eigenvalues(0.0)
+Eff = Eigenvalues(0.0)
 
-35+37
+py"""
+f = open('h_eff_energy_data'+'.txt', 'w')
+def Write_file(index, energy):
+    f = open('energy_data'+'.txt', 'a')
+    f.write(str(index) + '\t'+ str(energy) +'\n')
+"""
+
+#= 
+The length of the eigenvector array is 2^-2.
+=#
+for i = 1:2^L-2 # relative index i.e length of the eigenvector array.
+    py"Write_file"(i+2,Eff[i])
+    #println(Eff[i])
+end
