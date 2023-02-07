@@ -1,3 +1,59 @@
+commit 6e2a397a94f8e0776998bbfafe4b8c7ab6138aef
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Feb 7 13:54:42 2023 -0600
+
+    Commit before run h_eff_trace
+
+commit 7c1d69785dd88b6fa3f1a62b05357dd158fdee3e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Feb 7 12:29:04 2023 -0600
+
+    Commit before run h_eff_energies
+
+commit 165f7476e72f0af5eb11c59ca51a017763ead918
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Feb 7 12:28:36 2023 -0600
+
+    Commit before run h_eff_energies
+
+commit 32c97ef26413a0f9c516108e7dbb401edb6b1296
+Merge: 9ecd2ef 83cbadd
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Feb 7 12:27:28 2023 -0600
+
+    Merge https://github.com/psasanka1729/many-body-Grover into main
+
+commit 83cbaddb06c72fe7b3516b19db58b1914cbaef91
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Tue Feb 7 12:26:50 2023 -0600
+
+    Update h_eff_normalized_energies.jl
+
+commit 9ecd2ef249639af0396e11d47861839f8dbb59cf
+Merge: be014ee 98c7f1f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Feb 7 12:23:24 2023 -0600
+
+    Merge https://github.com/psasanka1729/many-body-Grover into main
+
+commit 98c7f1ff50f77b49d50f93ab849a2b851cee2ee7
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Tue Feb 7 12:23:06 2023 -0600
+
+    h_eff matrix is normalized before ED
+
+commit be014ee291d90446888f704f5a8667986b44d6bc
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Feb 7 12:17:14 2023 -0600
+
+    Commit before run h_eff_energies
+
+commit d64b0a393bd443633ef640e10ecf0f9fee25efa6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Feb 7 12:04:53 2023 -0600
+
+    Commit before run h_eff_energies
+
 commit 8d1506d05f55a9e2e7ed88d8a3270a1d9afb7111
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Tue Feb 7 10:11:55 2023 -0600
