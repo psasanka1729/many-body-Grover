@@ -1,10 +1,10 @@
-L = 6;
+L = 4;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"6_new_Grover_gates_data.txt" # Change for every L.
+file = raw"4_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -375,7 +375,7 @@ function Eigenvalues(DELTA)
 
     h_eff_D = h_eff_D[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
 
-    h_eff_D = (h_eff_D - mean(h_eff_D))/std(h_eff_D)
+    #h_eff_D = (h_eff_D - mean(h_eff_D))/std(h_eff_D)
 
     #E_eff_D = eigvals(h_eff_D) # Diagonalizing H_eff matrix.
     
