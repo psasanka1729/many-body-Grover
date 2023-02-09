@@ -391,3 +391,19 @@ def Write_file2(trace):
 """
 
 py"Write_file2"(real(Trace_H_square(U)))
+
+
+E_eff_D = eigvals(U);
+E_eff_sorted = sort(real(E_eff_D));
+
+py"""
+f = open('h_eff_energy_data'+'.txt', 'w')
+def Write_file(index, energy):
+    f = open('h_eff_energy_data'+'.txt', 'a')
+    f.write(str(index) + '\t'+ str(energy) +'\n')
+"""
+
+for i = 2:2^L-2 # relative index i.e length of the eigenvector array.
+    py"Write_file"(i,Eff_sorted[i]-E_eff_sorted[i-1])
+end
+
