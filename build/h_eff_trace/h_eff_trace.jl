@@ -396,12 +396,14 @@ def Write_file2(index,eigenvalue):
     f = open('h_eff_energy_data'+'.txt', 'a')
     f.write(str(index) + '\t' + str(eigenvalue) +'\n')
 """
-for i = 1:2^L-2 # length of the eigenvector array.
-    py"Write_file2"(i,h_eff_matrix[i])
-end
 
 E_eff_D = eigvals(h_eff_matrix);
 E_eff_sorted = sort(real(E_eff_D));
+for i = 1:2^L-2 # length of the eigenvector array.
+    py"Write_file2"(i,E_eff_sorted[i])
+end
+
+
 py"""
 f = open('h_eff_delta_En_data'+'.txt', 'w')
 def Write_file3(index, energy):
