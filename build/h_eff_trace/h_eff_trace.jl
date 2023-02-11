@@ -170,7 +170,7 @@ G_exact = U_x*U_0
 V = py"eigu"(G_exact)[2];
 
 #DELTA = 0.01
-function Eigenvalues(DELTA)
+function H_eff_Matrix(DELTA)
     
     U_list = [];
     U_noise_list = [];
@@ -379,31 +379,39 @@ function Eigenvalues(DELTA)
     return h_eff_D
 end;
 
-U = Eigenvalues(0.0);
+h_eff_matrix = H_eff_Matrix(0.0);
 
-Trace_H_square(matrix) = tr(matrix*matrix);
-
+# Trace of H^{2}_{eff} matrix.#
 py"""
-f = open('trace_data'+'.txt', 'w')
-def Write_file2(trace):
-    f = open('trace_data'+'.txt', 'a')
+f = open('h_eff_trace_data'+'.txt', 'w')
+def Write_file1(trace):
+    f = open('h_eff_trace_data'+'.txt', 'a')
     f.write(str(trace) +'\n')
 """
+py"Write_file1"(real(tr(h_eff_matrix*h_eff_matrix)))
 
-py"Write_file2"(real(Trace_H_square(U)))
-
-
-E_eff_D = eigvals(U);
-E_eff_sorted = sort(real(E_eff_D));
-
+    
+# Energy of H_{eff} matrix. #
 py"""
 f = open('h_eff_energy_data'+'.txt', 'w')
-def Write_file(index, energy):
+def Write_file2(trace):
     f = open('h_eff_energy_data'+'.txt', 'a')
+    f.write(str(trace) +'\n')
+"""
+for i = 1:2^L-2 # length of the eigenvector array.
+    py"Write_file2"(i,h_eff_matrix[i])
+end
+
+# delta_E_n of the H_{eff} matrix.#
+E_eff_D = eigvals(h_eff_matrix);
+E_eff_sorted = sort(real(E_eff_D));
+py"""
+f = open('h_eff_delta_En_data'+'.txt', 'w')
+def Write_file3(index, energy):
+    f = open('h_eff_delta_En_data'+'.txt', 'a')
     f.write(str(index) + '\t'+ str(energy) +'\n')
 """
-
 for i = 2:2^L-2 # relative index i.e length of the eigenvector array.
-    py"Write_file"(i,Eff_sorted[i]-E_eff_sorted[i-1])
+    py"Write_file3"(i,Eff_sorted[i]-E_eff_sorted[i-1])
 end
 
