@@ -440,13 +440,13 @@ def Write_file(Noise, Energy, Entropy):
     f = open('plot_data'+'.txt', 'a')
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
-# delta_index runs from 0 to 255.
+# delta_index runs from 0 to 63.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.3,256+1)
+Delta = LinRange(0.0,0.3,64+1)
 Delta_start = Delta[delta_index+1]
 Delta_end = Delta[delta_index+2]
-Num = 3
+Num = 7
 
 for i=0:Num
     delta = Delta_start+(i/Num)*(Delta_end-Delta_start)
