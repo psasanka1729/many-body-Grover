@@ -409,6 +409,6 @@ def Write_file3(index, energy):
     f.write(str(index) + '\t'+ str(energy) +'\n')
 """
 for i = 2:2^L-2 # relative index i.e length of the eigenvector array.
-    py"Write_file3"(i,E_Eff_sorted[i]-E_eff_sorted[i-1])
+    py"Write_file3"(i,E_eff_sorted[i]-E_eff_sorted[i-1])
 end
 
