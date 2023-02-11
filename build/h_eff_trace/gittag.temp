@@ -1,3 +1,33 @@
+commit 599303ea96843a1b26c06ee975b0e27d2d73dce6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Feb 11 11:24:14 2023 -0600
+
+    Commit before run h_eff_trace
+
+commit d3e3218f482d6b885d80bd9c9d9a01ace257eac1
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Feb 11 11:20:49 2023 -0600
+
+    file writes energy, trace and delta_En
+
+commit 3070df2c36931e5892144186feb1ac4b32139873
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Feb 11 11:14:01 2023 -0600
+
+    Rename h_eff_normalized_energies.jl to h_eff_energies.jl
+
+commit c01f2858eb4bf2bf886baa84cbc37669a30aa159
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Feb 11 11:12:34 2023 -0600
+
+    Rename beta_determination.jl to h_eff_trace.jl
+
+commit f982849f12a4e3ddfd86a7131168825c51ec8959
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Feb 11 11:10:27 2023 -0600
+
+    cluster backup
+
 commit c84acc371d3fa71d4258ca92f0d3c5e6f8bc1ab6
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Wed Feb 8 23:27:32 2023 -0600
