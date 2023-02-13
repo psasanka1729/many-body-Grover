@@ -3,11 +3,11 @@
 #SBATCH --job-name=h_eff_level_statistics
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT
 #
 # Processors:
-#SBATCH --ntasks=256
-#SBATCH --nodes=16
+#SBATCH --ntasks=64
+#SBATCH --nodes=4
 #
 # Wall clock limit:
 #SBATCH --time=4-00:00:00
