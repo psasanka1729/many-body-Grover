@@ -437,7 +437,6 @@ function Eigenvectors(DELTA)
     return h_eff_eigenvectors
 end;
 
-H_eff_Eigvecs = Eigenvectors(0.0);
 
 function KLd(Eigenvectors_Matrix)
     KL = []
@@ -476,6 +475,5 @@ def Write_file(Index, KL_div):
     f.write(str(Index) +'\t'+ str(KL_div)+'\n')
 """
 for k = 1:2^L-1
-    #py"Write_file"(k,KLd(H_eff_D)[k])
-    println(KLd(H_eff_D)[k])
+    py"Write_file"(k,KLd(H_eff_D)[k])
 end
