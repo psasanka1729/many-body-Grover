@@ -3,7 +3,7 @@
 #SBATCH --job-name=KLd_8
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT
 #
 # Processors:
 #SBATCH --ntasks=64
