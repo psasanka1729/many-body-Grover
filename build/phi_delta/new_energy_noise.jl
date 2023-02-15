@@ -446,7 +446,7 @@ delta_index = parse(Int64,ARGS[1])
 Delta = LinRange(0.0,0.3,64+1)
 Delta_start = Delta[delta_index+1]
 Delta_end = Delta[delta_index+2]
-Num = 7
+Num = 5
 
 for i=0:Num
     delta = Delta_start+(i/Num)*(Delta_end-Delta_start)
