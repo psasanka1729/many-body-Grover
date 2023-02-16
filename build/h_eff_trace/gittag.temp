@@ -1,3 +1,15 @@
+commit 8398c9430c8f524bb057b90a0c9e54610d2ce943
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Feb 15 16:42:55 2023 -0600
+
+    Commit before run h_eff_trace
+
+commit 23e5d7058b721d1646efcfe003e28ccddc855f18
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Feb 15 16:40:48 2023 -0600
+
+    Commit before run phi_delta
+
 commit 30acb5e50730b3101b09d1e29a46190dd1973e28
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Wed Feb 15 16:37:44 2023 -0600
