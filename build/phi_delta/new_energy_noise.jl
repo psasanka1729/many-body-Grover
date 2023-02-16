@@ -443,7 +443,7 @@ def Write_file(Noise, Energy, Entropy):
 # delta_index runs from 0 to 63.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.3,64+1)
+Delta = LinRange(0.0,0.25,64+1)
 Delta_start = Delta[delta_index+1]
 Delta_end = Delta[delta_index+2]
 Num = 8
