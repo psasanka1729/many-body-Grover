@@ -24,7 +24,7 @@ L = 10
 # Generating a random GUE.
 X = tenpy.linalg.random_matrix.GUE((2**L,2**L))
 
-
+X = X/np.sqrt(2**L)
 # In[12]:
 
 
