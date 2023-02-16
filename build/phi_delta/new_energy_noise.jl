@@ -1,11 +1,11 @@
-L = 6;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"6_new_Grover_gates_data.txt" # Change for every L.
+file = raw"10_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -440,13 +440,13 @@ def Write_file(Noise, Energy, Entropy):
     f = open('plot_data'+'.txt', 'a')
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
-# delta_index runs from 0 to 63.
+# delta_index runs from 0 to 128.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.3,64+1)
+Delta = LinRange(0.0,0.3,128+1)
 Delta_start = Delta[delta_index+1]
 Delta_end = Delta[delta_index+2]
-Num = 5
+Num = 6
 
 for i=0:Num
     delta = Delta_start+(i/Num)*(Delta_end-Delta_start)
