@@ -1,22 +1,6 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-ERROR: LoadError: ArgumentError: Cannot open '10_new_Grover_gates_data.txt': not a file
-Stacktrace:
- [1] readdlm_auto(input::String, dlm::Char, T::Type, eol::Char, auto::Bool; opts::Base.Pairs{Symbol, Union{}, Tuple{}, NamedTuple{(), Tuple{}}})
-   @ DelimitedFiles /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:234
- [2] readdlm_auto
-   @ /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:234 [inlined]
- [3] #readdlm#5
-   @ /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:170 [inlined]
- [4] readdlm
-   @ /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:170 [inlined]
- [5] #readdlm#3
-   @ /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:118 [inlined]
- [6] readdlm(input::String)
-   @ DelimitedFiles /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:118
- [7] top-level scope
-   @ ~/many-body-Grover/build/phi_delta/new_energy_noise.jl:9
-in expression starting at /home/sxd190113/many-body-Grover/build/phi_delta/new_energy_noise.jl:9
 
-real	0m9.475s
-user	0m4.153s
-sys	0m0.785s
+real	29m3.324s
+user	23m47.876s
+sys	11m20.164s
+
