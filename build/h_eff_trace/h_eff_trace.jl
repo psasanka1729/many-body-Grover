@@ -25,7 +25,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 3000+parse(Int64,ARGS[1])
+SEED = 100000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -399,6 +399,7 @@ def Write_file2(index,eigenvalue):
 
 E_eff_D = eigvals(h_eff_matrix);
 E_eff_sorted = sort(real(E_eff_D));
+
 for i = 1:2^L-2 # length of the eigenvector array.
     py"Write_file2"(i,E_eff_sorted[i])
 end
@@ -414,3 +415,18 @@ for i = 2:2^L-2 # relative index i.e length of the eigenvector array.
     py"Write_file3"(i,E_eff_sorted[i]-E_eff_sorted[i-1])
 end
 
+
+py"""
+f = open('level_statistics_data'+'.txt', 'w')
+def Write_file4(index, level_stat):
+	f = open('level_statistics_data'+'.txt', 'a')
+	f.write(str(index) + '\t'+ str(level_stat) +'\n')
+"""
+
+function Level_Statistics(n,Es)
+    return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
+end;
+
+for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
+    py"Write_file4"(i,Level_Statistics(i,Eff))
+end
