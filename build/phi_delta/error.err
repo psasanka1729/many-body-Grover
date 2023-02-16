@@ -17,6 +17,6 @@ Stacktrace:
    @ ~/many-body-Grover/build/phi_delta/new_energy_noise.jl:9
 in expression starting at /home/sxd190113/many-body-Grover/build/phi_delta/new_energy_noise.jl:9
 
-real	0m7.119s
-user	0m3.592s
-sys	0m0.918s
+real	0m9.475s
+user	0m4.153s
+sys	0m0.785s
