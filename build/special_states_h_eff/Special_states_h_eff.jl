@@ -26,8 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-# Good seeds = 10, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 100000+parse(Int64,ARGS[1])
+SEED = parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -367,6 +366,9 @@ function Special_states_matrix()
         return f_k*H_k*(f_k')
     end; 
     
+    #EIGU = py"eigu"(collect(GROVER_DELTA))
+    #E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
+    #E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
     
     #= The following loop sums over all epsilon to get H_eff. =#
     h_eff = zeros(2^L,2^L);
@@ -469,6 +471,12 @@ function Pauli_coefficients(B)
     return B_0,B_1,B_2,B_3
 end;
 
+#=
+First the matrix B has to be written in the sigma_z basis.
+=#
+
+sigma_y_to_sigma_z(Matrix) = (1/sqrt(2))*[[1,1] [-1im, im]]*Matrix;
+
 py"""
 f = open('Pauli_coefficients_data'+'.txt', 'w')
 def Write_file_Pauli(b_0, b_1, b_2, b_3):
@@ -476,9 +484,11 @@ def Write_file_Pauli(b_0, b_1, b_2, b_3):
     f.write(str(b_0) +'\t'+ str(b_1)+ '\t' + str(b_2) +'\t' + str(b_3) +'\n')
 """
 
-Bm = B_matrix()
+Bm_y = B_matrix();
+# Changing the B matrix from sigma_y basis to sigma_z basis.
+Bm_z = sigma_y_to_sigma_z(Bm_y)
+PC = Pauli_coefficients(Bm_z)
 
-PC = Pauli_coefficients(Bm)
 py"Write_file_Pauli"(PC[1],PC[2],PC[3],PC[4])
 
 py"""
@@ -488,8 +498,7 @@ def Write_file(eigenvalue_1, eigenvalue_2):
     f.write(str(eigenvalue_1) +'\t'+ str(eigenvalue_2)+'\n')
 """
 
-
 # Diagonalize the special state matrix.
-Special_eigenvalues = eigvals(Bm)
-
+Special_eigenvalues = eigvals(Bm_z)
+# Write the two eigenvalue to the data file.
 py"Write_file"(Special_eigenvalues[1],Special_eigenvalues[2])
