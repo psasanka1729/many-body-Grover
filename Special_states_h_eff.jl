@@ -473,6 +473,12 @@ function Pauli_coefficients(B)
     return B_0,B_1,B_2,B_3
 end;
 
+#=
+First the matrix B has to be written in the sigma_z basis.
+=#
+
+sigma_y_to_sigma_z(Matrix) = (1/sqrt(2))*[[1,1] [-1im, im]]*Matrix;
+
 py"""
 f = open('Pauli_coefficients_data'+'.txt', 'w')
 def Write_file_Pauli(b_0, b_1, b_2, b_3):
@@ -480,7 +486,11 @@ def Write_file_Pauli(b_0, b_1, b_2, b_3):
     f.write(str(b_0) +'\t'+ str(b_1)+ '\t' + str(b_2) +'\t' + str(b_3) +'\n')
 """
 
-PC = Pauli_coefficients(B_matrix())
+Bm_y = B_matrix();
+# Changing the B matrix from sigma_y basis to sigma_z basis.
+Bm_z = sigma_y_to_sigma_z(Bm_y)
+PC = Pauli_coefficients(Bm_z)
+
 py"Write_file_Pauli"(PC[1],PC[2],PC[3],PC[4])
 
 py"""
@@ -490,8 +500,7 @@ def Write_file(eigenvalue_1, eigenvalue_2):
     f.write(str(eigenvalue_1) +'\t'+ str(eigenvalue_2)+'\n')
 """
 
-Bm = B_matrix();
 # Diagonalize the special state matrix.
-Special_eigenvalues = eigvals(Bm)
+Special_eigenvalues = eigvals(Bm_z)
 # Write the two eigenvalue to the data file.
 py"Write_file"(Special_eigenvalues[1],Special_eigenvalues[2])
