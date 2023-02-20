@@ -5,6 +5,6 @@ Stacktrace:
    @ ~/many-body-Grover/build/phi_delta/new_energy_noise.jl:453
 in expression starting at /home/sxd190113/many-body-Grover/build/phi_delta/new_energy_noise.jl:452
 
-real	1m39.855s
-user	1m33.621s
-sys	0m1.631s
+real	1m37.763s
+user	1m32.869s
+sys	0m1.973s
