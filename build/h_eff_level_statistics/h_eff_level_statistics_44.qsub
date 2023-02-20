@@ -9,7 +9,7 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=level_stat_h_eff.jl
+EXEC=h_eff_delete_by_projection.jl
 HELPER="8_new_Grover_gates_data.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
