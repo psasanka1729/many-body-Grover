@@ -9,8 +9,8 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=save_png_h_eff_exact_effec.jl
-HELPER="6_new_Grover_gates_data.txt"
+EXEC=compare_energy_h_eff_exact.jl
+HELPER="10_new_Grover_gates_data.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
 cp $EXEC $SCRATCH_DIR/
