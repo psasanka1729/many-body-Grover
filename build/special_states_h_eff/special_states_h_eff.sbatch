@@ -3,7 +3,7 @@
 #SBATCH --job-name=special_states_h_eff
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=128s
 #
 # Processors:
 #SBATCH --ntasks=64
