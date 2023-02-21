@@ -15,7 +15,7 @@ import tenpy
 
 
 # Number of qubits.
-L = 10
+L = 12
 
 
 # In[11]:
@@ -27,11 +27,16 @@ X = tenpy.linalg.random_matrix.GUE((2**L,2**L))
 
 # In[12]:
 
+X = X/np.sqrt(2**L)
 
 # Diagonalzing the random matrix.
 w, v = LA.eigh(X)
 
-
+f_energy = open("energy_data.txt","w")
+for i in w:
+    f_energy = open('energy_data'+'.txt', 'a')
+    f_energy.write(str(i) +'\n')
+f_energy.close()
 # In[13]:
 
 
@@ -39,6 +44,12 @@ w, v = LA.eigh(X)
 def Level_Statistics(n,Es):
     return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))/max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
 
+
+f_level_stat = open('level_statistics_data'+'.txt', 'w')
+for i in range(1,2**L-1):
+    f_level_stat = open('level_statistics_data'+'.txt', 'a')
+    f_level_stat.write(str(i) + '\t'+ str(Level_Statistics(i,w)) +'\n')
+f_level_stat.close()
 
 # In[14]:
 
@@ -54,24 +65,10 @@ def KLd(Eigenvector_matrix):
         KL.append(KLd_sum)
     return KL
 
-
-# In[15]:
-
-
 f_KLd = open('KLd_data'+'.txt', 'w')
 KLd_calculated = KLd(v)
 for k in range(1,2**L-1):
     f_KLd = open('KLd_data'+'.txt', 'a')
     f_KLd.write(str(k) + '\t'+ str(KLd_calculated[k]) +'\n')
 f_KLd.close()
-
-
-# In[16]:
-
-
-f = open('level_statistics_data'+'.txt', 'w')
-for i in range(1,2**L-1):
-    f = open('level_statistics_data'+'.txt', 'a')
-    f.write(str(i) + '\t'+ str(Level_Statistics(i,w)) +'\n')
-f.close()
 
