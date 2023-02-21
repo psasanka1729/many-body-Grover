@@ -59,8 +59,8 @@ def KLd(Eigenvector_matrix):
     for n in range(2**L-1): # Eigenvector index goes from 0 to dim(H)-1.
         KLd_sum = 0.0
         for i in range(2**L): # The sum goes from 0 to dim(H) i.e length of an eigenvector.
-            p = LA.norm(Eigenvector_matrix[0:2**L,0:n][i])**2 + 1.e-9
-            q = LA.norm(Eigenvector_matrix[0:2**L,0:n+1][i])**2 + 1.e-9
+            p = LA.norm(Eigenvector_matrix[0:2**L,0:n+1][i])**2 + 1.e-9
+            q = LA.norm(Eigenvector_matrix[0:2**L,0:n][i])**2 + 1.e-9
             KLd_sum += p*(np.log(p/q))
         KL.append(KLd_sum)
     return KL
