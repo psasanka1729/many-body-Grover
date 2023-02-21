@@ -3,7 +3,7 @@
 #SBATCH --job-name=compare_energies
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=128s
 #
 # Processors:
 #SBATCH --ntasks=16
