@@ -422,7 +422,6 @@ function B_matrix()
     y_s_p = (1/sqrt(2))*[1 1im]'
     y_s_n = (1/sqrt(2))*[1 -1im]'
     
-    Block = Special_states_matrix()
     
     # -1 -1 element.
     f_11(z) = 1/(exp(1im*theta)+z) * y_s_n'*Block*y_s_n * 1/(exp(1im*theta)+z)

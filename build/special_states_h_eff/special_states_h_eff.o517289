@@ -129,3 +129,8 @@ Launcher: Task 18 running job 19 on compute-2-6-17 (bash special_states_h_eff_18
 Launcher: Task 19 running job 20 on compute-2-6-17 (bash special_states_h_eff_19.qsub)
 Launcher: Task 27 running job 28 on compute-2-6-17 (bash special_states_h_eff_27.qsub)
 Launcher: Task 16 running job 17 on compute-2-6-17 (bash special_states_h_eff_16.qsub)
+slurmstepd: error: *** JOB 517289 ON compute-2-6-16 CANCELLED AT 2023-02-21T17:02:52 ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
