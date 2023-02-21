@@ -3,7 +3,7 @@
 #SBATCH --job-name=GUE_tenpy
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=96n
 #
 # Processors:
 #SBATCH --ntasks=64
