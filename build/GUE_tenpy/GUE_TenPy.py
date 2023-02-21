@@ -27,7 +27,7 @@ X = tenpy.linalg.random_matrix.GUE((2**L,2**L))
 
 # In[12]:
 
-X = X/np.sqrt(2**L)
+#X = X/np.sqrt(2**L)
 
 # Diagonalzing the random matrix.
 w, v = LA.eigh(X)
