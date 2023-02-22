@@ -474,7 +474,7 @@ end;
 First the matrix B has to be written in the sigma_z basis.
 =#
 
-sigma_y_to_sigma_z(Matrix) = (1/sqrt(2))*[[1,1] [-1im, im]]*Matrix;
+sigma_y_to_sigma_z(Matrix) = ((1/sqrt(2))*[[1,1] [-1im, 1im]])*Matrix*inv((1/sqrt(2))*[[1,1] [-1im,1im]]);
 
 py"""
 f = open('Pauli_coefficients_data'+'.txt', 'w')
