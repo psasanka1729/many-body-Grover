@@ -428,5 +428,5 @@ function Level_Statistics(n,Es)
 end;
 
 for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
-    py"Write_file4"(i,Level_Statistics(i,Eff))
+    py"Write_file4"(i,Level_Statistics(i,E_Eff_sorted))
 end
