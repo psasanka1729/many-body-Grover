@@ -5,7 +5,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"10101010101010101010_new_Grover_gates_data.txt" # Change for every L.
+file = raw"10_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -27,9 +27,9 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 
-#SEED = 100000
-#Random.seed!(SEED)
-#NOISE = 2*rand(Float64,Number_of_Gates).-1;
+SEED = 6000
+Random.seed!(SEED)
+NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
 #length(NOISE)
 
@@ -88,6 +88,7 @@ function CU(U,c,t)
     #function Rx(Noise)
         #A = cos((pi+Noise)/2)
         #B = -1im*sin((pi+Noise)/2)
+    Realization = 2*rand(Float64,Number_of_Gates).-1;
         #return 1im*[A B;B A]
     #end
     
@@ -115,7 +116,7 @@ function CU(U,c,t)
     return PI_0_matrix + PI_1_matrix     
 end;
 
-function Grover_operator(DELTA,NOISE)
+function Grover_operator(DELTA)
     
     U_x_delta = sparse(Identity(2^L));
 
@@ -442,20 +443,18 @@ def Write_file(Noise, Energy, Entropy):
     f = open('plot_data'+'.txt', 'a')
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
-# delta_index runs from 0 to 63.
+# delta_index runs from 0 to 20.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.3,65)
+Delta = LinRange(0.0,0.3,22)
 delta_start = Delta[delta_index+1]
 delta_end   = Delta[delta_index+2]
 
-Num = 40
+Num = 1
 
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
-    Random.seed!(i)
-    Realization = 2*rand(Float64,Number_of_Gates).-1;
-    Op = Grover_operator(delta,Realization)
+    Op = Grover_operator(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
     Y = real(1im*log.(EIGU[1]))
