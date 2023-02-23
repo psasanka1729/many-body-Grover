@@ -448,11 +448,11 @@ Delta = LinRange(0.0,0.3,65)
 delta_start = Delta[delta_index+1]
 delta_end   = Delta[delta_index+2]
 
-Num = 30
+Num = 20
 
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
-    Random.seed!(1000+i)
+    Random.seed!(i)
     Realization = 2*rand(Float64,Number_of_Gates).-1;
     Op = Grover_operator(delta,Realization)
     EIGU = py"eigu"(Op)
