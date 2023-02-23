@@ -1,4 +1,0 @@
-mkdir: cannot create directory '/home/sxd190113/scratch': Stale file handle
-cp: failed to access '/home/sxd190113/scratch/phi_delta/b0/': Stale file handle
-cp: failed to access '/home/sxd190113/scratch/phi_delta/b0/': Stale file handle
-/var/spool/slurm/d/job515891/slurm_script: line 21: cd: /home/sxd190113/scratch/phi_delta/b0/: Stale file handle
