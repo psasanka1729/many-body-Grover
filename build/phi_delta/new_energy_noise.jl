@@ -1,11 +1,11 @@
-L = 10;
+L = 8;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"10_new_Grover_gates_data.txt" # Change for every L.
+file = raw"8_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -274,6 +274,7 @@ function Entropy(Psi)
             
         # Creates a zero matrix to store the density matrix.
         M = zeros(ComplexF64,2^LS,2^LS)
+	        Op = Grover_operator(delta,Realizations)
         
         #=
         rho is Hermitian, it is sufficient to calculate the elements above the diagonal.
@@ -447,11 +448,11 @@ Delta = LinRange(0.0,0.3,65)
 delta_start = Delta[delta_index+1]
 delta_end   = Delta[delta_index+2]
 
-Num = 20
+Num = 30
 
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
-    Random.seed!(i)
+    Random.seed!(1000+i)
     Realization = 2*rand(Float64,Number_of_Gates).-1;
     Op = Grover_operator(delta,Realization)
     EIGU = py"eigu"(Op)
