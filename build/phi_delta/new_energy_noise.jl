@@ -1,11 +1,11 @@
-L = 8;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"8_new_Grover_gates_data.txt" # Change for every L.
+file = raw"10101010101010101010_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -217,6 +217,7 @@ def is_unitary(M,tol=1e-9):
 def eigu(U,tol=1e-9):
     (E_1,V_1)=numpy.linalg.eigh(U+adjoint(U))
     U_1=adjoint(V_1).dot(U).dot(V_1)
+	        Op = Grover_operator(delta,Realizations)
     H_1=adjoint(V_1).dot(U+adjoint(U)).dot(V_1)
     non_diag_lst=[]
     j=0
@@ -448,7 +449,7 @@ Delta = LinRange(0.0,0.3,65)
 delta_start = Delta[delta_index+1]
 delta_end   = Delta[delta_index+2]
 
-Num = 20
+Num = 40
 
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
