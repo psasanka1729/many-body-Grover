@@ -384,7 +384,6 @@ function Eigenvalues(DELTA)
 
     
     return E_exact, E_eff_D_sorted
-    #return GROVER_DELTA
 end;
 
 py"""
@@ -411,6 +410,5 @@ for i = 1:Num
         push!(delta_list,delta)
         push!(Exact_list, Exact[j])
         push!(Effec_list, Effec[j])
-        #println(delta);
     end
 end
