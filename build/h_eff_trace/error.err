@@ -1,10 +1,6 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-ERROR: LoadError: UndefVarError: Eff_sorted not defined
-Stacktrace:
- [1] top-level scope
-   @ ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:412
-in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:411
 
-real	0m44.628s
-user	0m29.807s
-sys	0m19.384s
+real	842m53.041s
+user	793m55.608s
+sys	51m2.381s
+
