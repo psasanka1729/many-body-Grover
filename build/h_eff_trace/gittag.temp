@@ -1,3 +1,21 @@
+commit d845c8a8b1d62254fb9e83ea5e0f0a1b66d26722
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Feb 23 20:17:24 2023 -0600
+
+    Commit before run h_eff_trace
+
+commit 38825ff4fbd7394bb63a4ae5b1525b61897552d7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Feb 23 15:02:03 2023 -0600
+
+    cluster backup
+
+commit 6f72d0b15ee6d70c05bdded2af6025710142ccf3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Feb 23 14:55:30 2023 -0600
+
+    Commit before run phi_delta
+
 commit 615ba9337d205270b79bc0df85dc1d42c87fbbd0
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Thu Feb 23 11:25:11 2023 -0600
