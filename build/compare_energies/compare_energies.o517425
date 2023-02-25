@@ -66,3 +66,5 @@ Launcher: Task 10 done. Exiting.
 Launcher: Task 15 done. Exiting.
 Launcher: Task 9 done. Exiting.
 Launcher: Task 12 done. Exiting.
+slurmstepd: error: *** JOB 517425 ON compute-2-6-22 CANCELLED AT 2023-02-25T15:05:55 DUE TO TIME LIMIT ***
+Killed by signal 15.
