@@ -1,11 +1,11 @@
-L = 10;
+L = 8;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"10_new_Grover_gates_data.txt" # Change for every L.
+file = raw"8_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -171,7 +171,6 @@ U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
 V = py"eigu"(G_exact)[2];
 
-#DELTA = 0.01
 function Special_states_matrix()
     DELTA = 0.0
     U_list = [];
