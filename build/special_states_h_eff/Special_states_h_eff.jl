@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -413,7 +413,7 @@ Block = Special_states_matrix();
 using QuadGK
 
 # Calculate the matrix B in sigma_y basis.
-function B_matrix()
+function B_matrix(Matrix)
     N = 2^L
     theta = asin(2*sqrt(N-1)/N)
     
@@ -423,16 +423,16 @@ function B_matrix()
     
     
     # -1 -1 element.
-    f_11(z) = 1/(exp(1im*theta)+z) * y_s_n'*Block*y_s_n * 1/(exp(1im*theta)+z)
+    f_11(z) = 1/(exp(1im*theta)+z) * y_s_n'*Matrix*y_s_n * 1/(exp(1im*theta)+z)
     
     # -1 1 element.
-    f_12(z) = 1/(exp(1im*theta)+z) * y_s_n'*Block*y_s_p * 1/(exp(-1im*theta)+z)
+    f_12(z) = 1/(exp(1im*theta)+z) * y_s_n'*Matrix*y_s_p * 1/(exp(-1im*theta)+z)
     
     # 1 -1 element.
-    f_21(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Block*y_s_n * 1/(exp(1im*theta)+z)
+    f_21(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Matrix*y_s_n * 1/(exp(1im*theta)+z)
     
     # 1 1 element.
-    f_22(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Block*y_s_p * 1/(exp(-1im*theta)+z)
+    f_22(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Matrix*y_s_p * 1/(exp(-1im*theta)+z)
     
     
     #= Integration of the elements.=#
@@ -482,7 +482,7 @@ def Write_file_Pauli(b_0, b_1, b_2, b_3):
     f.write(str(b_0) +'\t'+ str(b_1)+ '\t' + str(b_2) +'\t' + str(b_3) +'\n')
 """
 
-Bm_y = B_matrix();
+Bm_y = B_matrix(Block);
 # Changing the B matrix from sigma_y basis to sigma_z basis.
 Bm_z = sigma_y_to_sigma_z(Bm_y)
 PC = Pauli_coefficients(Bm_z)
