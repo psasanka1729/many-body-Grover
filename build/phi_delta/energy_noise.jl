@@ -448,7 +448,7 @@ delta_end = Delta[delta_index+2]
 Num = 10
 
 for i=0:Num
-    delta = Delta_start+(i/Num)*(Delta_end-Delta_start)
+    delta = delta_start+(i/Num)*(delta_end-delta_start)
     Op = Grover_operator(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
