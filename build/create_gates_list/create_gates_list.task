@@ -1,0 +1,16 @@
+bash create_gates_list_0.qsub
+bash create_gates_list_1.qsub
+bash create_gates_list_2.qsub
+bash create_gates_list_3.qsub
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
