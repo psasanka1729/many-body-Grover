@@ -1,11 +1,11 @@
-L = 14;
+L = 16;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"14_new_Grover_gates_data.txt" # Change for every L.
+file = raw"16_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -177,11 +177,10 @@ function Grover_operator(DELTA)
         
     GROVER_DELTA = U_x_delta*U_0_delta
     
-    return collect(GROVER_DELTA)
+    return GROVER_DELTA
 end;
 
-Delta = parse(Float64,ARGS[1])
-U = Grover_operator(Delta);
+U = Grover_operator(0.25);
 
 py"""
 f = open('probability_data'+'.txt', 'w')
@@ -199,7 +198,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-Psi_0(L) = (1/sqrt(2^L))*ones(ComplexF64,2^L);
+Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 
 p_0l = []
 p_x_barl = []
@@ -209,12 +208,10 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-#println(p_xbar)
-#println(p_0)
-for i=1:2000
+for i=1:1000
     global psi = U*psi
-    global p_0 = abs(psi[1])^2
-    global p_xbar = Pxbar(psi)
+    p_0 = abs(psi[1])^2
+    p_xbar = Pxbar(psi)
     py"Write_file"(real(p_0),real(p_xbar),i)
     push!(p_0l,p_0)
     push!(p_x_barl,p_xbar)
