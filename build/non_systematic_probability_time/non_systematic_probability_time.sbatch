@@ -3,7 +3,7 @@
 #SBATCH --job-name=non_systematic_probability_time
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=128s
 #
 # Processors:
 #SBATCH --ntasks=16
