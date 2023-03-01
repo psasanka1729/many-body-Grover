@@ -11,7 +11,6 @@ def Write_file1(X, Y, Z):
     f.write(str(X) + '\t' + str(Y)+ '\t' + str(Z) +'\n')
 """
 
-Identity(dimension) = 1* Matrix(I, dimension, dimension);
 
 function Write_Gates_to_File(L)
     Gate_count = 0
@@ -32,10 +31,8 @@ function Write_Gates_to_File(L)
         push!(U0_XHR_Gates,["X",i])
     end
     
-    MCX = sparse(Identity(2^L));
     
     # Multiplying the gates to get the left side of MCX of U_0.
-    XHL_Matrix = sparse(Identity(2^L))
     for i in U0_XHL_Gates
         if i[1] == "H"   
             
@@ -109,7 +106,6 @@ function Write_Gates_to_File(L)
     end
 
     # Multiplying the gates to get the right side of MCX of U_0.
-    XHR_Matrix = sparse(Identity(2^L))
     for j in U0_XHR_Gates
         if j[1] == "H"
 
@@ -125,7 +121,6 @@ function Write_Gates_to_File(L)
         end
     end
 
-    #U0_matrix = sparse(XHL_Matrix*MCX*XHR_Matrix)    
 
     
     #= Ux matrix. =#
@@ -155,8 +150,6 @@ function Write_Gates_to_File(L)
     end
     
     # Multiplying the matrices to get the left side of MCX of U_x.
-    MCX = sparse(Identity(2^L));
-    XHL_Matrix = sparse(Identity(2^L))
     for i in Ux_XHL_Gates
         
         if i[1] == "H"
@@ -228,7 +221,6 @@ function Write_Gates_to_File(L)
     end
 
     # Right side of MCX of U_x.
-    XHR_Matrix = sparse(Identity(2^L))
     for j in Ux_XHR_Gates
         if j[1] == "H"          
             
@@ -247,6 +239,3 @@ function Write_Gates_to_File(L)
     return Gate_count
 end; 
 Write_Gates_to_File(L)
-
-#Number_of_Gates(L) = 4*L^2-6*L+10;
-#print("Number of gates ",Number_of_Gates(L) )
