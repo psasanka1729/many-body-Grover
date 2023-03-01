@@ -31,7 +31,6 @@ SEED = 1945
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
-#length(NOISE)
 
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
