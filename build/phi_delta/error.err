@@ -1,10 +1,6 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-ERROR: LoadError: UndefVarError: Delta_end not defined
-Stacktrace:
- [1] top-level scope
-   @ ~/many-body-Grover/build/phi_delta/energy_noise.jl:451
-in expression starting at /home/sxd190113/many-body-Grover/build/phi_delta/energy_noise.jl:450
 
-real	0m16.726s
-user	0m10.086s
-sys	0m1.447s
+real	35m8.919s
+user	26m49.591s
+sys	13m20.930s
+
