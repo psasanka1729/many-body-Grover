@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 5000+parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -499,4 +499,4 @@ def Write_file(eigenvalue_1, eigenvalue_2):
 # Diagonalize the special state matrix.
 Special_eigenvalues = eigvals(Bm_z)
 # Write the two eigenvalue to the data file.
-py"Write_file"(Special_eigenvalues[1],Special_eigenvalues[2])
+py"Write_file"(Special_eigenvalues[1].real,Special_eigenvalues[2].real)
