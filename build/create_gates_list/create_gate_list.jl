@@ -2,7 +2,7 @@ using LinearAlgebra
 using SparseArrays
 using PyCall
 
-L = 18;
+L = 20;
 
 py"""
 f = open('Grover_gates_data'+'.txt', 'w')
