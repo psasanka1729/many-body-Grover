@@ -1,11 +1,11 @@
-L = 6;
+L = 8;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"6_new_Grover_gates_data.txt" # Change for every L.
+file = raw"8_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -177,10 +177,10 @@ function Grover_operator(DELTA)
         
     GROVER_DELTA = U_x_delta*U_0_delta
     
-    return collect(GROVER_DELTA)
+    return GROVER_DELTA
 end;
 
-U = Grover_operator(0.0);
+U = Grover_operator(0.25);
 
 py"""
 f = open('probability_data'+'.txt', 'w')
@@ -198,7 +198,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-Psi_0(L) = (1/sqrt(2^L))*ones(ComplexF64,2^L);
+Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 
 p_0l = []
 p_x_barl = []
