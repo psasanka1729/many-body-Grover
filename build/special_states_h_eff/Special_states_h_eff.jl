@@ -499,4 +499,4 @@ def Write_file(eigenvalue_1, eigenvalue_2):
 # Diagonalize the special state matrix.
 Special_eigenvalues = eigvals(Bm_z)
 # Write the two eigenvalue to the data file.
-py"Write_file"(Special_eigenvalues[1].real,Special_eigenvalues[2].real)
+py"Write_file"(real(Special_eigenvalues[1]),real(Special_eigenvalues[2]))
