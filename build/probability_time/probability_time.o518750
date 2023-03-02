@@ -84,3 +84,5 @@ Launcher: Task 4 done. Exiting.
 Removing files
 Launcher: Job 4 completed in 56100 seconds.
 Launcher: Task 3 done. Exiting.
+slurmstepd: error: *** JOB 518750 ON compute-2-6-13 CANCELLED AT 2023-03-02T15:24:25 ***
+Killed by signal 15.
