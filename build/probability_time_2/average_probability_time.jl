@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 # Good seeds = 10, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 32+parse(Int64,ARGS[1])
+SEED = 64+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
