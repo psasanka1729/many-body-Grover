@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 3000+parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -194,7 +194,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-U = Grover_operator(0.01);
+U = Grover_operator(0.02);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 p_0l = []
@@ -223,7 +223,7 @@ xdata = [i for i = 100:120];
 ydata = p_0l[100:120]
 
 # Define an initial guess for the parameters
-p0 = [  0.37,   -0.37,   0.14, -12]
+p0 = [  0.12,   0.12,   0.22, -22]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
