@@ -1,11 +1,11 @@
-L = 12;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"12_new_Grover_gates_data.txt" # Change for every L.
+file = raw"10_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -205,7 +205,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:250
+for i=1:300
     global psi = U*psi
     p_0 = abs(psi[1])^2
     p_xbar = Pxbar(psi)
@@ -219,11 +219,11 @@ using LsqFit
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 
 # Define the first order data set.
-xdata = [i for i = 100:200];
-ydata = p_0l[100:200]
+xdata = [i for i = 100:120];
+ydata = p_0l[100:120]
 
 # Define an initial guess for the parameters
-p0 = [  0.5,   0.5,   0.01, 1.0]
+p0 = [  0.37,   -0.37,   0.14, -12]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
@@ -237,8 +237,8 @@ phi_1 = fit.param[4]
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 
 # Define the second order data set
-xdata = [i for i = 100:250];
-ydata = p_0l[100:250]
+xdata = [i for i = 100:300];
+ydata = p_0l[100:300]
 
 # Define an initial guess for the parameters
 p0 = [  A_1,   B_1,   omega_1, phi_1]
