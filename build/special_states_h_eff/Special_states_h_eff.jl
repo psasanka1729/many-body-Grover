@@ -1,11 +1,11 @@
-L = 10;
+L = 8;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"10_new_Grover_gates_data.txt" # Change for every L.
+file = raw"8_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1000+parse(Int64,ARGS[1])
+SEED = 4000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -175,8 +175,7 @@ function Special_states_matrix()
     DELTA = 0.0
     U_list = [];
     U_noise_list = [];
-    U_x_delta = sparse(Identity(2^L));
-    #ux_list = []
+    #U_x_delta = sparse(Identity(2^L));
     NOISE_list = []
 
     Gates_data_new_1 = []
@@ -191,7 +190,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)
             h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            U_x_delta *= h_matrix
+            #U_x_delta *= h_matrix
         
             push!(Gates_data_new_1,"H")
             push!(Gates_data_new_2,0.0)
@@ -206,7 +205,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= x_matrix
+            #U_x_delta *= x_matrix
         
             push!(Gates_data_new_1,"X")
             push!(Gates_data_new_2,0.0)
@@ -221,7 +220,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= z_matrix
+            #U_x_delta *= z_matrix
         
             push!(Gates_data_new_1,"Z")
             push!(Gates_data_new_2,0.0)
@@ -237,7 +236,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            U_x_delta *= rx_matrix
+            #U_x_delta *= rx_matrix
         
             push!(Gates_data_new_1,Gates_data_1[i])
             push!(Gates_data_new_2,Gates_data_2[i])
@@ -250,7 +249,7 @@ function Special_states_matrix()
         end
     end
     
-    U_0_delta = sparse(Identity(2^L));
+    #U_0_delta = sparse(Identity(2^L));
     
     #u0_list = []
     # U_0
@@ -260,7 +259,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            U_0_delta *= h_matrix
+            #U_0_delta *= h_matrix
         
             push!(Gates_data_new_1,"H")
             push!(Gates_data_new_2,0.0)
@@ -276,7 +275,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            U_0_delta *= x_matrix
+            #U_0_delta *= x_matrix
         
             push!(Gates_data_new_1,"X")
             push!(Gates_data_new_2,0.0)
@@ -291,7 +290,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= z_matrix
+            #U_0_delta *= z_matrix
         
             push!(Gates_data_new_1,"Z")
             push!(Gates_data_new_2,0.0)
@@ -307,7 +306,7 @@ function Special_states_matrix()
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
             rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            U_0_delta *= rx_matrix
+            #U_0_delta *= rx_matrix
         
             push!(Gates_data_new_1,Gates_data_1[i])
             push!(Gates_data_new_2,Gates_data_2[i])
@@ -320,7 +319,7 @@ function Special_states_matrix()
         end
     end
         
-    GROVER_DELTA = U_x_delta*U_0_delta
+    #GROVER_DELTA = U_x_delta*U_0_delta
     
     function kth_term(k)
 
