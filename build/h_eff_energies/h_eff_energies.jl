@@ -534,7 +534,7 @@ def Write_file3(index, level_stat):
 """
 
 function Level_Statistics(n,Es)
-	return minimum(abs(Es[n]-Es[n-1),abs(Es[n+1]-Es[n])) / maximum(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
+	return minimum(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / maximum(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
 end
 
 for i = 2:2^L-3
