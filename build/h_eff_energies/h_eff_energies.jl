@@ -522,19 +522,3 @@ The length of the eigenvector array is 2^L-2.
 for i = 1:2^L-2 # relative index i.e length of the eigenvector array.
     py"Write_file2"(i,E_eff_sorted[i])
 end
-
-
-py"""
-f = open('level_statistics_data.txt','w')
-def Write_file3(index, level_stat):
-	f = open('level_statistics.txt','a')
-	f.write(str(index) + '\t' + str(level_stat) +'\n')
-"""
-
-function Level_Statistics(n,Es)
-	return minimum(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / maximum(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
-end
-
-for i = 2:(2^L)-3
-	py"Write_file3"(i,Level_Statistics(i,E_eff_sorted))
-end
