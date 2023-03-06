@@ -3,11 +3,11 @@
 #SBATCH --job-name=h_eff_trace
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=Hassanipour
 #
 # Processors:
-#SBATCH --ntasks=64
-#SBATCH --nodes=4
+#SBATCH --ntasks=16
+#SBATCH --nodes=1
 #
 # Wall clock limit:
 #SBATCH --time=4-00:00:00

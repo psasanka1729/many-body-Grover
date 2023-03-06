@@ -424,7 +424,7 @@ def Write_file4(index, level_stat):
 """
 
 function Level_Statistics(n,Es)
-    return mininum(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / maximum(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
+    return minimum(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / maximum(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
 end;
 
 for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
