@@ -497,12 +497,12 @@ h_eff_matrix = Eigenvalues(0.0)
 
 py"""
 f = open('trace_data'+'.txt', 'w')
-def Write_file2(trace):
+def Write_file1(trace):
     f = open('trace_data'+'.txt', 'a')
     f.write(str(trace) +'\n')
 """
 
-py"Write_file2"(real(tr(h_eff_matrix * h_eff_matrix)))
+py"Write_file1"(real(tr(h_eff_matrix * h_eff_matrix)))
 
 # Eigenvalues of the h_eff matrix.
 E_eff_D = eigvals(h_eff_matrix())
@@ -512,7 +512,7 @@ E_eff_sorted = sort(real(E_ff_D));
 
 py"""
 f = open('h_eff_energy_data'+'.txt', 'w')
-def Write_file(index, energy):
+def Write_file2(index, energy):
     f = open('h_eff_energy_data'+'.txt', 'a')
     f.write(str(index) + '\t'+ str(energy) +'\n')
 """
@@ -521,7 +521,7 @@ def Write_file(index, energy):
 The length of the eigenvector array is 2^L-2.
 =#
 for i = 1:2^L-2 # relative index i.e length of the eigenvector array.
-    py"Write_file"(i,E_eff_sorted[i])
+    py"Write_file2"(i,E_eff_sorted[i])
 end
 
 
