@@ -1,4 +1,4 @@
-L = 6;
+L = 12;
 
 using Random
 using LinearAlgebra
@@ -9,7 +9,7 @@ using Statistics
 #= 
 The data file has the list of all gates necessary to construct G. The order of the gates are U_0 and U_x.
 =#
-file = raw"6_new_Grover_gates_data.txt" # Change for every L.
+file = raw"12_new_Grover_gates_data.txt" # Change for every L.
 
 M = readdlm(file)
 
