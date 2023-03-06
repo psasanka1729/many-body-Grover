@@ -37,6 +37,13 @@ SEED = 4000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
+#! /usr/bin/env python
+
+import subprocess
+import numpy
+import os
+
+partition_info=['',16] # = [partition,ncores]
 # Identity gate of size 2x2.
 I2 = [1 0; 0 1];
 
@@ -525,11 +532,10 @@ for i = 1:2^L-2 # relative index i.e length of the eigenvector array.
 end
 
 
-# Level statistics.
 py"""
 f = open('level_statistics_data.txt','w')
 def Write_file3(index, level_stat):
-	f = open('level_statistics.txt','w')
+	f = open('level_statistics.txt','a')
 	f.write(str(index) + '\t' + str(level_stat) +'\n')
 """
 
