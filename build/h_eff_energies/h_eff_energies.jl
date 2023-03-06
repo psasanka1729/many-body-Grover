@@ -449,14 +449,6 @@ function Eigenvalues(DELTA)
                 Angle = Gates_data_new_1[k]
                 Control_Qubit = int(Gates_data_new_2[k])
                 Target_Qubit = int(Gates_data_new_3[k])
-#! /usr/bin/env python
-
-import subprocess
-import numpy
-import os
-
-partition_info=['',16] # = [partition,ncores]
-            
                 #= H_CRx = ((I-Z)/2)_c \otimes ((I-X)/2)_t.=#
                 # Constructing the H_CRx.
                 Matrices = Dict("I" => [1 0;0 1],"U" => [1 -1;-1 1]/2, "PI_1" => (I2-Z)/2)
@@ -498,13 +490,6 @@ partition_info=['',16] # = [partition,ncores]
     return h_eff_D
     #return E_eff_D_sorted
 end;
-#! /usr/bin/env python
-
-import subprocess
-import numpy
-import os
-
-partition_info=['',16] # = [partition,ncores]
 
 
 h_eff_matrix = Eigenvalues(0.0)
