@@ -508,7 +508,7 @@ py"Write_file1"(real(tr(h_eff_matrix * h_eff_matrix)))
 E_eff_D = eigvals(h_eff_matrix)
 
 # Sorts the eigenvalue array.
-E_eff_sorted = sort(real(E_ff_D));
+E_eff_sorted = sort(real(E_eff_D));
 
 py"""
 f = open('h_eff_energy_data'+'.txt', 'w')
