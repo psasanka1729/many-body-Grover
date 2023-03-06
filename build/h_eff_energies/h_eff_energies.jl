@@ -505,7 +505,7 @@ def Write_file1(trace):
 py"Write_file1"(real(tr(h_eff_matrix * h_eff_matrix)))
 
 # Eigenvalues of the h_eff matrix.
-E_eff_D = eigvals(h_eff_matrix())
+E_eff_D = eigvals(h_eff_matrix)
 
 # Sorts the eigenvalue array.
 E_eff_sorted = sort(real(E_ff_D));
