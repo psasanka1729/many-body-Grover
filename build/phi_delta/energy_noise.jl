@@ -1,11 +1,11 @@
-L = 14;
+L = 6;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"14_new_Grover_gates_data.txt" # Change for every L.
+file = raw"6_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -26,9 +26,8 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 4000
+SEED = 4001
 Random.seed!(SEED)
-NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
 
 I2 = [1 0; 0 1];
@@ -243,195 +242,115 @@ def eigu(U,tol=1e-9):
     return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
 """
 
-function Entropy(Psi)   
-    
-    LS = Int64(L/2)
-
-    #Psi = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1im];
-    
-    # Normalizing Psi.
-    Psi = Psi/norm(Psi) 
-    
-    psi(s) = Psi[(2^LS)*(s-1)+1:(2^LS)*s]
-    
-    #=
-        psi(s_p) is a row matrix/vector. psi(s) is a column matrix/vector.      
-        Dimension of rhoA is N/2 x N/2. 
-        The element <s|rhoA|sp> is given by psi_sp^\dagger * psi_s.
-    =#
-    
-    
-    # psi(s_p)^\dagger * psi(s) is the element of (s,s_p) of rho_AB. 
-    rhoA(s,s_p) = psi(s_p)' * psi(s)
-    
-    
-    # Following function returns the reduced density matrix rho_A.
-    function rhoA_Matrix()
-        
-        LS = Int64(L/2)
-            
-        # Creates a zero matrix to store the density matrix.
-        M = zeros(ComplexF64,2^LS,2^LS)
-        
-        #=
-        rho is Hermitian, it is sufficient to calculate the elements above the diagonal.
-        The the elements below the diagonal can be replace by the complex cpnjugate of the
-        elements above the diagonal.
-        =#
-    
-        for i=1:2^LS
-            for j=1:2^LS
-                if i<=j
-                    M[i,j] = rhoA(i,j)
-                else
-                    # Elements below diagonals are replaced by the elements above the diagonal.
-                    M[i,j] = M[j,i]' 
-                end
-            end
-        end
-        return M
-    end;
-    
-    w = eigvals(rhoA_Matrix()) # Eigenvalues of the reduced density matrix.
-    #=
-    The following loop calculates S = - sum \lamba_i * log(\lambda_i).
-    =#
-    
-    # Array to store the log of the eigenvalues.
-    DL = zeros(ComplexF64,2^LS)
-    for i=1:length(w)
-        if abs(w[i]) < 1.e-8 # Avoid zeros.
-            continue
-        else
-            DL[i] = log(w[i])
-        end
-    end
-    return real(-sum(w.*DL)) # S = -tr(rho *log(rho)).
-end;
-
-Bin2Dec(BinaryNumber) = parse(Int, string(BinaryNumber); base=2);
-Dec2Bin(DecimalNumber) = string(DecimalNumber, base=2);
-
-List = [i for i=0:2^L-1]; # List with numbers from 0 to 2^L-1.
 
 #=
-The following function converts all numbers in decimals in the above list 
- from 0 to 2^L -1 to binary.
+The following function returns the matrix of rolling operator.
 =#
-
-function List_Bin(Lst)
+function One_Roll_Operator(number_of_qubits::Int64)
     
-    l = []
+    #= Function converts a binary number to a decimal number. =#
+    Bin2Dec(BinaryNumber) = parse(Int, string(BinaryNumber); base=2);
     
-    for i in Lst
+    #= Function converts a decimal number to a binary number. =#
+    function Dec2Bin(DecimalNumber::Int64) 
         
-        i_Bin = Dec2Bin(i)
+        init_binary = string(DecimalNumber, base = 2);
         
         #=
         While converting numbers from decimal to binary, for example, 1
-        is mapped to 1, to make sure that
-        every numbers have N qubits in them, the following loop adds leading 
-        zeros to make the
-        length of the binary string equal to N. Now, 1 is mapped to 000.....1
-        (string of length N).
+        is mapped to 1, to make sure that every numbers have N qubits in them,
+        the following loop adds leading zeros to make the length of the binary
+        string equal to N. Now, 1 is mapped to 000.....1 (string of length N).
         =#
         
-        while length(i_Bin) < L
-            i_Bin = "0"*i_Bin
+        while length(init_binary) < number_of_qubits
+            init_binary = "0"*init_binary
         end
-            
-        # Puts the binary number in the list l after its length is L.
-        push!(l,i_Bin)
+        return init_binary
     end
-    return l
-end;
-
-#=
-    The following function takes a binary string as input and rolls the qubits by one and
-    returns the rolled string.
-=#
-
-Roll_String(Binary_String) = last(Binary_String)*Binary_String[1:L-1];
-
-#=
-    The following function takes a wavefunction as input and performs one roll
-    on the qubits and returns the resultant wavefunction.
-=#
-
-function Psi_Roll(Initial_Psi)
     
     #=
-        The following list contains all possible 2^N qubits after one roll 
-        is performed on them.
-        For example, the first position 0001 is changed to 1000.
+    The following function takes a binary string as input
+    and rolls the qubits by one and returns the rolled binary string.
     =#
+    Roll_String_Once(binary_string) = binary_string[end]*binary_string[1:end-1]
     
-    # Rolls every string in the list List by one qubit.
-    Rl = [ Roll_String(i) for i in List_Bin(List)]
+    #= Initializing the rolling operator. =#
+    R = zeros(Float64,2^number_of_qubits,2^number_of_qubits);
     
-    #=
-        The following list contains the previous list but in decimal numbers. For example,
-        for N =4, the first position 1 is changed to 8.
-    =#
+    #= The numbers are started from 0 to 2^L-1 because for L qubits,
+    binary representation goes from 0 to 2^L-1.=#
     
-    Rl_d = [Bin2Dec(i) for i in Rl]
-    
-    #=
-        The following loop rearranges the coefficients of Psi after rolling. 
-        For example, for N = 4, if the first coefficient 0001 is mapped to the
-        eighth coefficient 1000 after one rotation of the qubits. 
-        The coefficient of the rolled Psi in the i ^ th position is in the
-        Rl_d[i] ^ th positon of the initial Psi.
-    =#
-    
-    Psi_Rolled = []
-    
-    for i=1:2^L
+    for i = 0:2^number_of_qubits-1 
         
-        # Rearranging the coefficients according to the list l_d.
-        push!(Psi_Rolled,Initial_Psi[Rl_d[i]+1])
-        
-        #= The addition of 1 to the index is necessary because Julia counts from 1,
-           rather than 0. But we need to represent all the numbers from 1 to 16 using 
-           four binary digits. So we started with the List = [0 to 15], then after
-           rolling we just add 1 to each index to make it work for Julia.
+        #=
+        Steps in the following loop.
+        (1) The number is converted from decimal to binary.
+        (2) The qubits are rolled once.
+        (3) The rolled binary number is converted to decimal number.
+        (4) The corresponding position in R is replaced by 1.
         =#
+        
+        #= The index in R will be shifted by 1 as Julia counts from 1. =#
+        R[i+1,Bin2Dec(Roll_String_Once(Dec2Bin(i)))+1] = 1
     end
-    return Psi_Rolled
-end
-
+    
+    return sparse(R)
+end;
+          
 #=
-The following function performs specified number of rolls Num on the qubits.
+The following function returns the von-Neumann entropy of a given
+wavefunction. The sub-system size is L/2.
 =#
 
-function N_Rolled(Num, Initial_Psi)
+function entanglement_entropy(Psi)
     
-    if Num == 0 
-        return Initial_Psi
-    else
+    sub_system_size = floor(Int,L/2)
+    
+    Psi = Psi/norm(Psi)
+    
+    function psi(s)
+        return wavefunction[2^(sub_system_size)*s+1:2^(sub_system_size)*s+2^(sub_system_size)]
+    end
+    
+    #= (s,s_p) element of the reduced density matrix is given by psi(s_p)^(\dagger)*psi(s). =#
+    rhoA(s,s_p) = psi(s_p)' * psi(s)
         
-        s = Psi_Roll(Initial_Psi)
-        for i=1:Num-1
-            s = Psi_Roll(s)
-        end
-        return s
-    end
-end
-
-
-function Average_Entropy(Initial_Psi)
+    M = zeros(ComplexF64,2^sub_system_size,2^sub_system_size)
     
-    list_of_entropies = []
     #=
-    The loop calculates all the entropies and returns a list containing them.
+    Since the matrix is symmetric only terms above the diagonal will be calculated.
     =#
-    for i=1:L
-        S = Entropy(N_Rolled(i,Initial_Psi))
-        push!(list_of_entropies,S)
+    for i = 0:2^sub_system_size-1
+        for j = 0:2^sub_system_size-1
+            if i <= j
+                M[i+1,j+1] = rhoA(i,j)
+            else
+                M[i+1,j+1] = M[j+1,i+1]
+            end
+        end
+    end 
+    
+    #= Eigenvalues of M. The small quantity is added to avoid singularity in log.=#
+    w = eigvals(M).+1.e-10
+    
+    return real(-sum([w[i]*log(w[i]) for i = 1:2^(sub_system_size)]))
+end;          
+    
+              
+function average_entanglement_entropy(initial_wavefunction)
+    initial_wavefunction = initial_wavefunction/norm(initial_wavefunction)
+    R = One_Roll_Operator(L)
+    rolled_wavefunction = R * initial_wavefunction
+    rolled_entropies = [entanglement_entropy(rolled_wavefunction)]
+    for i = 2:L
+        rolled_wavefunction = R * rolled_wavefunction
+        push!(rolled_entropies,entanglement_entropy(rolled_wavefunction))
     end
-    return sum(list_of_entropies)/length(list_of_entropies)
+    
+    return sum(rolled_entropies)/L
 end;
-
+              
 py"""
 f = open('plot_data'+'.txt', 'w')
 def Write_file(Noise, Energy, Entropy):
@@ -441,13 +360,13 @@ def Write_file(Noise, Energy, Entropy):
 # delta_index runs from 0 to 63.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.05,65)
+Delta = LinRange(0.0,0.4,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
 Num = 2
 
 for i=0:Num
-    delta = delta_start+(i/Num)*(delta_end-delta_start)
+    delta = Delta_start+(i/Num)*(Delta_end-Delta_start)
     Op = Grover_operator(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
@@ -455,6 +374,6 @@ for i=0:Num
     V = EIGU[2]
     
     for j=1:2^L
-        py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
+        py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
     end
 end
