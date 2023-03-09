@@ -1,20 +1,32 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-h_eff_trace_10.qsub: line 23: 80196 Killed                  julia ./$EXEC 10
+ERROR: LoadError: OutOfMemoryError()
+Stacktrace:
+  [1] Array
+    @ ./boot.jl:459 [inlined]
+  [2] Array
+    @ ./boot.jl:467 [inlined]
+  [3] Array
+    @ ./boot.jl:474 [inlined]
+  [4] similar
+    @ ./abstractarray.jl:829 [inlined]
+  [5] similar
+    @ ./abstractarray.jl:828 [inlined]
+  [6] similar
+    @ ./broadcast.jl:212 [inlined]
+  [7] similar
+    @ ./broadcast.jl:211 [inlined]
+  [8] copy
+    @ ./broadcast.jl:885 [inlined]
+  [9] materialize
+    @ ./broadcast.jl:860 [inlined]
+ [10] broadcast_preserving_zero_d
+    @ ./broadcast.jl:849 [inlined]
+ [11] *(A::Float64, B::Matrix{Float64})
+    @ Base ./arraymath.jl:52
+ [12] top-level scope
+    @ ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:168
+in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:168
 
-real	184m56.071s
-user	0m5.632s
-sys	1m38.300s
-ined]
- [3] ones
-   @ ./array.jl:525 [inlined]
- [4] ones
-   @ ./array.jl:522 [inlined]
- [5] ones(::Int64, ::Int64)
-   @ Base ./array.jl:520
- [6] top-level scope
-   @ ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:167
-in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:167
-
-real	132m37.561s
-user	0m7.135s
-sys	1m52.234s
+real	219m36.958s
+user	0m8.031s
+sys	2m27.871s

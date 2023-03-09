@@ -1,11 +1,11 @@
-L = 6;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"6_new_Grover_gates_data.txt" # Change for every L.
+file = raw"10_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 4001
+SEED = 764
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -39,13 +39,6 @@ CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
 Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
 Identity(dimension) = 1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
-
-#U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
-#U_0[1,1] = -1
-#A = ones(2^L,2^L);
-#U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
-#G_exact = U_x*U_0;
-#V = py"eigu"(G_exact)[2];
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
     
@@ -360,10 +353,10 @@ def Write_file(Noise, Energy, Entropy):
 # delta_index runs from 0 to 63.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.4,64+1)
+Delta = LinRange(0.0,0.25,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 2
+Num = 5
 
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
