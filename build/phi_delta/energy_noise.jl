@@ -28,7 +28,7 @@ Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 SEED = 4001
 Random.seed!(SEED)
-
+NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
