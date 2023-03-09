@@ -1,6 +1,20 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
+h_eff_trace_10.qsub: line 23: 80196 Killed                  julia ./$EXEC 10
 
-real	842m53.041s
-user	793m55.608s
-sys	51m2.381s
+real	184m56.071s
+user	0m5.632s
+sys	1m38.300s
+ined]
+ [3] ones
+   @ ./array.jl:525 [inlined]
+ [4] ones
+   @ ./array.jl:522 [inlined]
+ [5] ones(::Int64, ::Int64)
+   @ Base ./array.jl:520
+ [6] top-level scope
+   @ ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:167
+in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:167
 
+real	132m37.561s
+user	0m7.135s
+sys	1m52.234s
