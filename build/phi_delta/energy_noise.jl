@@ -334,9 +334,9 @@ end;
 function average_entanglement_entropy(initial_wavefunction)
     initial_wavefunction = initial_wavefunction/norm(initial_wavefunction)
     R = One_Roll_Operator(L)
-    #rolled_wavefunction = R * initial_wavefunction
+    rolled_wavefunction = R * initial_wavefunction
     rolled_entropies = [entanglement_entropy(initial_wavefunction)]
-    for i = 1:L
+    for i = 2:L
         rolled_wavefunction = R * rolled_wavefunction
         push!(rolled_entropies,entanglement_entropy(rolled_wavefunction))
     end
