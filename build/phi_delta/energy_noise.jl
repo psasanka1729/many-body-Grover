@@ -1,11 +1,11 @@
-L = 12;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"12_new_Grover_gates_data.txt" # Change for every L.
+file = raw"10_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -307,7 +307,7 @@ function entanglement_entropy(Psi)
     end
     
     #= (s,s_p) element of the reduced density matrix is given by psi(s_p)^(\dagger)*psi(s). =#
-    rhoA(s,s_p) = psi(s_p)' * psi(s)
+    rhoA(s,s_p) = psi(s)' * psi(s_p)
         
     M = zeros(ComplexF64,2^sub_system_size,2^sub_system_size)
     
@@ -319,7 +319,7 @@ function entanglement_entropy(Psi)
             if i <= j
                 M[i+1,j+1] = rhoA(i,j)
             else
-                M[i+1,j+1] = M[j+1,i+1]
+                M[i+1,j+1] = M[j+1,i+1]'
             end
         end
     end 
