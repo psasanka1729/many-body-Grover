@@ -1,5 +1,6 @@
 L = 14;
 
+using NPZ
 using Random
 using LinearAlgebra
 using SparseArrays
@@ -30,6 +31,8 @@ SEED = 764
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
+#length(NOISE)
+
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
 H = (1/sqrt(2))*[1 1;1 -1]
@@ -39,6 +42,13 @@ CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
 Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
 Identity(dimension) = 1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
+
+#U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
+#U_0[1,1] = -1
+#A = ones(2^L,2^L);
+#U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
+#G_exact = U_x*U_0;
+#V = py"eigu"(G_exact)[2];
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
     
@@ -303,11 +313,11 @@ function entanglement_entropy(Psi)
     Psi = Psi/norm(Psi)
     
     function psi(s)
-        return Psi[2^(sub_system_size)*s+1:2^(sub_system_size)*s+2^(sub_system_size)]
+        return wavefunction[2^(sub_system_size)*s+1:2^(sub_system_size)*s+2^(sub_system_size)]
     end
     
     #= (s,s_p) element of the reduced density matrix is given by psi(s_p)^(\dagger)*psi(s). =#
-    rhoA(s,s_p) = psi(s)' * psi(s_p)
+    rhoA(s,s_p) = psi(s_p)' * psi(s)
         
     M = zeros(ComplexF64,2^sub_system_size,2^sub_system_size)
     
@@ -319,7 +329,7 @@ function entanglement_entropy(Psi)
             if i <= j
                 M[i+1,j+1] = rhoA(i,j)
             else
-                M[i+1,j+1] = M[j+1,i+1]'
+                M[i+1,j+1] = M[j+1,i+1]
             end
         end
     end 
@@ -335,7 +345,7 @@ function average_entanglement_entropy(initial_wavefunction)
     initial_wavefunction = initial_wavefunction/norm(initial_wavefunction)
     R = One_Roll_Operator(L)
     rolled_wavefunction = R * initial_wavefunction
-    rolled_entropies = [entanglement_entropy(initial_wavefunction)]
+    rolled_entropies = [entanglement_entropy(rolled_wavefunction)]
     for i = 2:L
         rolled_wavefunction = R * rolled_wavefunction
         push!(rolled_entropies,entanglement_entropy(rolled_wavefunction))
@@ -344,20 +354,29 @@ function average_entanglement_entropy(initial_wavefunction)
     return sum(rolled_entropies)/L
 end;
               
-py"""
-f = open('plot_data'+'.txt', 'w')
-def Write_file(Noise, Energy, Entropy):
-    f = open('plot_data'+'.txt', 'a')
-    f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
-"""
+#py"""
+#f = open('plot_data'+'.txt', 'w')
+#def Write_file(Noise, Energy, Entropy):
+#    f = open('plot_data'+'.txt', 'a')
+#    f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
+#"""
+
 # delta_index runs from 0 to 63.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.16,64+1)
+Delta = LinRange(0.0,0.18,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 8
+Num = 5
 
+              
+#=
+Arrays to hold delta, energy and entropy before they are written into the file.              
+=#
+deltas = []
+Ys = []
+Entropies = []
+              
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
     Op = Grover_operator(delta)
@@ -367,6 +386,13 @@ for i=0:Num
     V = EIGU[2]
     
     for j=1:2^L
-        py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
+        #py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
+        push!(deltas,delta)
+        push!(Ys,real(Y[j]))
+        push!(Entropies,average_entanglement_entropy(V[1:2^L,j:j]))    
     end
 end
+
+npzwrite("deltas.npy",deltas)
+npzwrite("Ys.npy",Ys)
+npzwrite("Entropies.npy",Entropies)              
