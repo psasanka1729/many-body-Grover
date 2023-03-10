@@ -1,5 +1,6 @@
 L = 6;
 
+using NPZ
 using Random
 using LinearAlgebra
 using SparseArrays
@@ -367,6 +368,14 @@ delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
 Num = 5
 
+              
+#=
+Arrays to hold delta, energy and entropy before they are written into the file.              
+=#
+deltas = []
+Ys = []
+Entropies = []
+              
 for i=0:Num
     delta = Delta_start+(i/Num)*(Delta_end-Delta_start)
     Op = Grover_operator(delta)
@@ -376,14 +385,13 @@ for i=0:Num
     V = EIGU[2]
     
     for j=1:2^L
-        py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
+        #py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
+        push!(deltas,delta)
+        push!(Ys,real(Y[j]))
+        push!(Entropies,average_entanglement_entropy(V[1:2^L,j:j]))    
     end
 end
 
-#Delta = LinRange(0.0,0.35,17)
-
-#=
-for i = 0:length(Delta)-2
-    println(Delta[i+1],Delta[i+2])
-end
-=#
+npzwrite("deltas.npy",deltas)
+npzwrite("Ys.npy",Ys)
+npzwrite("Entropies.npy",Entropies)              
