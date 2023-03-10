@@ -1,5 +1,10 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-ERROR: LoadError: PyError ($(Expr(:escape, :(ccall(#= /home/sxd190113/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:43 =# @pysym(:PyObject_Call), PyPtr, (PyPtr, PyPtr, PyPtr), o, pyargsptr, kw))))) <type 'exceptions.MemoryError'>
+h_eff_trace_16.qsub: line 23: 80730 Killed                  julia ./$EXEC 16
+
+real	1521m12.619s
+user	206m30.688s
+sys	15m49.638s
+:PyObject_Call), PyPtr, (PyPtr, PyPtr, PyPtr), o, pyargsptr, kw))))) <type 'exceptions.MemoryError'>
 MemoryError()
   File "/home/sxd190113/.julia/packages/PyCall/ygXW2/src/pyeval.jl", line 50, in eigu
 

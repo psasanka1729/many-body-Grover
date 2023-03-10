@@ -1,4 +1,4 @@
-L = 14;
+L = 12;
 
 using NPZ
 using Random
@@ -6,7 +6,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"14_new_Grover_gates_data.txt" # Change for every L.
+file = raw"12_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -364,7 +364,7 @@ end;
 # delta_index runs from 0 to 63.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.05,64+1)
+Delta = LinRange(0.0,0.18,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
 Num = 1

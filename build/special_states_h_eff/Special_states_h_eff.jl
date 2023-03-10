@@ -164,18 +164,10 @@ def eigu(U,tol=1e-9):
     return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
 """
 
-U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
-U_0[1,1] = -1
-A = ones(2^L,2^L);
-U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
-G_exact = U_x*U_0
-V = py"eigu"(G_exact)[2];
 
 function Special_states_matrix()
     DELTA = 0.0
     U_list = [];
-    U_noise_list = [];
-    #U_x_delta = sparse(Identity(2^L));
     NOISE_list = []
 
     Gates_data_new_1 = []
@@ -189,14 +181,11 @@ function Special_states_matrix()
             
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)
-            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            #U_x_delta *= h_matrix
         
             push!(Gates_data_new_1,"H")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i])
         
-            push!(U_noise_list,h_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
             
@@ -204,14 +193,11 @@ function Special_states_matrix()
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            #U_x_delta *= x_matrix
         
             push!(Gates_data_new_1,"X")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i]) 
         
-            push!(U_noise_list,x_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
             
@@ -219,53 +205,40 @@ function Special_states_matrix()
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            #U_x_delta *= z_matrix
         
             push!(Gates_data_new_1,"Z")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i]) 
         
-            push!(U_noise_list,z_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
             
         else
-            #push!(ux_list,"CRX")
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            #U_x_delta *= rx_matrix
         
             push!(Gates_data_new_1,Gates_data_1[i])
             push!(Gates_data_new_2,Gates_data_2[i])
             push!(Gates_data_new_3,Gates_data_3[i])
         
-            push!(U_noise_list,rx_matrix) # Noise.
         
             push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiselss.
             
         end
     end
     
-    #U_0_delta = sparse(Identity(2^L));
     
-    #u0_list = []
     # U_0
     for i = 1 : U_0_gate_number
         if Gates_data_1[i] == "H"
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            #U_0_delta *= h_matrix
         
             push!(Gates_data_new_1,"H")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i])
-        
-            push!(U_noise_list,h_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
             
@@ -274,14 +247,10 @@ function Special_states_matrix()
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            #U_0_delta *= x_matrix
         
             push!(Gates_data_new_1,"X")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-            push!(U_noise_list,x_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
             
@@ -289,37 +258,27 @@ function Special_states_matrix()
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            #U_0_delta *= z_matrix
         
             push!(Gates_data_new_1,"Z")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i]) 
         
-            push!(U_noise_list,z_matrix) # Noise.
-        
             push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
             
         else
-            #push!(u0_list,"CRX")
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            #U_0_delta *= rx_matrix
         
             push!(Gates_data_new_1,Gates_data_1[i])
             push!(Gates_data_new_2,Gates_data_2[i])
             push!(Gates_data_new_3,Gates_data_3[i])
-        
-            push!(U_noise_list,rx_matrix) # Noise.
         
             push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiseless.
             
         end
     end
         
-    #GROVER_DELTA = U_x_delta*U_0_delta
     
     function kth_term(k)
 
@@ -363,10 +322,6 @@ function Special_states_matrix()
     
         return f_k*H_k*(f_k')
     end; 
-    
-    #EIGU = py"eigu"(collect(GROVER_DELTA))
-    #E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
-    #E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
     
     #= The following loop sums over all epsilon to get H_eff. =#
     h_eff = zeros(2^L,2^L);
