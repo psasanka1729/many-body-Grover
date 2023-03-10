@@ -362,7 +362,7 @@ function Eigenvectors(DELTA)
         end
     end
         
-    GROVER_DELTA = U_x_delta*U_0_delta
+    #GROVER_DELTA = U_x_delta*U_0_delta
     
     function kth_term(k)
 
