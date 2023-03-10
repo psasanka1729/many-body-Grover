@@ -1,3 +1,21 @@
+commit 12f9fdd0e184b8a8f1573ba31fef7cc88d4d7a7a
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Mar 10 09:58:02 2023 -0600
+
+    Commit before run phi_delta
+
+commit dc955a1a09685870a5f24f3d93a6bac2fd113077
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Fri Mar 10 09:52:47 2023 -0600
+
+    uses NPZ file format to save file
+
+commit 362646a01c5b9f0ae4003a36a245ae34ec1d3561
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Mar 10 09:45:32 2023 -0600
+
+    cluster backup
+
 commit 6d5033ef21dde910a29aa930c7608d20ae8f1b45
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Fri Mar 10 00:05:37 2023 -0600
