@@ -257,8 +257,8 @@ phi_2 = fit.param[4]
 
 py"""
 f = open('fitted_data'+'.txt', 'w')
-def Write_file_fit(A, B, omega, phi):
+def Write_file_fit(A, B, omega, phi, error):
     f = open('fitted_data'+'.txt', 'a')
-    f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) +'\n')
+    f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) + '\t' +str(error) + '\n')
 """
-py"Write_file_fit"(A_2,B_2,omega_2,phi_2)
+py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[100]-(A_2+B_2*cos(omega_2*100+phi_2))
