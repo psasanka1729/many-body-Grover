@@ -1,11 +1,11 @@
-L = 14;
+L = 12;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"14_new_Grover_gates_data.txt" # Change for every L.
+file = raw"12_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1000+parse(Int64,ARGS[1])
+SEED = 100000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -194,7 +194,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-U = Grover_operator(0.01);
+U = Grover_operator(0.02);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 p_0l = []
@@ -205,7 +205,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:150
+for i=1:120
     global psi = U*psi
     p_0 = abs(psi[1])^2
     p_xbar = Pxbar(psi)
@@ -219,11 +219,11 @@ using LsqFit
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 
 # Define the first order data set.
-xdata = [i for i = 100:110];
-ydata = p_0l[100:110]
+xdata = [i for i = 50:80];
+ydata = p_0l[50:80]
 
 # Define an initial guess for the parameters
-p0 = [  0.06,   0.06,   0.67, -47]
+p0 = [  0.4,   0.4,   0.06, 15]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
@@ -237,8 +237,8 @@ phi_1 = fit.param[4]
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 
 # Define the second order data set
-xdata = [i for i = 100:150];
-ydata = p_0l[100:150]
+xdata = [i for i = 50:120];
+ydata = p_0l[50:120]
 
 # Define an initial guess for the parameters
 p0 = [  A_1,   B_1,   omega_1, phi_1]
