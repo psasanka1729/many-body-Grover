@@ -129,3 +129,8 @@ Launcher: Task 39 running job 40 on compute-2-6-14 (bash special_states_h_eff_39
 Launcher: Task 41 running job 42 on compute-2-6-14 (bash special_states_h_eff_41.qsub)
 Launcher: Task 38 running job 39 on compute-2-6-14 (bash special_states_h_eff_38.qsub)
 Launcher: Task 47 running job 48 on compute-2-6-14 (bash special_states_h_eff_47.qsub)
+slurmstepd: error: *** JOB 519364 ON compute-2-6-12 CANCELLED AT 2023-03-11T13:02:57 ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.

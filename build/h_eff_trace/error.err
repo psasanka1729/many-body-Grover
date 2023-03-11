@@ -1,26 +1,30 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-h_eff_trace_16.qsub: line 23: 80730 Killed                  julia ./$EXEC 16
-
-real	1521m12.619s
-user	206m30.688s
-sys	15m49.638s
-:PyObject_Call), PyPtr, (PyPtr, PyPtr, PyPtr), o, pyargsptr, kw))))) <type 'exceptions.MemoryError'>
-MemoryError()
-  File "/home/sxd190113/.julia/packages/PyCall/ygXW2/src/pyeval.jl", line 50, in eigu
-
+ERROR: LoadError: OutOfMemoryError()
 Stacktrace:
-  [1] pyerr_check
-    @ ~/.julia/packages/PyCall/ygXW2/src/exception.jl:62 [inlined]
-  [2] pyerr_check
-    @ ~/.julia/packages/PyCall/ygXW2/src/exception.jl:66 [inlined]
-  [3] _handle_error(msg::String)
-    @ PyCall ~/.julia/packages/PyCall/ygXW2/src/exception.jl:83
-  [4] macro expansion
-    @ ~/.julia/packages/PyCall/ygXW2/src/exception.jl:97 [inlined]
-  [5] #107
-    @ ~/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:43 [inlined]
-  [6] disable_sigint
-    @ ./c.jl:458 [inlined]
+ [1] Array
+   @ ./boot.jl:459 [inlined]
+ [2] Array
+   @ ./boot.jl:467 [inlined]
+ [3] Array
+   @ ./boot.jl:474 [inlined]
+ [4] _collect_indices
+   @ ./array.jl:667 [inlined]
+ [5] collect(A::SparseMatrixCSC{ComplexF64, Int64})
+   @ Base ./array.jl:651
+ [6] (::var"#kth_term#1"{Vector{Any}, Vector{Any}, Vector{Any}, Vector{Any}})(k::Int64)
+   @ Main ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:329
+ [7] H_eff_Matrix(DELTA::Float64)
+   @ Main ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:371
+ [8] top-level scope
+   @ ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:382
+in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:382
+
+real	2480m22.232s
+user	1265m52.771s
+sys	177m48.424s
+er	246m54.547s
+sys	24m39.695s
+[inlined]
   [7] __pycall!
     @ ~/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:42 [inlined]
   [8] _pycall!(ret::PyObject, o::PyObject, args::Tuple{Matrix{Float64}}, nargs::Int64, kw::Ptr{Nothing})

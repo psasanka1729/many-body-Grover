@@ -391,10 +391,10 @@ function B_matrix(Matrix)
     
     #= Integration of the elements.=#
     
-    I_11,est = quadgk(f_11, 1.e-6, 10^9, rtol=1e-10)
-    I_12,est = quadgk(f_12, 1.e-6, 10^9, rtol=1e-10)
-    I_21,est = quadgk(f_21, 1.e-6, 10^9, rtol=1e-10)
-    I_22,est = quadgk(f_22, 1.e-6, 10^9, rtol=1e-10)
+    I_11,est = quadgk(f_11, 1.e-6, 10^4, rtol=1e-6)
+    I_12,est = quadgk(f_12, 1.e-6, 10^4, rtol=1e-6)
+    I_21,est = quadgk(f_21, 1.e-6, 10^4, rtol=1e-6)
+    I_22,est = quadgk(f_22, 1.e-6, 10^4, rtol=1e-6)
     
     # Returns the B matrix.
     return [[I_11 I_12]; [I_21 I_22]]
