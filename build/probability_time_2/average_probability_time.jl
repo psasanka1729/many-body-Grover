@@ -205,7 +205,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:120
+for i=1:100
     global psi = U*psi
     p_0 = abs(psi[1])^2
     p_xbar = Pxbar(psi)
@@ -219,8 +219,8 @@ using LsqFit
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 
 # Define the first order data set.
-xdata = [i for i = 50:70];
-ydata = p_0l[50:70]
+xdata = [i for i = 50:60];
+ydata = p_0l[50:60]
 
 # Define an initial guess for the parameters
 p0 = [  0.03,   0.03,   0.2, 9]
@@ -237,8 +237,8 @@ phi_1 = fit.param[4]
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 
 # Define the second order data set
-xdata = [i for i = 50:120];
-ydata = p_0l[50:120]
+xdata = [i for i = 50:100];
+ydata = p_0l[50:100]
 
 # Define an initial guess for the parameters
 p0 = [  A_1,   B_1,   omega_1, phi_1]
