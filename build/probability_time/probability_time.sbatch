@@ -3,14 +3,14 @@
 #SBATCH --job-name=probability_time
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=debug
 #
 # Processors:
 #SBATCH --ntasks=32
 #SBATCH --nodes=2
 #
 # Wall clock limit:
-#SBATCH --time=7-00:00:00
+#SBATCH --time=2:00:00
 #
 # Email at end:
 #SBATCH --mail-user=sxd190113@utdallas.edu
