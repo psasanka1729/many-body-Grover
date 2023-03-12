@@ -219,11 +219,11 @@ using LsqFit
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 
 # Define the first order data set.
-xdata = [i for i = 50:55];
-ydata = p_0l[50:55]
+xdata = [i for i = 50:60];
+ydata = p_0l[50:60]
 
 # Define an initial guess for the parameters
-p0 = [  0.14,   0.14,   0.12, 28.20]
+p0 = [  0.09,   -0.09,   0.16, 12.47]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
