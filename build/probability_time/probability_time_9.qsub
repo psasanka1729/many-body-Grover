@@ -9,8 +9,8 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=Grover_probability_time.jl
-HELPER="16_new_Grover_gates_data.txt"
+EXEC=probability_fit_data.jl
+HELPER="10_new_Grover_gates_data.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
 cp $EXEC $SCRATCH_DIR/
@@ -20,7 +20,7 @@ then
 fi
 cd $SCRATCH_DIR/
 
-{ time julia ./$EXEC 0.09; } > temp.out 2> error.err
+{ time julia ./$EXEC 9; } > temp.out 2> error.err
 
 if [ "$(pwd)" == $SCRATCH_DIR ]; then
     echo "Removing files"
