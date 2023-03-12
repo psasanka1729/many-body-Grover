@@ -1,11 +1,11 @@
-L = 16;
+L = 12;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"16_new_Grover_gates_data.txt" # Change for every L.
+file = raw"12_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -26,8 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-# Good seeds = 10, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 1945
+SEED = 100000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -179,8 +178,6 @@ function Grover_operator(DELTA)
     return GROVER_DELTA
 end;
 
-U = Grover_operator(0.25);
-
 py"""
 f = open('probability_data'+'.txt', 'w')
 def Write_file(p1, p2, i):
@@ -197,8 +194,9 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
+U = Grover_operator(0.04);
 
+Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 p_0l = []
 p_x_barl = []
 psi = Psi_0(L);
@@ -207,7 +205,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:1000
+for i=1:100
     global psi = U*psi
     p_0 = abs(psi[1])^2
     p_xbar = Pxbar(psi)
@@ -215,3 +213,52 @@ for i=1:1000
     push!(p_0l,p_0)
     push!(p_x_barl,p_xbar)
 end;
+
+using LsqFit
+
+model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
+
+# Define the first order data set.
+xdata = [i for i = 50:55];
+ydata = p_0l[50:55]
+
+# Define an initial guess for the parameters
+p0 = [  0.18,   0.18,   0.11, 15]
+
+# Call the curve_fit function
+fit = curve_fit(model, xdata, ydata, p0)
+
+# Extract the best-fit parameters
+A_1 = fit.param[1]
+B_1 = fit.param[2]
+omega_1 = fit.param[3]
+phi_1 = fit.param[4]
+
+model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
+
+# Define the second order data set
+xdata = [i for i = 50:100];
+ydata = p_0l[50:100]
+
+# Define an initial guess for the parameters
+p0 = [  A_1,   B_1,   omega_1, phi_1]
+
+# Call the curve_fit function
+fit = curve_fit(model, xdata, ydata, p0)
+
+# Extract the best-fit parameters
+A_2 = fit.param[1]
+B_2 = fit.param[2]
+omega_2 = fit.param[3]
+phi_2 = fit.param[4]
+
+#scatter(xdata,ydata)
+#plot!(xdata,A_2 .+ B_2 .* cos.(omega_2 .* xdata .+ phi_2))
+
+py"""
+f = open('fitted_data'+'.txt', 'w')
+def Write_file_fit(A, B, omega, phi, error):
+    f = open('fitted_data'+'.txt', 'a')
+    f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) + '\t' +str(error) + '\n')
+"""
+py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[100]-(A_2+B_2*cos(omega_2*100+phi_2)))
