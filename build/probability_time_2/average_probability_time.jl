@@ -194,7 +194,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-U = Grover_operator(0.03);
+U = Grover_operator(0.05);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 p_0l = []
@@ -223,7 +223,7 @@ xdata = [i for i = 50:55];
 ydata = p_0l[50:55]
 
 # Define an initial guess for the parameters
-p0 = [  0.25,   0.25,   0.09, 15.65]
+p0 = [  0.14,   0.14,   0.12, 28.20]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
