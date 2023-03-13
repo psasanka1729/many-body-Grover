@@ -257,3 +257,8 @@ probability_time_2_8.qsub: line 21: cd: /home/sxd190113/scratch/probability_time
 probability_time_2_3.qsub: line 21: cd: /home/sxd190113/scratch/probability_time_2/b3/: Stale file handle
 probability_time_2_1.qsub: line 21: cd: /home/sxd190113/scratch/probability_time_2/b1/: Stale file handle
 probability_time_2_0.qsub: line 21: cd: /home/sxd190113/scratch/probability_time_2/b0/: Stale file handle
+slurmstepd: error: *** JOB 520553 ON compute-7-3-37 CANCELLED AT 2023-03-13T16:06:32 DUE TO NODE FAILURE, SEE SLURMCTLD LOG FOR DETAILS ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
