@@ -129,3 +129,8 @@ Launcher: Task 17 running job 18 on compute-7-2-38 (bash h_eff_energies_17.qsub)
 Launcher: Task 23 running job 24 on compute-7-2-38 (bash h_eff_energies_23.qsub)
 Launcher: Task 20 running job 21 on compute-7-2-38 (bash h_eff_energies_20.qsub)
 Launcher: Task 28 running job 29 on compute-7-2-38 (bash h_eff_energies_28.qsub)
+slurmstepd: error: *** JOB 519474 ON compute-7-2-37 CANCELLED AT 2023-03-13T09:21:49 DUE TO TIME LIMIT ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
