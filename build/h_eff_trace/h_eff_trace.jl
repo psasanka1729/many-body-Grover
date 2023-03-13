@@ -25,7 +25,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 4000+parse(Int64,ARGS[1])
+SEED = 10000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -173,9 +173,6 @@ V = py"eigu"(G_exact)[2];
 function H_eff_Matrix(DELTA)
     
     U_list = [];
-    #U_noise_list = [];
-    #U_x_delta = sparse(Identity(2^L));
-    #ux_list = []
     NOISE_list = []
 
     Gates_data_new_1 = []
@@ -189,14 +186,11 @@ function H_eff_Matrix(DELTA)
             
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)
-            #h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            #U_x_delta *= h_matrix
         
             push!(Gates_data_new_1,"H")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i])
         
-            #push!(U_noise_list,h_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
             
@@ -204,14 +198,11 @@ function H_eff_Matrix(DELTA)
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            #x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            #U_x_delta *= x_matrix
         
             push!(Gates_data_new_1,"X")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i]) 
         
-            #push!(U_noise_list,x_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
             
@@ -219,53 +210,40 @@ function H_eff_Matrix(DELTA)
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            #z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            #U_x_delta *= z_matrix
         
             push!(Gates_data_new_1,"Z")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i]) 
         
-            #push!(U_noise_list,z_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
             
         else
-            #push!(ux_list,"CRX")
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            #rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            #U_x_delta *= rx_matrix
         
             push!(Gates_data_new_1,Gates_data_1[i])
             push!(Gates_data_new_2,Gates_data_2[i])
             push!(Gates_data_new_3,Gates_data_3[i])
         
-            #push!(U_noise_list,rx_matrix) # Noise.
         
             push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiselss.
             
         end
     end
     
-    #U_0_delta = sparse(Identity(2^L));
     
-    #u0_list = []
-    # U_0
     for i = 1 : U_0_gate_number
         if Gates_data_1[i] == "H"
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            #h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            #U_0_delta *= h_matrix
         
             push!(Gates_data_new_1,"H")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i])
         
-            #push!(U_noise_list,h_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
             
@@ -274,14 +252,10 @@ function H_eff_Matrix(DELTA)
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            #x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            #U_0_delta *= x_matrix
         
             push!(Gates_data_new_1,"X")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-            #push!(U_noise_list,x_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
             
@@ -289,37 +263,29 @@ function H_eff_Matrix(DELTA)
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            #z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            #U_x_delta *= z_matrix
         
             push!(Gates_data_new_1,"Z")
             push!(Gates_data_new_2,0.0)
             push!(Gates_data_new_3,Gates_data_3[i]) 
         
-            #push!(U_noise_list,z_matrix) # Noise.
         
             push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
             
         else
-            #push!(u0_list,"CRX")
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            #rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            #U_0_delta *= rx_matrix
         
             push!(Gates_data_new_1,Gates_data_1[i])
             push!(Gates_data_new_2,Gates_data_2[i])
             push!(Gates_data_new_3,Gates_data_3[i])
         
-            #push!(U_noise_list,rx_matrix) # Noise.
         
             push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiseless.
             
         end
     end
         
-    #GROVER_DELTA = U_x_delta*U_0_delta
     
     function kth_term(k)
 
@@ -381,6 +347,7 @@ end;
 
 h_eff_matrix = H_eff_Matrix(0.0);
 
+#=
 py"""
 f = open('h_eff_trace_data'+'.txt', 'w')
 def Write_file1(trace):
@@ -388,7 +355,7 @@ def Write_file1(trace):
     f.write(str(trace) +'\n')
 """
 py"Write_file1"(real(tr(h_eff_matrix*h_eff_matrix)))
-
+=#
     
 py"""
 f = open('h_eff_energy_data'+'.txt', 'w')
@@ -404,7 +371,7 @@ for i = 1:2^L-2 # length of the eigenvector array.
     py"Write_file2"(i,E_eff_sorted[i])
 end
 
-
+#=
 py"""
 f = open('h_eff_delta_En_data'+'.txt', 'w')
 def Write_file3(index, energy):
@@ -414,7 +381,7 @@ def Write_file3(index, energy):
 for i = 2:2^L-2 # relative index i.e length of the eigenvector array.
     py"Write_file3"(i,E_eff_sorted[i]-E_eff_sorted[i-1])
 end
-
+=#
 
 py"""
 f = open('level_statistics_data'+'.txt', 'w')

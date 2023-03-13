@@ -129,3 +129,51 @@ Launcher: Task 8 running job 9 on compute-7-6-29 (bash KLd_10_run_1_8.qsub)
 Launcher: Task 12 running job 13 on compute-7-6-29 (bash KLd_10_run_1_12.qsub)
 Launcher: Task 10 running job 11 on compute-7-6-29 (bash KLd_10_run_1_10.qsub)
 Launcher: Task 14 running job 15 on compute-7-6-29 (bash KLd_10_run_1_14.qsub)
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b10/KL_divergence_h_eff.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b2/KL_divergence_h_eff.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b7/KL_divergence_h_eff.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b3/KL_divergence_h_eff.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b9/KL_divergence_h_eff.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b12/KL_divergence_h_eff.jl'cp: : No space left on devicecannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b14/KL_divergence_h_eff.jl'
+: No space left on device
+cp: cp: cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b5/KL_divergence_h_eff.jl'cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b6/KL_divergence_h_eff.jl'cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b1/KL_divergence_h_eff.jl': No space left on device: No space left on device
+
+: No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b0/KL_divergence_h_eff.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b15/KL_divergence_h_eff.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b11/KL_divergence_h_eff.jl': No space left on device
+cp: cp: failed to access '/home/sxd190113/scratch/KLd_10_run_1/b11/'failed to access '/home/sxd190113/scratch/KLd_10_run_1/b15/'cp: cp: : Stale file handlefailed to access '/home/sxd190113/scratch/KLd_10_run_1/b14/': Stale file handle
+failed to access '/home/sxd190113/scratch/KLd_10_run_1/b2/'
+: Stale file handle: Stale file handle
+
+cp: failed to access '/home/sxd190113/scratch/KLd_10_run_1/b1/': Stale file handle
+cp: cp: cp: failed to access '/home/sxd190113/scratch/KLd_10_run_1/b5/'failed to access '/home/sxd190113/scratch/KLd_10_run_1/b6/'failed to access '/home/sxd190113/scratch/KLd_10_run_1/b10/': Stale file handle: Stale file handle
+: Stale file handle
+
+cp: failed to access '/home/sxd190113/scratch/KLd_10_run_1/b0/': Stale file handlecp: 
+failed to access '/home/sxd190113/scratch/KLd_10_run_1/b12/': Stale file handlecp: 
+cp: failed to access '/home/sxd190113/scratch/KLd_10_run_1/b3/'failed to access '/home/sxd190113/scratch/KLd_10_run_1/b7/': Stale file handle
+: Stale file handle
+cp: failed to access '/home/sxd190113/scratch/KLd_10_run_1/b9/': Stale file handle
+KLd_10_run_1_2.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b2/: Stale file handle
+KLd_10_run_1_14.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b14/: Stale file handle
+KLd_10_run_1_15.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b15/: Stale file handle
+KLd_10_run_1_11.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b11/: Stale file handle
+KLd_10_run_1_5.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b5/: Stale file handle
+KLd_10_run_1_12.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b12/: Stale file handle
+KLd_10_run_1_3.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b3/: Stale file handle
+KLd_10_run_1_6.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b6/: Stale file handle
+KLd_10_run_1_10.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b10/: Stale file handle
+KLd_10_run_1_0.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b0/: Stale file handle
+KLd_10_run_1_7.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b7/: Stale file handle
+KLd_10_run_1_1.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b1/: Stale file handle
+KLd_10_run_1_9.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b9/: Stale file handle
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b13/KL_divergence_h_eff.jl': No space left on device
+cp: failed to access '/home/sxd190113/scratch/KLd_10_run_1/b13/': Stale file handle
+KLd_10_run_1_13.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b13/: Stale file handle
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b8/KL_divergence_h_eff.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b4/KL_divergence_h_eff.jl': No space left on device
+cp: failed to access '/home/sxd190113/scratch/KLd_10_run_1/b8/': Stale file handle
+KLd_10_run_1_8.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b8/: Stale file handle
+cp: failed to access '/home/sxd190113/scratch/KLd_10_run_1/b4/': Stale file handle
+KLd_10_run_1_4.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b4/: Stale file handle
