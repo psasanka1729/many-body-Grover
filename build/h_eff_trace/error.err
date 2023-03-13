@@ -1,1 +1,6 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
+h_eff_trace_33.qsub: line 23: 102058 Killed                  julia ./$EXEC 33
+
+real	102m18.188s
+user	7m39.734s
+sys	0m51.336s
