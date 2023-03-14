@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 SEED = 100000+parse(Int64,ARGS[1])
-Delta = 0.01
+Delta = 0.02
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -224,7 +224,7 @@ xdata = [i for i = 50:70];
 ydata = p_0l[50:70]
 
 # Define an initial guess for the parameters
-p0 = [  0.24,   0.24,   0.1, -6.54]
+p0 = [  0.24,   0.24,   0.12, -6.54]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
