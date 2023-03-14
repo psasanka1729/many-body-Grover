@@ -1,32 +1,36 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-h_eff_trace_35.qsub: line 23: 102051 Killed                  julia ./$EXEC 35
+ERROR: LoadError: PyError ($(Expr(:escape, :(ccall(#= /home/sxd190113/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:43 =# @pysym(:PyObject_Call), PyPtr, (PyPtr, PyPtr, PyPtr), o, pyargsptr, kw))))) <type 'exceptions.MemoryError'>
+MemoryError()
+  File "/home/sxd190113/.julia/packages/PyCall/ygXW2/src/pyeval.jl", line 49, in eigu
+    This evaluates `s` as a Python string and returns the result converted to `rtype` (which defaults to `PyAny`). The remaining arguments are keywords that define local variables to be used in the expression.
 
-real	487m21.710s
-user	0m6.603s
-sys	2m42.935s
-inlined]
-  [3] Array
-    @ ./boot.jl:474 [inlined]
-  [4] similar
-    @ ./abstractarray.jl:829 [inlined]
-  [5] similar
-    @ ./abstractarray.jl:828 [inlined]
-  [6] similar
-    @ ./broadcast.jl:212 [inlined]
-  [7] similar
-    @ ./broadcast.jl:211 [inlined]
-  [8] copy
-    @ ./broadcast.jl:885 [inlined]
-  [9] materialize
-    @ ./broadcast.jl:860 [inlined]
- [10] broadcast_preserving_zero_d
-    @ ./broadcast.jl:849 [inlined]
- [11] -(A::Matrix{Float64}, B::Matrix{Int64})
-    @ Base ./arraymath.jl:39
+Stacktrace:
+  [1] pyerr_check
+    @ ~/.julia/packages/PyCall/ygXW2/src/exception.jl:62 [inlined]
+  [2] pyerr_check
+    @ ~/.julia/packages/PyCall/ygXW2/src/exception.jl:66 [inlined]
+  [3] _handle_error(msg::String)
+    @ PyCall ~/.julia/packages/PyCall/ygXW2/src/exception.jl:83
+  [4] macro expansion
+    @ ~/.julia/packages/PyCall/ygXW2/src/exception.jl:97 [inlined]
+  [5] #107
+    @ ~/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:43 [inlined]
+  [6] disable_sigint
+    @ ./c.jl:458 [inlined]
+  [7] __pycall!
+    @ ~/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:42 [inlined]
+  [8] _pycall!(ret::PyObject, o::PyObject, args::Tuple{Matrix{Float64}}, nargs::Int64, kw::Ptr{Nothing})
+    @ PyCall ~/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:29
+  [9] _pycall!
+    @ ~/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:11 [inlined]
+ [10] #_#114
+    @ ~/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:86 [inlined]
+ [11] (::PyObject)(args::Matrix{Float64})
+    @ PyCall ~/.julia/packages/PyCall/ygXW2/src/pyfncall.jl:86
  [12] top-level scope
-    @ ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:168
-in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:168
+    @ ~/.julia/packages/PyCall/ygXW2/src/pyeval.jl:232
+in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:170
 
-real	408m43.545s
-user	0m8.865s
-sys	2m3.864s
+real	1221m24.851s
+user	176m21.629s
+sys	13m58.432s
