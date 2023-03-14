@@ -1,21 +1,20 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-probability_time_2_31.qsub: line 23: 101577 Killed                  julia ./$EXEC 31
-
-real	817m55.986s
-user	6m51.246s
-sys	13m49.328s
-ned]
+ERROR: LoadError: OutOfMemoryError()
+Stacktrace:
+ [1] _growend!
+   @ ./array.jl:948 [inlined]
+ [2] resize!
+   @ ./array.jl:1173 [inlined]
  [3] spmatmul(A::SparseMatrixCSC{ComplexF64, Int64}, B::SparseMatrixCSC{ComplexF64, Int64})
-   @ SparseArrays /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/SparseArrays/src/linalg.jl:205
+   @ SparseArrays /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/SparseArrays/src/linalg.jl:204
  [4] *(A::SparseMatrixCSC{ComplexF64, Int64}, B::SparseMatrixCSC{ComplexF64, Int64})
    @ SparseArrays /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/SparseArrays/src/linalg.jl:166
  [5] Grover_operator(DELTA::Float64)
-   @ Main ~/many-body-Grover/build/probability_time_2/average_probability_time.jl:134
+   @ Main ~/many-body-Grover/build/probability_time_2/average_probability_time.jl:140
  [6] top-level scope
    @ ~/many-body-Grover/build/probability_time_2/average_probability_time.jl:198
 in expression starting at /home/sxd190113/many-body-Grover/build/probability_time_2/average_probability_time.jl:198
 
-real	756m35.416s
-user	0m48.785s
-sys	4m12.741s
-s
+real	1361m51.393s
+user	6m45.884s
+sys	13m36.601s
