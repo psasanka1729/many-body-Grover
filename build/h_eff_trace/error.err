@@ -1,10 +1,10 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-ERROR: LoadError: OutOfMemoryError()
-Stacktrace:
-  [1] Array
-    @ ./boot.jl:459 [inlined]
-  [2] Array
-    @ ./boot.jl:467 [inlined]
+h_eff_trace_35.qsub: line 23: 102051 Killed                  julia ./$EXEC 35
+
+real	487m21.710s
+user	0m6.603s
+sys	2m42.935s
+inlined]
   [3] Array
     @ ./boot.jl:474 [inlined]
   [4] similar

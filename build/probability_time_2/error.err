@@ -1,23 +1,21 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-ERROR: LoadError: OutOfMemoryError()
-Stacktrace:
- [1] Array
-   @ ./boot.jl:457 [inlined]
- [2] spmatmul(A::SparseMatrixCSC{ComplexF64, Int64}, B::SparseMatrixCSC{ComplexF64, Int64})
-   @ SparseArrays /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/SparseArrays/src/linalg.jl:196
- [3] *(A::SparseMatrixCSC{ComplexF64, Int64}, B::SparseMatrixCSC{ComplexF64, Int64})
+probability_time_2_31.qsub: line 23: 101577 Killed                  julia ./$EXEC 31
+
+real	817m55.986s
+user	6m51.246s
+sys	13m49.328s
+ned]
+ [3] spmatmul(A::SparseMatrixCSC{ComplexF64, Int64}, B::SparseMatrixCSC{ComplexF64, Int64})
+   @ SparseArrays /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/SparseArrays/src/linalg.jl:205
+ [4] *(A::SparseMatrixCSC{ComplexF64, Int64}, B::SparseMatrixCSC{ComplexF64, Int64})
    @ SparseArrays /opt/ohpc/pub/packages/julia/1.7.2/share/julia/stdlib/v1.7/SparseArrays/src/linalg.jl:166
- [4] Grover_operator(DELTA::Float64)
-   @ Main ~/many-body-Grover/build/probability_time_2/average_probability_time.jl:128
- [5] top-level scope
+ [5] Grover_operator(DELTA::Float64)
+   @ Main ~/many-body-Grover/build/probability_time_2/average_probability_time.jl:134
+ [6] top-level scope
    @ ~/many-body-Grover/build/probability_time_2/average_probability_time.jl:198
 in expression starting at /home/sxd190113/many-body-Grover/build/probability_time_2/average_probability_time.jl:198
 
-real	445m46.135s
-user	0m24.296s
-sys	2m49.771s
-8
-
-real	392m24.223s
-user	27m14.117s
-sys	41m8.145s
+real	756m35.416s
+user	0m48.785s
+sys	4m12.741s
+s

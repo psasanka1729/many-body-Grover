@@ -270,3 +270,92 @@ Launcher: Job 36 completed in 24300 seconds.
 Launcher: Task 35 done. Exiting.
 Launcher: Job 26 completed in 26753 seconds.
 Launcher: Task 25 done. Exiting.
+Removing files
+Launcher: Job 56 completed in 28275 seconds.
+Launcher: Task 55 done. Exiting.
+Removing files
+Launcher: Job 51 completed in 28979 seconds.
+Launcher: Task 50 done. Exiting.
+Removing files
+Launcher: Job 58 completed in 30053 seconds.
+Launcher: Task 57 done. Exiting.
+Removing files
+Launcher: Job 35 completed in 30318 seconds.
+Launcher: Task 34 done. Exiting.
+Removing files
+Launcher: Job 34 completed in 30859 seconds.
+Launcher: Task 33 done. Exiting.
+Launcher: Job 13 completed in 32311 seconds.
+Launcher: Task 12 done. Exiting.
+Removing files
+rm: cannot remove ‘average_probability_time.jl’: No such file or directory
+rm: cannot remove ‘14_new_Grover_gates_data.txt’: No such file or directory
+Launcher: Job 61 completed in 32366 seconds.
+Launcher: Task 60 done. Exiting.
+Removing files
+rm: cannot remove ‘average_probability_time.jl’: No such file or directory
+rm: cannot remove ‘14_new_Grover_gates_data.txt’: No such file or directory
+Launcher: Job 63 completed in 32514 seconds.
+Launcher: Task 62 done. Exiting.
+Launcher: Job 17 completed in 32594 seconds.
+Launcher: Task 16 done. Exiting.
+Launcher: Job 20 completed in 32743 seconds.
+Launcher: Task 19 done. Exiting.
+Launcher: Job 31 completed in 33159 seconds.
+Launcher: Task 30 done. Exiting.
+Removing files
+rm: cannot remove 'average_probability_time.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 46 completed in 33519 seconds.
+Launcher: Task 45 done. Exiting.
+Removing files
+rm: cannot remove 'average_probability_time.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 33 completed in 33579 seconds.
+Launcher: Task 32 done. Exiting.
+Launcher: Job 6 completed in 33955 seconds.
+Launcher: Task 5 done. Exiting.
+Removing files
+rm: cannot remove 'average_probability_time.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 39 completed in 34135 seconds.
+Launcher: Task 38 done. Exiting.
+Removing files
+rm: cannot remove 'average_probability_time.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 43 completed in 34521 seconds.
+Launcher: Task 42 done. Exiting.
+Launcher: Job 22 completed in 34669 seconds.
+Launcher: Task 21 done. Exiting.
+Removing files
+rm: cannot remove 'average_probability_time.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 37 completed in 34755 seconds.
+Launcher: Task 36 done. Exiting.
+Launcher: Job 8 completed in 35487 seconds.
+Launcher: Task 7 done. Exiting.
+Launcher: Job 12 completed in 37621 seconds.
+Launcher: Task 11 done. Exiting.
+Launcher: Job 19 completed in 40722 seconds.
+Launcher: Task 18 done. Exiting.
+Removing files
+rm: cannot remove ‘average_probability_time.jl’: No such file or directory
+rm: cannot remove ‘14_new_Grover_gates_data.txt’: No such file or directory
+Launcher: Job 49 completed in 42655 seconds.
+Launcher: Task 48 done. Exiting.
+Launcher: Job 30 completed in 43334 seconds.
+Launcher: Task 29 done. Exiting.
+Launcher: Job 23 completed in 44150 seconds.
+Launcher: Task 22 done. Exiting.
+Launcher: Job 21 completed in 44705 seconds.
+Launcher: Task 20 done. Exiting.
+Launcher: Job 25 completed in 44848 seconds.
+Launcher: Task 24 done. Exiting.
+Launcher: Job 28 completed in 45149 seconds.
+Launcher: Task 27 done. Exiting.
+Launcher: Job 18 completed in 45399 seconds.
+Launcher: Task 17 done. Exiting.
+Launcher: Job 24 completed in 47237 seconds.
+Launcher: Task 23 done. Exiting.
+Launcher: Job 32 completed in 49078 seconds.
+Launcher: Task 31 done. Exiting.

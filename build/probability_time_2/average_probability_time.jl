@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 SEED = 100000+parse(Int64,ARGS[1])
-Delta = 0.02
+Delta = 0.05
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -206,7 +206,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:200
+for i=1:150
     global psi = U*psi
     p_0 = abs(psi[1])^2
     p_xbar = Pxbar(psi)
@@ -224,7 +224,7 @@ xdata = [i for i = 50:70];
 ydata = p_0l[50:70]
 
 # Define an initial guess for the parameters
-p0 = [  0.24,   0.24,   0.12, -6.54]
+p0 = [  0.12,   0.12,   0.31, -6.54]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
@@ -238,8 +238,8 @@ phi_1 = fit.param[4]
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 
 # Define the second order data set
-xdata = [i for i = 70:200];
-ydata = p_0l[70:200]
+xdata = [i for i = 70:150];
+ydata = p_0l[70:150]
 
 # Define an initial guess for the parameters
 p0 = [  A_1,   B_1,   omega_1, phi_1]
