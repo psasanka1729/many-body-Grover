@@ -1,8 +1,32 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-h_eff_trace_46.qsub: line 23: 102026 Killed                  julia ./$EXEC 46
+ERROR: LoadError: OutOfMemoryError()
+Stacktrace:
+  [1] Array
+    @ ./boot.jl:459 [inlined]
+  [2] Array
+    @ ./boot.jl:467 [inlined]
+  [3] Array
+    @ ./boot.jl:474 [inlined]
+  [4] similar
+    @ ./abstractarray.jl:829 [inlined]
+  [5] similar
+    @ ./abstractarray.jl:828 [inlined]
+  [6] similar
+    @ ./broadcast.jl:212 [inlined]
+  [7] similar
+    @ ./broadcast.jl:211 [inlined]
+  [8] copy
+    @ ./broadcast.jl:885 [inlined]
+  [9] materialize
+    @ ./broadcast.jl:860 [inlined]
+ [10] broadcast_preserving_zero_d
+    @ ./broadcast.jl:849 [inlined]
+ [11] -(A::Matrix{Float64}, B::Matrix{Int64})
+    @ Base ./arraymath.jl:39
+ [12] top-level scope
+    @ ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:168
+in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:168
 
-real	258m8.520s
-user	0m6.375s
-sys	1m32.330s
-
-
+real	408m43.545s
+user	0m8.865s
+sys	2m3.864s

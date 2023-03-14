@@ -257,3 +257,14 @@ Launcher: Task 33 running job 34 on compute-7-6-15 (bash probability_time_2_33.q
 Launcher: Task 45 running job 46 on compute-7-6-15 (bash probability_time_2_45.qsub)
 Launcher: Task 47 running job 48 on compute-7-6-15 (bash probability_time_2_47.qsub)
 Launcher: Task 37 running job 38 on compute-7-6-15 (bash probability_time_2_37.qsub)
+Removing files
+Launcher: Job 59 completed in 22302 seconds.
+Launcher: Task 58 done. Exiting.
+Launcher: Job 14 completed in 23546 seconds.
+Launcher: Task 13 done. Exiting.
+Removing files
+Launcher: Job 60 completed in 24210 seconds.
+Launcher: Task 59 done. Exiting.
+Removing files
+Launcher: Job 36 completed in 24300 seconds.
+Launcher: Task 35 done. Exiting.
