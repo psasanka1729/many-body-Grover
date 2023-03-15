@@ -361,3 +361,5 @@ Launcher: Job 32 completed in 49078 seconds.
 Launcher: Task 31 done. Exiting.
 Launcher: Job 11 completed in 81712 seconds.
 Launcher: Task 10 done. Exiting.
+slurmstepd: error: *** JOB 520553 ON compute-7-3-37 CANCELLED AT 2023-03-14T21:11:42 ***
+Killed by signal 15.
