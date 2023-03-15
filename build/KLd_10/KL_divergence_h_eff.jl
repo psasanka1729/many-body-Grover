@@ -432,7 +432,6 @@ function Eigenvectors(DELTA)
     return h_eff_eigenvectors
 end;
 
-H_eff_Eigvecs = Eigenvectors(0.0);
 
 function KLd(Eigenvectors_Matrix)
     KL = []
