@@ -1,1 +1,35 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
+h_eff_trace_39.qsub: line 23: 24582 Killed                  julia ./$EXEC 39
+
+real	357m25.854s
+user	0m6.423s
+sys	1m40.188s
+s
+nlined]
+  [3] Array
+    @ ./boot.jl:474 [inlined]
+  [4] similar
+    @ ./abstractarray.jl:829 [inlined]
+  [5] similar
+    @ ./abstractarray.jl:828 [inlined]
+  [6] similar
+    @ ./broadcast.jl:212 [inlined]
+  [7] similar
+    @ ./broadcast.jl:211 [inlined]
+  [8] copy
+    @ ./broadcast.jl:885 [inlined]
+  [9] materialize
+    @ ./broadcast.jl:860 [inlined]
+ [10] broadcast_preserving_zero_d
+    @ ./broadcast.jl:849 [inlined]
+ [11] *(A::Int64, B::Matrix{Bool})
+    @ Base ./arraymath.jl:52
+ [12] Identity(dimension::Int64)
+    @ Main ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:39
+ [13] top-level scope
+    @ ~/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:168
+in expression starting at /home/sxd190113/many-body-Grover/build/h_eff_trace/h_eff_trace.jl:168
+
+real	185m49.238s
+user	0m8.290s
+sys	0m50.824s

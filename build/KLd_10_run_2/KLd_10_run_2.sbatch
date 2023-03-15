@@ -3,7 +3,7 @@
 #SBATCH --job-name=KLd_10_run_2
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=smallmem
 #
 # Processors:
 #SBATCH --ntasks=64

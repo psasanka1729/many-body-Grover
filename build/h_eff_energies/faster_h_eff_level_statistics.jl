@@ -167,7 +167,7 @@ U_0[1,1] = -1
 A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
-V = py"eigu"(G_exact)[2];
+#V = py"eigu"(G_exact)[2];
 
 #DELTA = 0.01
 function H_eff_Eigenvalues(DELTA)
