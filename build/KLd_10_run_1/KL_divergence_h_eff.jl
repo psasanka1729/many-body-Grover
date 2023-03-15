@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 50000+parse(Int64,ARGS[1])
+SEED = 40000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -437,7 +437,6 @@ function Eigenvectors(DELTA)
     return h_eff_eigenvectors
 end;
 
-H_eff_Eigvecs = Eigenvectors(0.0);
 
 function KLd(Eigenvectors_Matrix)
     KL = []
