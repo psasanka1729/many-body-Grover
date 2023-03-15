@@ -1,9 +1,10 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-h_eff_trace_39.qsub: line 23: 24582 Killed                  julia ./$EXEC 39
+h_eff_trace_47.qsub: line 23: 24586 Killed                  julia ./$EXEC 47
 
-real	357m25.854s
-user	0m6.423s
-sys	1m40.188s
+real	468m41.611s
+user	0m6.616s
+sys	3m1.143s
+
 s
 nlined]
   [3] Array
