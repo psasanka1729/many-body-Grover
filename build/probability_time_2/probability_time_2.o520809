@@ -321,3 +321,8 @@ Launcher: Task 11 done. Exiting.
 Removing files
 Launcher: Job 11 completed in 32689 seconds.
 Launcher: Task 10 done. Exiting.
+Removing files
+rm: cannot remove 'average_probability_time.jl': Stale file handle
+rm: cannot remove '14_new_Grover_gates_data.txt': Stale file handle
+Launcher: Job 52 completed in 43780 seconds.
+Launcher: Task 51 done. Exiting.

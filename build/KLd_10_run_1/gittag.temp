@@ -1,3 +1,15 @@
+commit 9f49ae1aa80dc121e28d6224ed6f323f6f7c7573
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 10:43:20 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit ce4ddb5b1a932e329b2040ad30725675ebc5b0bf
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 10:38:33 2023 -0500
+
+    faster h_eff is used
+
 commit 029994e966e37af5139547395a919094501eb68f
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Thu Mar 16 10:34:32 2023 -0500
