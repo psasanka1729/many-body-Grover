@@ -9,7 +9,7 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=KL_divergence_h_eff.jl
+EXEC=faster_h_eff_KLd.jl
 HELPER="10_new_Grover_gates_data.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
