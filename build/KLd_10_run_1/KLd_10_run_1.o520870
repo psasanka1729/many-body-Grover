@@ -337,3 +337,37 @@ KLd_10_run_1_16.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b16/: St
 KLd_10_run_1_20.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b20/: Stale file handle
 KLd_10_run_1_24.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b24/: Stale file handle
 KLd_10_run_1_28.qsub: line 21: cd: /home/sxd190113/scratch/KLd_10_run_1/b28/: Stale file handle
+Launcher: Job 21 completed in 324 seconds.
+Launcher: Job 32 completed in 324 seconds.
+Launcher: Job 18 completed in 324 seconds.
+Launcher: Job 19 completed in 324 seconds.
+Launcher: Job 30 completed in 324 seconds.
+Launcher: Job 20 completed in 324 seconds.
+Launcher: Job 25 completed in 324 seconds.
+Launcher: Job 23 completed in 324 seconds.
+Launcher: Job 24 completed in 324 seconds.
+Launcher: Job 31 completed in 324 seconds.
+Launcher: Job 27 completed in 324 seconds.
+Launcher: Job 17 completed in 324 seconds.
+Launcher: Job 26 completed in 324 seconds.
+Launcher: Job 28 completed in 324 seconds.
+Launcher: Job 22 completed in 324 seconds.
+Launcher: Job 29 completed in 324 seconds.
+Launcher: Task 20 done. Exiting.
+Launcher: Task 30 done. Exiting.
+Launcher: Task 26 done. Exiting.
+Launcher: Task 31 done. Exiting.
+Launcher: Task 16 done. Exiting.
+Launcher: Task 17 done. Exiting.
+Launcher: Task 25 done. Exiting.
+Launcher: Task 27 done. Exiting.
+Launcher: Task 18 done. Exiting.
+Launcher: Task 29 done. Exiting.
+Launcher: Task 19 done. Exiting.
+Launcher: Task 22 done. Exiting.
+Launcher: Task 28 done. Exiting.
+Launcher: Task 24 done. Exiting.
+Launcher: Task 21 done. Exiting.
+Launcher: Task 23 done. Exiting.
+Launcher: Done. Job exited without errors
+Job KLd_10_run_1 complete
