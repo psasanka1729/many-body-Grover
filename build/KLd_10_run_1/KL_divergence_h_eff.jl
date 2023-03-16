@@ -170,7 +170,7 @@ A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
 # V(x_bar basis) = (Z basis).
-V = py"eigu"(G_exact)[2];=#
+#V = py"eigu"(G_exact)[2];=#
 
 function x_bar(n)
     k_n = (2*pi*n)/(2^L-2)
