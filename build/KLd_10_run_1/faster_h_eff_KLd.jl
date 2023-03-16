@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 70000+parse(Int64,ARGS[1])
+SEED = 20000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -437,7 +437,7 @@ using NPZ
 
 KLd_calculated = KLd(H_eff_Eigvecs)
 KLD = Array{Float64, 1}(undef, 0)
-for k = 1:2^L-1
+for k = 1:length(KLd_calculated)
     push!(KLD,KLd_calculated[k])
 end
 
