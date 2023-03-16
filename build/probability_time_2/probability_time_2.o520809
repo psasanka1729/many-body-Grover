@@ -331,3 +331,13 @@ rm: cannot remove 'average_probability_time.jl': Stale file handle
 rm: cannot remove '14_new_Grover_gates_data.txt': Stale file handle
 Launcher: Job 49 completed in 55447 seconds.
 Launcher: Task 48 done. Exiting.
+Removing files
+rm: cannot remove 'average_probability_time.jl': Stale file handle
+rm: cannot remove '14_new_Grover_gates_data.txt': Stale file handle
+Launcher: Job 63 completed in 55725 seconds.
+Launcher: Task 62 done. Exiting.
+Removing files
+rm: cannot remove 'average_probability_time.jl': Stale file handle
+rm: cannot remove '14_new_Grover_gates_data.txt': Stale file handle
+Launcher: Job 62 completed in 56188 seconds.
+Launcher: Task 61 done. Exiting.
