@@ -25,7 +25,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = parse(Int64,ARGS[1])
+SEED = 4000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -167,7 +167,7 @@ U_0[1,1] = -1
 A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
-V = py"eigu"(G_exact)[2];
+#V = py"eigu"(G_exact)[2];
 
 #DELTA = 0.01
 function H_eff_Eigenvalues(DELTA)

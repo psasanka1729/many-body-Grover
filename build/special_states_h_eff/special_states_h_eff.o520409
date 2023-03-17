@@ -129,3 +129,7 @@ Launcher: Task 53 running job 54 on compute-7-6-10 (bash special_states_h_eff_53
 Launcher: Task 60 running job 61 on compute-7-6-10 (bash special_states_h_eff_60.qsub)
 Launcher: Task 58 running job 59 on compute-7-6-10 (bash special_states_h_eff_58.qsub)
 Launcher: Task 49 running job 50 on compute-7-6-10 (bash special_states_h_eff_49.qsub)
+slurmstepd: error: *** JOB 520409 ON compute-7-2-36 CANCELLED AT 2023-03-16T22:53:59 DUE TO TIME LIMIT ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
