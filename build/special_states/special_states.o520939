@@ -1,0 +1,23 @@
+Starting job special_states
+WARNING (03/17/23 00:11:41): LAUNCHER_WORKDIR variable not set. Using current directory.
+Launcher: Setup complete.
+
+------------- SUMMARY ---------------
+   Number of hosts:    8
+   Working directory:  /home/sxd190113/many-body-Grover/build/special_states
+   Processes per host: 16
+   Total processes:    128
+   Total jobs:         128
+   Scheduling method:  interleaved
+
+-------------------------------------
+Launcher: Starting parallel tasks...
+using /tmp/launcher.520939.hostlist.mESV8w09 to get hosts
+starting job on compute-7-6-3
+starting job on compute-7-6-22
+starting job on compute-7-6-27
+starting job on compute-7-6-31
+starting job on compute-7-6-32
+starting job on compute-7-6-33
+starting job on compute-7-6-35
+starting job on compute-7-6-36
