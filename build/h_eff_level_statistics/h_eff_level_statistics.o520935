@@ -1,0 +1,247 @@
+Starting job h_eff_level_statistics
+WARNING (03/16/23 23:41:31): LAUNCHER_WORKDIR variable not set. Using current directory.
+Launcher: Setup complete.
+
+------------- SUMMARY ---------------
+   Number of hosts:    8
+   Working directory:  /home/sxd190113/many-body-Grover/build/h_eff_level_statistics
+   Processes per host: 16
+   Total processes:    128
+   Total jobs:         128
+   Scheduling method:  interleaved
+
+-------------------------------------
+Launcher: Starting parallel tasks...
+using /tmp/launcher.520935.hostlist.QdVNaNcB to get hosts
+starting job on compute-7-2-36
+starting job on compute-7-2-37
+starting job on compute-7-2-38
+starting job on compute-7-3-27
+starting job on compute-7-3-31
+starting job on compute-7-3-33
+starting job on compute-7-3-39
+starting job on compute-7-6-10
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Launcher: Task 8 running job 9 on compute-7-2-36 (bash h_eff_level_statistics_8.qsub)
+Launcher: Task 7 running job 8 on compute-7-2-36 (bash h_eff_level_statistics_7.qsub)
+Launcher: Task 1 running job 2 on compute-7-2-36 (bash h_eff_level_statistics_1.qsub)
+Launcher: Task 5 running job 6 on compute-7-2-36 (bash h_eff_level_statistics_5.qsub)
+Launcher: Task 12 running job 13 on compute-7-2-36 (bash h_eff_level_statistics_12.qsub)
+Launcher: Task 9 running job 10 on compute-7-2-36 (bash h_eff_level_statistics_9.qsub)
+Launcher: Task 15 running job 16 on compute-7-2-36 (bash h_eff_level_statistics_15.qsub)
+Launcher: Task 6 running job 7 on compute-7-2-36 (bash h_eff_level_statistics_6.qsub)
+Launcher: Task 13 running job 14 on compute-7-2-36 (bash h_eff_level_statistics_13.qsub)
+Launcher: Task 2 running job 3 on compute-7-2-36 (bash h_eff_level_statistics_2.qsub)
+Launcher: Task 0 running job 1 on compute-7-2-36 (bash h_eff_level_statistics_0.qsub)
+Launcher: Task 10 running job 11 on compute-7-2-36 (bash h_eff_level_statistics_10.qsub)
+Launcher: Task 11 running job 12 on compute-7-2-36 (bash h_eff_level_statistics_11.qsub)
+Launcher: Task 4 running job 5 on compute-7-2-36 (bash h_eff_level_statistics_4.qsub)
+Launcher: Task 3 running job 4 on compute-7-2-36 (bash h_eff_level_statistics_3.qsub)
+Launcher: Task 14 running job 15 on compute-7-2-36 (bash h_eff_level_statistics_14.qsub)
+Launcher: Task 65 running job 66 on compute-7-3-31 (bash h_eff_level_statistics_65.qsub)
+Launcher: Task 73 running job 74 on compute-7-3-31 (bash h_eff_level_statistics_73.qsub)
+Launcher: Task 78 running job 79 on compute-7-3-31 (bash h_eff_level_statistics_78.qsub)
+Launcher: Task 74 running job 75 on compute-7-3-31 (bash h_eff_level_statistics_74.qsub)
+Launcher: Task 75 running job 76 on compute-7-3-31 (bash h_eff_level_statistics_75.qsub)
+Launcher: Task 64 running job 65 on compute-7-3-31 (bash h_eff_level_statistics_64.qsub)
+Launcher: Task 71 running job 72 on compute-7-3-31 (bash h_eff_level_statistics_71.qsub)
+Launcher: Task 66 running job 67 on compute-7-3-31 (bash h_eff_level_statistics_66.qsub)
+Launcher: Task 72 running job 73 on compute-7-3-31 (bash h_eff_level_statistics_72.qsub)
+Launcher: Task 69 running job 70 on compute-7-3-31 (bash h_eff_level_statistics_69.qsub)
+Launcher: Task 67 running job 68 on compute-7-3-31 (bash h_eff_level_statistics_67.qsub)
+Launcher: Task 77 running job 78 on compute-7-3-31 (bash h_eff_level_statistics_77.qsub)
+Launcher: Task 79 running job 80 on compute-7-3-31 (bash h_eff_level_statistics_79.qsub)
+Launcher: Task 70 running job 71 on compute-7-3-31 (bash h_eff_level_statistics_70.qsub)
+Launcher: Task 68 running job 69 on compute-7-3-31 (bash h_eff_level_statistics_68.qsub)
+Launcher: Task 76 running job 77 on compute-7-3-31 (bash h_eff_level_statistics_76.qsub)
+Launcher: Task 111 running job 112 on compute-7-3-39 (bash h_eff_level_statistics_111.qsub)
+Launcher: Task 100 running job 101 on compute-7-3-39 (bash h_eff_level_statistics_100.qsub)
+Launcher: Task 103 running job 104 on compute-7-3-39 (bash h_eff_level_statistics_103.qsub)
+Launcher: Task 109 running job 110 on compute-7-3-39 (bash h_eff_level_statistics_109.qsub)
+Launcher: Task 99 running job 100 on compute-7-3-39 (bash h_eff_level_statistics_99.qsub)
+Launcher: Task 105 running job 106 on compute-7-3-39 (bash h_eff_level_statistics_105.qsub)
+Launcher: Task 107 running job 108 on compute-7-3-39 (bash h_eff_level_statistics_107.qsub)
+Launcher: Task 96 running job 97 on compute-7-3-39 (bash h_eff_level_statistics_96.qsub)
+Launcher: Task 106 running job 107 on compute-7-3-39 (bash h_eff_level_statistics_106.qsub)
+Launcher: Task 101 running job 102 on compute-7-3-39 (bash h_eff_level_statistics_101.qsub)
+Launcher: Task 104 running job 105 on compute-7-3-39 (bash h_eff_level_statistics_104.qsub)
+Launcher: Task 97 running job 98 on compute-7-3-39 (bash h_eff_level_statistics_97.qsub)
+Launcher: Task 108 running job 109 on compute-7-3-39 (bash h_eff_level_statistics_108.qsub)
+Launcher: Task 98 running job 99 on compute-7-3-39 (bash h_eff_level_statistics_98.qsub)
+Launcher: Task 110 running job 111 on compute-7-3-39 (bash h_eff_level_statistics_110.qsub)
+Launcher: Task 102 running job 103 on compute-7-3-39 (bash h_eff_level_statistics_102.qsub)
+Launcher: Task 120 running job 121 on compute-7-6-10 (bash h_eff_level_statistics_120.qsub)
+Launcher: Task 123 running job 124 on compute-7-6-10 (bash h_eff_level_statistics_123.qsub)
+Launcher: Task 118 running job 119 on compute-7-6-10 (bash h_eff_level_statistics_118.qsub)
+Launcher: Task 117 running job 118 on compute-7-6-10 (bash h_eff_level_statistics_117.qsub)
+Launcher: Task 112 running job 113 on compute-7-6-10 (bash h_eff_level_statistics_112.qsub)
+Launcher: Task 114 running job 115 on compute-7-6-10 (bash h_eff_level_statistics_114.qsub)
+Launcher: Task 126 running job 127 on compute-7-6-10 (bash h_eff_level_statistics_126.qsub)
+Launcher: Task 127 running job 128 on compute-7-6-10 (bash h_eff_level_statistics_127.qsub)
+Launcher: Task 122 running job 123 on compute-7-6-10 (bash h_eff_level_statistics_122.qsub)
+Launcher: Task 116 running job 117 on compute-7-6-10 (bash h_eff_level_statistics_116.qsub)
+Launcher: Task 115 running job 116 on compute-7-6-10 (bash h_eff_level_statistics_115.qsub)
+Launcher: Task 125 running job 126 on compute-7-6-10 (bash h_eff_level_statistics_125.qsub)
+Launcher: Task 121 running job 122 on compute-7-6-10 (bash h_eff_level_statistics_121.qsub)
+Launcher: Task 113 running job 114 on compute-7-6-10 (bash h_eff_level_statistics_113.qsub)
+Launcher: Task 119 running job 120 on compute-7-6-10 (bash h_eff_level_statistics_119.qsub)
+Launcher: Task 124 running job 125 on compute-7-6-10 (bash h_eff_level_statistics_124.qsub)
+Launcher: Task 47 running job 48 on compute-7-2-38 (bash h_eff_level_statistics_47.qsub)
+Launcher: Task 37 running job 38 on compute-7-2-38 (bash h_eff_level_statistics_37.qsub)
+Launcher: Task 44 running job 45 on compute-7-2-38 (bash h_eff_level_statistics_44.qsub)
+Launcher: Task 46 running job 47 on compute-7-2-38 (bash h_eff_level_statistics_46.qsub)
+Launcher: Task 41 running job 42 on compute-7-2-38 (bash h_eff_level_statistics_41.qsub)
+Launcher: Task 35 running job 36 on compute-7-2-38 (bash h_eff_level_statistics_35.qsub)
+Launcher: Task 36 running job 37 on compute-7-2-38 (bash h_eff_level_statistics_36.qsub)
+Launcher: Task 33 running job 34 on compute-7-2-38 (bash h_eff_level_statistics_33.qsub)
+Launcher: Task 32 running job 33 on compute-7-2-38 (bash h_eff_level_statistics_32.qsub)
+Launcher: Task 38 running job 39 on compute-7-2-38 (bash h_eff_level_statistics_38.qsub)
+Launcher: Task 40 running job 41 on compute-7-2-38 (bash h_eff_level_statistics_40.qsub)
+Launcher: Task 39 running job 40 on compute-7-2-38 (bash h_eff_level_statistics_39.qsub)
+Launcher: Task 43 running job 44 on compute-7-2-38 (bash h_eff_level_statistics_43.qsub)
+Launcher: Task 34 running job 35 on compute-7-2-38 (bash h_eff_level_statistics_34.qsub)
+Launcher: Task 42 running job 43 on compute-7-2-38 (bash h_eff_level_statistics_42.qsub)
+Launcher: Task 45 running job 46 on compute-7-2-38 (bash h_eff_level_statistics_45.qsub)
+Launcher: Task 82 running job 83 on compute-7-3-33 (bash h_eff_level_statistics_82.qsub)
+Launcher: Task 84 running job 85 on compute-7-3-33 (bash h_eff_level_statistics_84.qsub)
+Launcher: Task 92 running job 93 on compute-7-3-33 (bash h_eff_level_statistics_92.qsub)
+Launcher: Task 93 running job 94 on compute-7-3-33 (bash h_eff_level_statistics_93.qsub)
+Launcher: Task 87 running job 88 on compute-7-3-33 (bash h_eff_level_statistics_87.qsub)
+Launcher: Task 94 running job 95 on compute-7-3-33 (bash h_eff_level_statistics_94.qsub)
+Launcher: Task 90 running job 91 on compute-7-3-33 (bash h_eff_level_statistics_90.qsub)
+Launcher: Task 88 running job 89 on compute-7-3-33 (bash h_eff_level_statistics_88.qsub)
+Launcher: Task 83 running job 84 on compute-7-3-33 (bash h_eff_level_statistics_83.qsub)
+Launcher: Task 91 running job 92 on compute-7-3-33 (bash h_eff_level_statistics_91.qsub)
+Launcher: Task 80 running job 81 on compute-7-3-33 (bash h_eff_level_statistics_80.qsub)
+Launcher: Task 85 running job 86 on compute-7-3-33 (bash h_eff_level_statistics_85.qsub)
+Launcher: Task 86 running job 87 on compute-7-3-33 (bash h_eff_level_statistics_86.qsub)
+Launcher: Task 95 running job 96 on compute-7-3-33 (bash h_eff_level_statistics_95.qsub)
+Launcher: Task 89 running job 90 on compute-7-3-33 (bash h_eff_level_statistics_89.qsub)
+Launcher: Task 81 running job 82 on compute-7-3-33 (bash h_eff_level_statistics_81.qsub)
+Launcher: Task 55 running job 56 on compute-7-3-27 (bash h_eff_level_statistics_55.qsub)
+Launcher: Task 53 running job 54 on compute-7-3-27 (bash h_eff_level_statistics_53.qsub)
+Launcher: Task 52 running job 53 on compute-7-3-27 (bash h_eff_level_statistics_52.qsub)
+Launcher: Task 50 running job 51 on compute-7-3-27 (bash h_eff_level_statistics_50.qsub)
+Launcher: Task 51 running job 52 on compute-7-3-27 (bash h_eff_level_statistics_51.qsub)
+Launcher: Task 60 running job 61 on compute-7-3-27 (bash h_eff_level_statistics_60.qsub)
+Launcher: Task 63 running job 64 on compute-7-3-27 (bash h_eff_level_statistics_63.qsub)
+Launcher: Task 54 running job 55 on compute-7-3-27 (bash h_eff_level_statistics_54.qsub)
+Launcher: Task 56 running job 57 on compute-7-3-27 (bash h_eff_level_statistics_56.qsub)
+Launcher: Task 59 running job 60 on compute-7-3-27 (bash h_eff_level_statistics_59.qsub)
+Launcher: Task 49 running job 50 on compute-7-3-27 (bash h_eff_level_statistics_49.qsub)
+Launcher: Task 57 running job 58 on compute-7-3-27 (bash h_eff_level_statistics_57.qsub)
+Launcher: Task 58 running job 59 on compute-7-3-27 (bash h_eff_level_statistics_58.qsub)
+Launcher: Task 48 running job 49 on compute-7-3-27 (bash h_eff_level_statistics_48.qsub)
+Launcher: Task 61 running job 62 on compute-7-3-27 (bash h_eff_level_statistics_61.qsub)
+Launcher: Task 62 running job 63 on compute-7-3-27 (bash h_eff_level_statistics_62.qsub)
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Launcher: Task 16 running job 17 on compute-7-2-37 (bash h_eff_level_statistics_16.qsub)
+Launcher: Task 22 running job 23 on compute-7-2-37 (bash h_eff_level_statistics_22.qsub)
+Launcher: Task 21 running job 22 on compute-7-2-37 (bash h_eff_level_statistics_21.qsub)
+Launcher: Task 30 running job 31 on compute-7-2-37 (bash h_eff_level_statistics_30.qsub)
+Launcher: Task 28 running job 29 on compute-7-2-37 (bash h_eff_level_statistics_28.qsub)
+Launcher: Task 23 running job 24 on compute-7-2-37 (bash h_eff_level_statistics_23.qsub)
+Launcher: Task 29 running job 30 on compute-7-2-37 (bash h_eff_level_statistics_29.qsub)
+Launcher: Task 19 running job 20 on compute-7-2-37 (bash h_eff_level_statistics_19.qsub)
+Launcher: Task 24 running job 25 on compute-7-2-37 (bash h_eff_level_statistics_24.qsub)
+Launcher: Task 31 running job 32 on compute-7-2-37 (bash h_eff_level_statistics_31.qsub)
+Launcher: Task 27 running job 28 on compute-7-2-37 (bash h_eff_level_statistics_27.qsub)
+Launcher: Task 25 running job 26 on compute-7-2-37 (bash h_eff_level_statistics_25.qsub)
+Launcher: Task 26 running job 27 on compute-7-2-37 (bash h_eff_level_statistics_26.qsub)
+Launcher: Task 20 running job 21 on compute-7-2-37 (bash h_eff_level_statistics_20.qsub)
+Launcher: Task 18 running job 19 on compute-7-2-37 (bash h_eff_level_statistics_18.qsub)
+Launcher: Task 17 running job 18 on compute-7-2-37 (bash h_eff_level_statistics_17.qsub)
