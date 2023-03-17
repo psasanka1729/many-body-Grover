@@ -1,3 +1,393 @@
+commit 959534114436cdf0a86337283d9bfaa107e475d8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 23:41:26 2023 -0500
+
+    Commit before run h_eff_level_statistics
+
+commit bd41b7e9966d6a342a92b715e45d80f4dc72874c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 22:43:07 2023 -0500
+
+    Commit before run KLd_10_run_2
+
+commit 0077cc22f06b71074b998ecc8bdcffd5604ec810
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 22:37:58 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit d4a27dfe79867fea782f779905ac208a524a2e54
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 18:52:10 2023 -0500
+
+    Commit before run KLd_10_run_2
+
+commit f27a68debd253009bc01ea0582944cf080705a5e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 18:50:50 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit f9b197896f5e25f3baf23555fb0c0bdc63c261a3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 18:49:43 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit f08135d1e35f4b934dde3f7fa5a3cde4013c6e0d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 18:17:47 2023 -0500
+
+    Commit before run KLd_10_run_2
+
+commit 408bc6f41594aa22d9c8211851e07dbdf2950d24
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 18:16:44 2023 -0500
+
+    Commit before run KLd_10_run_2
+
+commit 4376844b964849154f10f07cca0d5657c04ad595
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 18:15:52 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit dcb43372b6d0eae52f950935403da4d9843c21bc
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 17:00:41 2023 -0500
+
+    Commit before run KLd_10_run_2
+
+commit 0e0a883c776a04ba244de3359a4152094c06b787
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 16:59:51 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit e8d7295c881b11ea050dfb70c819793a0b9b7ea4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 14:59:51 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit d3c9a8d5fef66b72742e1dde5ed4e2f06bdeea98
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 14:59:42 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit e19a263c14a3cc259461a54b9106f782a1f88a7f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 14:58:29 2023 -0500
+
+    Commit before run KLd_10_run_2
+
+commit aa5fee158cfe9e4452574a1c0dd18bdc92fa3ac8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 14:20:51 2023 -0500
+
+    Commit before run KLd_10_run_2
+
+commit 3758280761b32c558a8cb1d3ace2a46d5ae55d9d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 12:54:42 2023 -0500
+
+    Commit before run KLd_10_run_2
+
+commit 480f496feb545ab72fb5ea471232b93c274a2bc4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 12:01:28 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit 9f49ae1aa80dc121e28d6224ed6f323f6f7c7573
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 10:43:20 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit ce4ddb5b1a932e329b2040ad30725675ebc5b0bf
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 10:38:33 2023 -0500
+
+    faster h_eff is used
+
+commit 029994e966e37af5139547395a919094501eb68f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 10:34:32 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit 09b05c30768873c506cecb56e959d7e724a746b2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:22:50 2023 -0500
+
+    Commit before run probability_time
+
+commit 5809c3563a68cb78d0f06436e4bd448c979b9308
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:21:25 2023 -0500
+
+    Commit before run probability_time
+
+commit aaf8c12cfa331512957bb62fcb2c7dacc77243f8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:20:17 2023 -0500
+
+    Commit before run probability_time
+
+commit 05b7f3ff57c883345ab7573c05de08c6d96ed0ca
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:19:06 2023 -0500
+
+    Commit before run probability_time
+
+commit b76139cf5bc59df2023bd07d1d8552fa55d49745
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:18:09 2023 -0500
+
+    Commit before run probability_time
+
+commit 6ed4dd15e6e87349f94f79c3775aead944a583cd
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:16:17 2023 -0500
+
+    Commit before run probability_time
+
+commit 17b0236542619a433bb4c9b31b849640270dfe9e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:11:08 2023 -0500
+
+    Commit before run probability_time
+
+commit e813656ee4de0c8b67e2ff80f448007b5bdb950a
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:08:26 2023 -0500
+
+    Commit before run probability_time
+
+commit 65e2e713e91a584255fde7e8ba15de9fdb19eff4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:06:40 2023 -0500
+
+    Commit before run probability_time
+
+commit 5a51d7cee66a16b22214ccca5d79e52e0d53a43b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 16 00:05:06 2023 -0500
+
+    Commit before run probability_time
+
+commit cd78f92bc7ace76646b1964e0de00bc3b4e648ee
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 23:52:17 2023 -0500
+
+    Commit before run probability_time
+
+commit 890a02ccb5e7d1ef2613b6ed114d9016e19710b9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 23:50:49 2023 -0500
+
+    Commit before run probability_time
+
+commit d68d4497ee3be3176ce3e94a83ec32248891ad1b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 23:49:31 2023 -0500
+
+    Commit before run probability_time
+
+commit 9687013b9dae3464a2a4733b1b73b36c4a433296
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 23:47:48 2023 -0500
+
+    Commit before run probability_time
+
+commit 820abe6faa1adb3d655d9591c36347e5d0c86b69
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 23:45:32 2023 -0500
+
+    Commit before run probability_time
+
+commit d7259bcfd76f2293182c0c32ab98d22e88e9f7ef
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 23:44:24 2023 -0500
+
+    Commit before run probability_time
+
+commit 30f2f2cde691ccabe62129947edb9fb88e25d1f2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 23:43:09 2023 -0500
+
+    Commit before run probability_time
+
+commit 902ba8242dcd83b95ad5f8aabd22533736d1aeb7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 23:38:10 2023 -0500
+
+    Commit before run probability_time
+
+commit 2771a46b8cf60841e8087add5e7e5912a5fef594
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 22:54:55 2023 -0500
+
+    Commit before run probability_time_2
+
+commit 98c34c490e9f074a51e3128168450be72443c34c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 22:46:40 2023 -0500
+
+    Commit before run probability_time_2
+
+commit 175263d7e30c5eb54bf442aa45bcfa9ec0ff9cf3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 18:37:26 2023 -0500
+
+    Commit before run h_eff_trace
+
+commit 7509663543640ec5e134b67e2113c2c1002a93c7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 18:08:00 2023 -0500
+
+    Commit before run probability_time_2
+
+commit 4b0a9baab445d613422147fcdb02cae3f4f91be4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 17:48:25 2023 -0500
+
+    Commit before run probability_time_2
+
+commit 9fa10668ac4d03e6b41ca58138751c3163bab417
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 17:47:14 2023 -0500
+
+    Commit before run probability_time_2
+
+commit fb65cf4967a4a544cb6e446aca913cea7824f5d2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 17:46:22 2023 -0500
+
+    Commit before run probability_time_2
+
+commit a403140ec643b81d2ee096262814fd01bfad2389
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 17:44:16 2023 -0500
+
+    Commit before run probability_time_2
+
+commit 001eeb2e26cd9b6b82571e493d1a9261effc55a5
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 17:41:23 2023 -0500
+
+    Commit before run probability_time_2
+
+commit 681885bef3a70fcc2a83e4c61d69ae900fe1f8b8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 17:35:49 2023 -0500
+
+    Commit before run probability_time_2
+
+commit a5b4a52d1736cc5eba7a257ebfe92562e1fb0009
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 17:03:42 2023 -0500
+
+    Commit before run probability_time_2
+
+commit ceeaee15e5039891a22191b56ff1369a4197a5ba
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 10:42:36 2023 -0500
+
+    Commit before run KLd_10_run_2
+
+commit 6dba403c8993f6a757fe4fced07807049d721a37
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 10:37:33 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit 0586b3ce9547f0ca06ef27aaf9b2234d94ad33e9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 10:37:25 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit 1083b376c4cdd52f1203c056138ff25d0f9f85a6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 10:36:15 2023 -0500
+
+    Commit before run KLd_10
+
+commit af63d264b8890618fe747f04e5a4f5c03e068d5a
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 10:36:06 2023 -0500
+
+    Commit before run KLd_10
+
+commit 6a9e4ee6e119276a45af83cb1970035af1f628ab
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 10:31:28 2023 -0500
+
+    Commit before run probability_time_2
+
+commit 7e635dbc85de8c02d3556b47718d63d269c094b2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 00:36:41 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit 598c9891347ba40ebb79b30e396a02003ba4e59c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 00:32:23 2023 -0500
+
+    Commit before run KLd_10
+
+commit dfbe149098cf871ba6bba3eb52dcb65488197da5
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Wed Mar 15 00:30:32 2023 -0500
+
+    faster calculation of h_eff matrix
+
+commit 15bc22a6f94719f03fa8fec6eb018bd8dffbc651
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 00:29:53 2023 -0500
+
+    cluster backup
+
+commit 4688dfa62643a56b38f75eb8f1fd111c61819c3b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 15 00:19:10 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit d41cde4b33c7e6803e1f9e7c44c9721f2f1c6440
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Mar 14 21:18:58 2023 -0500
+
+    Commit before run probability_time
+
+commit c304025ce323a14f69e6d2eb5f34315f91a7c0a3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Mar 14 21:18:02 2023 -0500
+
+    Commit before run probability_time
+
+commit 4e061880a8b878e1fcc62d5a7a7011af76011011
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Mar 14 21:17:42 2023 -0500
+
+    Commit before run probability_time
+
+commit 4e039fbcbe95b6ae4589b3dd10c74583d15ee65e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Mar 14 21:14:17 2023 -0500
+
+    Commit before run probability_time_2
+
+commit 413a4809008390752d68e32f8e171cbc2aefc516
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Mar 14 21:12:52 2023 -0500
+
+    Commit before run probability_time_2
+
 commit bfa04ec477b0405b10c0f46ee1160ae8970a9a0c
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Tue Mar 14 16:38:12 2023 -0500
