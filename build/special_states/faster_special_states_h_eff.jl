@@ -432,7 +432,7 @@ def Write_file_Pauli(b_0, b_1, b_2, b_3):
     f.write(str(b_0) +'\t'+ str(b_1)+ '\t' + str(b_2) +'\t' + str(b_3) +'\n')
 """
 
-Bm_y = B_matrix(Block);
+Bm_y = B_matrix();
 # Changing the B matrix from sigma_y basis to sigma_z basis.
 Bm_z = sigma_y_to_sigma_z(Bm_y)
 PC = Pauli_coefficients(Bm_z)
