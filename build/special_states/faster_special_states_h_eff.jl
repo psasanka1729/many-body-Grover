@@ -1,11 +1,11 @@
-L = 10;
+L = 8;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"10_new_Grover_gates_data.txt" # Change for every L.
+file = raw"8_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -26,10 +26,11 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 4000+parse(Int64,ARGS[1])
+SEED = parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
+#length(NOISE)
 
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
@@ -106,14 +107,12 @@ function CU(U,c,t)
     return PI_0_matrix + PI_1_matrix     
 end;
 
-
 U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
 U_0[1,1] = -1
 A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
-G_exact = U_x*U_0
+G_exact = U_x*U_0;
 
-#DELTA = 0.01
 function Special_states_matrix()
     DELTA = 0.0
     U_list = [];
@@ -268,7 +267,6 @@ function Special_states_matrix()
                             (U_k+1 * ... * U_Number of Gates)^\dagger
                             * H_k *
                             (U_k+1 * ... * U_Number of Gates)
-
             =#
         
             if k < Number_of_Gates/2
@@ -358,13 +356,10 @@ function Special_states_matrix()
 end;
 
 # Calculate the 2x2 matrix in the basis |0> and |x_bar>.
-Block = Special_states_matrix();
-
-# Loading numerical integrator.
-using QuadGK
+H_eff_G_0 = Special_states_matrix();
 
 # Calculate the matrix B in sigma_y basis.
-function B_matrix()
+function B_matrix_y_basis()
     N = 2^L
     theta = asin(2*sqrt(N-1)/N)
     
@@ -372,30 +367,24 @@ function B_matrix()
     y_s_p = (1/sqrt(2))*[1 1im]'
     y_s_n = (1/sqrt(2))*[1 -1im]'
     
-    # -1 -1 element.
-    f_11(z) = 1/(exp(1im*theta)+z) * y_s_n'*Block*y_s_n * 1/(exp(1im*theta)+z)
-    
-    # -1 1 element.
-    f_12(z) = 1/(exp(1im*theta)+z) * y_s_n'*Block*y_s_p * 1/(exp(-1im*theta)+z)
-    
-    # 1 -1 element.
-    f_21(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Block*y_s_n * 1/(exp(1im*theta)+z)
-    
-    # 1 1 element.
-    f_22(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Block*y_s_p * 1/(exp(-1im*theta)+z)
-    
-    
-    #= Integration of the elements.=#
-    
-    I_11,est = quadgk(f_11, 1.e-6, 10^5, rtol=1e-10)
-    I_12,est = quadgk(f_12, 1.e-6, 10^5, rtol=1e-10)
-    I_21,est = quadgk(f_21, 1.e-6, 10^5, rtol=1e-10)
-    I_22,est = quadgk(f_22, 1.e-6, 10^5, rtol=1e-10)
+    # Value of the integration.
+    I_11 = exp(-im*theta) # -1 -1.
+    I_12 = (1im/(sin(theta)))*log(exp(-1im*theta)) # -1 1.
+    I_21 = (1im/(sin(theta)))*log(exp(-1im*theta)) # 1 -1.
+    I_22 = exp(im*theta) # 1 1.
     
     # Returns the B matrix.
-    return [[I_11 I_12]; [I_21 I_22]]
-    
-end
+    return [[(I_11*y_s_n'*H_eff_G_0*y_s_n) (I_12*y_s_n'*H_eff_G_0*y_s_p)];
+            [(I_21*y_s_p'*H_eff_G_0*y_s_n) (I_22*y_s_p'*H_eff_G_0*y_s_p)]]
+end;
+
+#=
+Basis transformation matrix from sigma_y to sigma_z.
+=#
+sigma_y_to_sigma_z(Matrix) = ((1/sqrt(2))*[[1,1] [-1im, 1im]])*Matrix*inv((1/sqrt(2))*[[1,1] [-1im,1im]]);
+
+# Changing the B matrix from sigma_y basis to sigma_z basis.
+B_matrix_z_basis = sigma_y_to_sigma_z(B_matrix_y_basis());
 
 #=
 Write the matrix B as B = B_0 * sigma_0 + B_1 * sigma_1 + B_2 * sigma_2 + B_3 * sigma_3.
@@ -419,12 +408,6 @@ function Pauli_coefficients(B)
     return B_0,B_1,B_2,B_3
 end;
 
-#=
-First the matrix B has to be written in the sigma_z basis.
-=#
-
-sigma_y_to_sigma_z(Matrix) = ((1/sqrt(2))*[[1,1] [-1im, 1im]])*Matrix*inv((1/sqrt(2))*[[1,1] [-1im,1im]]);
-
 py"""
 f = open('Pauli_coefficients_data'+'.txt', 'w')
 def Write_file_Pauli(b_0, b_1, b_2, b_3):
@@ -432,11 +415,7 @@ def Write_file_Pauli(b_0, b_1, b_2, b_3):
     f.write(str(b_0) +'\t'+ str(b_1)+ '\t' + str(b_2) +'\t' + str(b_3) +'\n')
 """
 
-Bm_y = B_matrix();
-# Changing the B matrix from sigma_y basis to sigma_z basis.
-Bm_z = sigma_y_to_sigma_z(Bm_y)
-PC = Pauli_coefficients(Bm_z)
-
+PC = Pauli_coefficients(B_matrix_z_basis)
 py"Write_file_Pauli"(PC[1],PC[2],PC[3],PC[4])
 
 py"""
@@ -447,6 +426,6 @@ def Write_file(eigenvalue_1, eigenvalue_2):
 """
 
 # Diagonalize the special state matrix.
-Special_eigenvalues = eigvals(Bm_z)
+Special_eigenvalues = eigvals(B_matrix_z_basis)
 # Write the two eigenvalue to the data file.
-py"Write_file"(real(Special_eigenvalues[1]),real(Special_eigenvalues[2]))
+py"Write_file"(Special_eigenvalues[1],Special_eigenvalues[2])
