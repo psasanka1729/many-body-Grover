@@ -129,3 +129,44 @@ Launcher: Task 45 running job 46 on compute-7-6-11 (bash h_eff_energies_45.qsub)
 Launcher: Task 42 running job 43 on compute-7-6-11 (bash h_eff_energies_42.qsub)
 Launcher: Task 32 running job 33 on compute-7-6-11 (bash h_eff_energies_32.qsub)
 Launcher: Task 33 running job 34 on compute-7-6-11 (bash h_eff_energies_33.qsub)
+Removing files
+Launcher: Job 37 completed in 222903 seconds.
+Launcher: Task 36 done. Exiting.
+Removing files
+Launcher: Job 43 completed in 253652 seconds.
+Launcher: Task 42 done. Exiting.
+Removing files
+Launcher: Job 63 completed in 262788 seconds.
+Launcher: Task 62 done. Exiting.
+Removing files
+Launcher: Job 50 completed in 271463 seconds.
+Launcher: Task 49 done. Exiting.
+Removing files
+Launcher: Job 19 completed in 289280 seconds.
+Launcher: Task 18 done. Exiting.
+Removing files
+Launcher: Job 29 completed in 299244 seconds.
+Launcher: Task 28 done. Exiting.
+Removing files
+Launcher: Job 57 completed in 304482 seconds.
+Launcher: Task 56 done. Exiting.
+Removing files
+Launcher: Job 27 completed in 306380 seconds.
+Launcher: Task 26 done. Exiting.
+Removing files
+Launcher: Job 7 completed in 329120 seconds.
+Launcher: Task 6 done. Exiting.
+Removing files
+Launcher: Job 49 completed in 330262 seconds.
+Launcher: Task 48 done. Exiting.
+Removing files
+Launcher: Job 21 completed in 333669 seconds.
+Launcher: Task 20 done. Exiting.
+Removing files
+Launcher: Job 52 completed in 341075 seconds.
+Launcher: Task 51 done. Exiting.
+Connection to compute-7-6-23 closed by remote host.
+Connection to compute-7-2-33 closed by remote host.
+Connection to compute-7-6-11 closed by remote host.
+slurmstepd: error: *** JOB 520756 ON compute-7-2-25 CANCELLED AT 2023-03-19T05:38:50 DUE TO TIME LIMIT ***
+Killed by signal 15.

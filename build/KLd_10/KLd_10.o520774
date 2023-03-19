@@ -257,3 +257,34 @@ Launcher: Task 38 running job 39 on compute-7-6-24 (bash KLd_10_38.qsub)
 Launcher: Task 32 running job 33 on compute-7-6-24 (bash KLd_10_32.qsub)
 Launcher: Task 45 running job 46 on compute-7-6-24 (bash KLd_10_45.qsub)
 Launcher: Task 36 running job 37 on compute-7-6-24 (bash KLd_10_36.qsub)
+Launcher: Job 30 completed in 285350 seconds.
+Launcher: Task 29 done. Exiting.
+Launcher: Job 20 completed in 290308 seconds.
+Launcher: Task 19 done. Exiting.
+Launcher: Job 27 completed in 295986 seconds.
+Launcher: Task 26 done. Exiting.
+Launcher: Job 1 completed in 310506 seconds.
+Launcher: Task 0 done. Exiting.
+Launcher: Job 24 completed in 310594 seconds.
+Launcher: Task 23 done. Exiting.
+Launcher: Job 12 completed in 312738 seconds.
+Launcher: Task 11 done. Exiting.
+Launcher: Job 15 completed in 315289 seconds.
+Launcher: Task 14 done. Exiting.
+Launcher: Job 7 completed in 316400 seconds.
+Launcher: Task 6 done. Exiting.
+Launcher: Job 11 completed in 316935 seconds.
+Launcher: Task 10 done. Exiting.
+Launcher: Job 5 completed in 318264 seconds.
+Launcher: Task 4 done. Exiting.
+Launcher: Job 8 completed in 319781 seconds.
+Launcher: Task 7 done. Exiting.
+Launcher: Job 14 completed in 334889 seconds.
+Launcher: Task 13 done. Exiting.
+Removing files
+Launcher: Job 47 completed in 342830 seconds.
+Launcher: Task 46 done. Exiting.
+slurmstepd: error: *** JOB 520774 ON compute-7-3-37 CANCELLED AT 2023-03-19T10:36:42 DUE TO TIME LIMIT ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
