@@ -3,11 +3,11 @@
 #SBATCH --job-name=special_states
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=128s
 #
 # Processors:
-#SBATCH --ntasks=64
-#SBATCH --nodes=4
+#SBATCH --ntasks=48
+#SBATCH --nodes=3
 #
 # Wall clock limit:
 #SBATCH --time=4-00:00:00
