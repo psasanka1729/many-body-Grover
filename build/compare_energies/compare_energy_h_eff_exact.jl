@@ -91,7 +91,6 @@ function CU(U,c,t)
 
     
     PI_0_matrix = Matrices[p0[1]]
-	        Op = Grover_operator(delta,Realizations)
     for i = 2:L
         PI_0_matrix = kron(PI_0_matrix,Matrices[p0[i]])
     end        

@@ -6,11 +6,27 @@ bash compare_energies_4.qsub
 bash compare_energies_5.qsub
 bash compare_energies_6.qsub
 bash compare_energies_7.qsub
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
+bash compare_energies_8.qsub
+bash compare_energies_9.qsub
+bash compare_energies_10.qsub
+bash compare_energies_11.qsub
+bash compare_energies_12.qsub
+bash compare_energies_13.qsub
+bash compare_energies_14.qsub
+bash compare_energies_15.qsub
+bash compare_energies_16.qsub
+bash compare_energies_17.qsub
+bash compare_energies_18.qsub
+bash compare_energies_19.qsub
+bash compare_energies_20.qsub
+bash compare_energies_21.qsub
+bash compare_energies_22.qsub
+bash compare_energies_23.qsub
+bash compare_energies_24.qsub
+bash compare_energies_25.qsub
+bash compare_energies_26.qsub
+bash compare_energies_27.qsub
+bash compare_energies_28.qsub
+bash compare_energies_29.qsub
+bash compare_energies_30.qsub
+bash compare_energies_31.qsub
