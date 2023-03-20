@@ -1,10 +1,10 @@
-L = 10;
+L = 8;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"10_new_Grover_gates_data.txt" # Change for every L.
+file = raw"8_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -25,7 +25,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 20000
+SEED = 764
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -394,12 +394,19 @@ def Write_file2(delta, effective, exact):
     f.write(str(delta) + '\t' + str(effective)+ '\t' + str(exact) +'\n')
 """
 
+delta_index = parse(Int64,ARGS[1])
+
+Delta = LinRange(0.0,0.35,32+1)
+delta_start = Delta[delta_index+1]
+delta_end = Delta[delta_index+2]
+Num = 1
+
 Exact_list = []
 Effec_list = []
 delta_list = []
-Num = 20;
-for i = 1:Num
-    delta = 0.3*(i/Num)
+
+for i = 0:Num
+    delta = delta_start+(i/Num)*(delta_end-delta_start)
 
     EE = Eigenvalues(delta)
     Exact = EE[1]
