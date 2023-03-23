@@ -129,3 +129,8 @@ Launcher: Task 34 running job 35 on compute-2-6-14 (bash h_eff_trace_34.qsub)
 Launcher: Task 43 running job 44 on compute-2-6-14 (bash h_eff_trace_43.qsub)
 Launcher: Task 33 running job 34 on compute-2-6-14 (bash h_eff_trace_33.qsub)
 Launcher: Task 32 running job 33 on compute-2-6-14 (bash h_eff_trace_32.qsub)
+slurmstepd: error: *** JOB 520796 ON compute-2-6-12 CANCELLED AT 2023-03-22T18:37:57 DUE TO TIME LIMIT ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.

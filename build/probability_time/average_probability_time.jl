@@ -1,11 +1,11 @@
-L = 4;
+L = 16;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"4_new_Grover_gates_data.txt" # Change for every L.
+file = raw"16_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -26,11 +26,11 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 100000 + parse(Int64,ARGS[1])
+SEED = 746 + parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
-Delta = 0.06
+Delta = 0.0
 
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
@@ -39,7 +39,7 @@ Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
 Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
 Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
-Identity(dimension) = 1* Matrix(I, dimension, dimension);
+Identity(dimension) =  spdiagm(0 => ones(dimension)) #1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
@@ -109,7 +109,7 @@ end;
 
 function Grover_operator(DELTA)
     
-    U_x_delta = sparse(Identity(2^L));
+    U_x_delta = Identity(2^L);
 
     # U_x
     for i = U_0_gate_number+1 : U_0_gate_number+U_x_gate_number
@@ -142,7 +142,7 @@ function Grover_operator(DELTA)
         end
     end
     
-    U_0_delta = sparse(Identity(2^L));
+    U_0_delta = Identity(2^L);
     
  
     # U_0
@@ -206,7 +206,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:100
+for i=1:200
     global psi = U*psi
     p_0 = abs(psi[1])^2
     p_xbar = Pxbar(psi)
@@ -214,6 +214,7 @@ for i=1:100
     push!(p_0l,p_0)
     push!(p_x_barl,p_xbar)
 end;
+#=
 #using Plots
 #plot(p_0l,label="p0")
 #plot!(p_x_barl,label="p_x_bar")
@@ -265,4 +266,4 @@ def Write_file_fit(A, B, omega, phi, error):
     f = open('fitted_data'+'.txt', 'a')
     f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) + '\t' +str(error) + '\n')
  """
- py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[100]-(A_2+B_2*cos(omega_2*100+phi_2)))
+ py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[100]-(A_2+B_2*cos(omega_2*100+phi_2)))=#
