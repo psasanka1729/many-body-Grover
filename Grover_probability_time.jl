@@ -1,11 +1,11 @@
-L = 8;
+L = 12;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"8_new_Grover_gates_data.txt" # Change for every L.
+file = raw"12_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -27,21 +27,22 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 # Good seeds = 10, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 1945
+SEED = 1917
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
-#length(NOISE)
 
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
 H = (1/sqrt(2))*[1 1;1 -1]
-Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
-Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
-CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
-Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
-Identity(dimension) = 1* Matrix(I, dimension, dimension);
+Rx(theta)= sparse(exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0])));
+Hadamard(noise) = sparse(exp(-1im*(pi/2+noise)*(I2-H))) #Ry(pi/2+noise)*Pauli_Z;
+CX(noise) = sparse(exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0]))); # This is X gate.
+Z_gate(noise) = sparse(exp(-1im*(pi/2+noise)*(I2-Z))); # noise # noise
+Identity(dimension) = I_sparse = spdiagm(0 => ones(dimension));
 int(x) = floor(Int,x);
+
+Identity(2)
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
     
@@ -52,7 +53,7 @@ function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
         
         M = sparse(Gate)
         for i=2:L
-            M = kron(M, sparse([1 0;0 1]))
+            M = kron(M, Identity(2))
         end
         
     else
@@ -62,28 +63,22 @@ function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
             if i == Qubit
                 M = kron(M, Gate)
             else
-                M = kron(M, sparse([1 0;0 1]))
+                M = kron(M, Identity(2))
             end
         end
     end
     
-    return M
+    return sparse(M)
 end;
 
 function CU(U,c,t)
     
-    I2 = sparse([1 0;0 1])
+    I2 = Identity(2)
     Z = sparse([1 0;0 -1])
 
     PI_0 = (I2+Z)/2
     PI_1 = (I2-Z)/2
      
-    #function Rx(Noise)
-        #A = cos((pi+Noise)/2)
-        #B = -1im*sin((pi+Noise)/2)
-        #return 1im*[A B;B A]
-    #end
-    
     Matrices = Dict("I" => I2,"PI_0" => PI_0,"U" => U, "PI_1" => PI_1)
     
     p0 = fill("I", L)
@@ -105,12 +100,12 @@ function CU(U,c,t)
     end
            
     #return p0,p1
-    return PI_0_matrix + PI_1_matrix     
+    return sparse(PI_0_matrix + PI_1_matrix)     
 end;
 
 function Grover_operator(DELTA)
     
-    U_x_delta = sparse(Identity(2^L));
+    U_x_delta = Identity(2^L);
 
     # U_x
     for i = U_0_gate_number+1 : U_0_gate_number+U_x_gate_number
@@ -143,7 +138,7 @@ function Grover_operator(DELTA)
         end
     end
     
-    U_0_delta = sparse(Identity(2^L));
+    U_0_delta = Identity(2^L);
     
  
     # U_0
@@ -177,10 +172,8 @@ function Grover_operator(DELTA)
         
     GROVER_DELTA = U_x_delta*U_0_delta
     
-    return GROVER_DELTA
+    return sparse(GROVER_DELTA)
 end;
-
-U = Grover_operator(0.25);
 
 py"""
 f = open('probability_data'+'.txt', 'w')
@@ -198,8 +191,10 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
+Delta = 0.02
+@time U = Grover_operator(Delta);
 
+Psi_0(L) = (1/sqrt(2^L))*ones(ComplexF64,2^L);
 p_0l = []
 p_x_barl = []
 psi = Psi_0(L);
@@ -208,18 +203,90 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-#println(p_xbar)
-#println(p_0)
-for i=1:200
+for i=1:100
     psi = U*psi
     p_0 = abs(psi[1])^2
     p_xbar = Pxbar(psi)
     py"Write_file"(real(p_0),real(p_xbar),i)
     push!(p_0l,p_0)
     push!(p_x_barl,p_xbar)
-    #println(p_xbar)
-    #println(p_0)
 end;
 using Plots
 plot(p_0l,label="p0")
 plot!(p_x_barl,label="p_x_bar")
+#savefig("8_0.1_95_probability_time.png")
+
+#using LsqFit
+
+#=
+model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
+
+# Define the first order data set.
+xdata = [i for i = 50:55];
+ydata = p_0l[50:55]
+
+# Define an initial guess for the parameters
+p0 = [  0.5,   0.5,   1.0, 9.35]
+
+# Call the curve_fit function
+fit = curve_fit(model, xdata, ydata,p0)
+
+# Extract the best-fit parameters
+A_1 = fit.param[1]
+B_1 = fit.param[2]
+omega_1 = fit.param[3]
+phi_1 = fit.param[4]
+
+scatter(xdata,ydata)
+plot!(xdata,A_1 .+ B_1 .* cos.(omega_1 .* xdata .+ phi_1))
+=#
+
+#=
+model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
+
+# Define the second order data set
+xdata = [i for i = 50:100];
+ydata = p_0l[50:100]
+
+# Define an initial guess for the parameters
+p0 = [  A_1,   B_1,   omega_1, phi_1]
+
+# Call the curve_fit function
+fit = curve_fit(model, xdata, ydata, p0)
+
+# Extract the best-fit parameters
+A_2 = fit.param[1]
+B_2 = fit.param[2]
+omega_2 = fit.param[3]
+phi_2 = fit.param[4];
+=#
+
+#=
+scatter(xdata,ydata)
+plot!(xdata,A_2 .+ B_2 .* cos.(omega_2 .* xdata .+ phi_2))
+=#
+
+#=
+py"""
+f = open('fitted_data'+'.txt', 'w')
+def Write_file_fit(A, B, omega, phi):
+    f = open('fitted_data'+'.txt', 'a')
+    f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) +'\n')
+"""
+py"Write_file_fit"(A_2,B_2,omega_2,phi_2)
+=#
+
+#println("Amplitude = ",A_2)
+
+#println("Frequency = ",omega_2)
+
+#A_2
+
+#B_2
+
+#omega_2
+
+#phi_2
+
+#t_f = 100
+#p_0l[t_f]-(A_2+B_2*cos(omega_2*t_f+phi_2))
