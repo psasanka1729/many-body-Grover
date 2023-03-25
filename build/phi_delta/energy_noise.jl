@@ -37,7 +37,7 @@ H = (1/sqrt(2))*[1 1;1 -1]
 Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
 Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
-Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
+Z_gate(noise) = exp(-1im*(pi/2+noise)*(I2-Z))#Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
 Identity(dimension) = spdiagm(0 => ones(dimension));
 int(x) = floor(Int,x);
 
@@ -321,7 +321,7 @@ function entanglement_entropy(Psi)
             if i <= j
                 M[i+1,j+1] = rhoA(i,j)
             else
-                M[i+1,j+1] = M[j+1,i+1]
+                M[i+1,j+1] = M[j+1,i+1]'
             end
         end
     end 
@@ -359,7 +359,7 @@ delta_index = parse(Int64,ARGS[1])
 Delta = LinRange(0.0,0.16,48+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 2
+Num = 4
 
               
 #=
@@ -379,9 +379,6 @@ for i=0:Num
     
     for j=1:2^L
         py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
-        push!(deltas,delta)
-        push!(Ys,real(Y[j]))
-        push!(Entropies,average_entanglement_entropy(V[1:2^L,j:j]))    
     end
 end
 
