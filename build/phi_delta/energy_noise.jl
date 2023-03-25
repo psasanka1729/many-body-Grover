@@ -305,7 +305,7 @@ function entanglement_entropy(Psi)
     Psi = Psi/norm(Psi)
     
     function psi(s)
-        return wavefunction[2^(sub_system_size)*s+1:2^(sub_system_size)*s+2^(sub_system_size)]
+        return Psi[2^(sub_system_size)*s+1:2^(sub_system_size)*s+2^(sub_system_size)]
     end
     
     #= (s,s_p) element of the reduced density matrix is given by psi(s_p)^(\dagger)*psi(s). =#
