@@ -31,8 +31,6 @@ SEED = 764
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
-#length(NOISE)
-
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
 H = (1/sqrt(2))*[1 1;1 -1]
@@ -40,7 +38,7 @@ Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
 Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
 Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
-Identity(dimension) = 1* Matrix(I, dimension, dimension);
+Identity(dimension) = spdiagm(0 => ones(dimension));
 int(x) = floor(Int,x);
 
 
@@ -355,13 +353,13 @@ end;
 #    f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 #"""
 
-# delta_index runs from 0 to 127.
+# delta_index runs from 0 to 15.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.18,128+1)
+Delta = LinRange(0.0,0.18,16+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 1
+Num = 4
 
               
 #=
