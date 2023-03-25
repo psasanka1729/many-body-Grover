@@ -346,12 +346,12 @@ function average_entanglement_entropy(initial_wavefunction)
     return sum(rolled_entropies)/L
 end;
               
-#py"""
+py"""
 #f = open('plot_data'+'.txt', 'w')
 #def Write_file(Noise, Energy, Entropy):
 #    f = open('plot_data'+'.txt', 'a')
 #    f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
-#"""
+"""
 
 # delta_index runs from 0 to 48.
 delta_index = parse(Int64,ARGS[1])
@@ -378,13 +378,13 @@ for i=0:Num
     V = EIGU[2]
     
     for j=1:2^L
-        #py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
+        py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
         push!(deltas,delta)
         push!(Ys,real(Y[j]))
         push!(Entropies,average_entanglement_entropy(V[1:2^L,j:j]))    
     end
 end
 
-npzwrite("deltas.npy",deltas)
-npzwrite("Ys.npy",Ys)
-npzwrite("Entropies.npy",Entropies)              
+#npzwrite("deltas.npy",deltas)
+#npzwrite("Ys.npy",Ys)
+#npzwrite("Entropies.npy",Entropies)              
