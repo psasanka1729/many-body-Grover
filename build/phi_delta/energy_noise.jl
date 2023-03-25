@@ -347,10 +347,10 @@ function average_entanglement_entropy(initial_wavefunction)
 end;
               
 py"""
-#f = open('plot_data'+'.txt', 'w')
-#def Write_file(Noise, Energy, Entropy):
-#    f = open('plot_data'+'.txt', 'a')
-#    f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
+f = open('plot_data'+'.txt', 'w')
+def Write_file(Noise, Energy, Entropy):
+    f = open('plot_data'+'.txt', 'a')
+    f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
 # delta_index runs from 0 to 48.
