@@ -329,7 +329,7 @@ function entanglement_entropy(Psi)
             if i <= j
                 M[i+1,j+1] = rhoA(i,j)
             else
-                M[i+1,j+1] = M[j+1,i+1]
+                M[i+1,j+1] = M[j+1,i+1]'
             end
         end
     end 
@@ -385,13 +385,7 @@ for i=0:Num
     V = EIGU[2]
     
     for j=1:2^L
-        #py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
-        push!(deltas,delta)
-        push!(Ys,real(Y[j]))
-        push!(Entropies,average_entanglement_entropy(V[1:2^L,j:j]))    
+        py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
     end
 end
 
-npzwrite("deltas.npy",deltas)
-npzwrite("Ys.npy",Ys)
-npzwrite("Entropies.npy",Entropies)              
