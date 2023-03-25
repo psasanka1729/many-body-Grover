@@ -1,4 +1,4 @@
-L = 14;
+L = 16;
 
 using NPZ
 using Random
@@ -6,7 +6,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"14_new_Grover_gates_data.txt" # Change for every L.
+file = raw"16_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -43,12 +43,6 @@ Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
 Identity(dimension) = 1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
 
-#U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
-#U_0[1,1] = -1
-#A = ones(2^L,2^L);
-#U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
-#G_exact = U_x*U_0;
-#V = py"eigu"(G_exact)[2];
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
     
