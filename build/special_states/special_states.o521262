@@ -245,3 +245,14 @@ Launcher: Task 127 running job 128 on compute-7-2-28 (bash special_states_127.qs
 Launcher: Task 112 running job 113 on compute-7-2-28 (bash special_states_112.qsub)
 Launcher: Task 113 running job 114 on compute-7-2-28 (bash special_states_113.qsub)
 Launcher: Task 119 running job 120 on compute-7-2-28 (bash special_states_119.qsub)
+Removing files
+Launcher: Job 108 completed in 328400 seconds.
+Launcher: Task 107 done. Exiting.
+slurmstepd: error: *** JOB 521262 ON compute-7-2-20 CANCELLED AT 2023-03-23T22:46:10 DUE TO TIME LIMIT ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.

@@ -245,3 +245,13 @@ Launcher: Task 126 running job 127 on compute-7-3-26 (bash h_eff_energies_126.qs
 Launcher: Task 125 running job 126 on compute-7-3-26 (bash h_eff_energies_125.qsub)
 Launcher: Task 124 running job 125 on compute-7-3-26 (bash h_eff_energies_124.qsub)
 Launcher: Task 118 running job 119 on compute-7-3-26 (bash h_eff_energies_118.qsub)
+Removing files
+Launcher: Job 51 completed in 323306 seconds.
+Launcher: Task 50 done. Exiting.
+Removing files
+Launcher: Job 83 completed in 326668 seconds.
+Launcher: Task 82 done. Exiting.
+slurmstepd: error: *** JOB 521270 ON compute-7-3-10 CANCELLED AT 2023-03-24T00:33:39 DUE TO TIME LIMIT ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
