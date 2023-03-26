@@ -1,11 +1,11 @@
-L = 10;
+L = 12;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"10_new_Grover_gates_data.txt" # Change for every L.
+file = raw"12_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -38,8 +38,8 @@ H = (1/sqrt(2))*[1 1;1 -1]
 Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
 Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
-Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
-Identity(dimension) = 1* Matrix(I, dimension, dimension);
+Z_gate(noise) = exp(-1im*(pi/2+noise)*(I2-Z))#Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
+Identity(dimension) = spdiagm(0 => ones(dimension))#1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
