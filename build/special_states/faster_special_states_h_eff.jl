@@ -39,7 +39,7 @@ Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
 Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
 Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
-Identity(dimension) = 1* Matrix(I, dimension, dimension);
+Identity(dimension) = spdiagm(0 => ones(dimension))#1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
