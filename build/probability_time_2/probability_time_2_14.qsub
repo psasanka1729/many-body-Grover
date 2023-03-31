@@ -9,8 +9,8 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=Grover_probability_time.jl
-HELPER="12_new_Grover_gates_data.txt"
+EXEC=U_x_probability.jl
+HELPER="16_new_Grover_gates_data.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
 cp $EXEC $SCRATCH_DIR/

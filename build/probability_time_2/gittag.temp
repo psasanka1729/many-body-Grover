@@ -1,3 +1,99 @@
+commit a90672152ad5184dc116641bdcce2bee1d89afe3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Mar 30 00:10:48 2023 -0500
+
+    Commit before run probability_time_2
+
+commit c210deef295c5ef0109657190945dea5812c8d0d
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Thu Mar 30 00:08:08 2023 -0500
+
+    creates U_x operator to create G operator
+
+commit 0116a98ae689cefde4fb54306b29697a00a9cf49
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Mar 29 23:57:13 2023 -0500
+
+    cluster backup
+
+commit cd4b3774bfa3205595dbf3714049ce0c6df89cd2
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sun Mar 26 22:50:30 2023 -0500
+
+    faster h_eff eigenvalue calculation
+
+commit 718f282690affb78171c3b69b5dc52865feab9fa
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Mar 26 22:47:30 2023 -0500
+
+    cluster backup
+
+commit 2cc2728a9ef35ec5c3c321b15c2dd3a0b1117565
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Mar 26 16:01:49 2023 -0500
+
+    Commit before run special_states_2
+
+commit 01e3347270f5c0c29db6530017a171ca92de7ab9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Mar 26 16:01:42 2023 -0500
+
+    Commit before run special_states_2
+
+commit fb5453dc9c848b0228decc75998ce95081616986
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Mar 26 16:01:26 2023 -0500
+
+    Commit before run special_states_2
+
+commit 3bf42b4fcbab01f94af9e14d504850dba53b2aa7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Mar 26 15:57:47 2023 -0500
+
+    Commit before run special_states
+
+commit 2226f632e4e841aa9b73b58519294112ebb866e8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Mar 26 10:43:17 2023 -0500
+
+    Commit before run phi_delta
+
+commit 0fc7a033123b09d409c4151d04ef2940e9eb3845
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Mar 26 00:00:46 2023 -0500
+
+    Commit before run phi_delta_2
+
+commit d049a74713863fbf3758015675582c9301ab0238
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Mar 25 16:06:09 2023 -0500
+
+    Commit before run phi_delta
+
+commit 1db0fa264e55ea34be17c33014faadae617d0f23
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Mar 25 16:05:48 2023 -0500
+
+    Commit before run phi_delta
+
+commit 88126c0ea26f134af5cf61210e3ab703259bcf84
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Mar 25 16:04:03 2023 -0500
+
+    Commit before run phi_delta
+
+commit d0845a4645a76c7fbb32ce99dd62494e5657c732
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Mar 25 12:34:10 2023 -0500
+
+    entropy in energy_noise.jl corrected
+
+commit fd60e54ef99d62ff0abd4042b913df1246cab5f4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Mar 25 12:31:38 2023 -0500
+
+    Commit before run phi_delta
+
 commit 250c45e9266a181a717ff7f0b4a6d61953f7e514
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sat Mar 25 12:19:01 2023 -0500

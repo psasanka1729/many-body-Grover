@@ -71,3 +71,6 @@ Launcher: Task 18 running job 19 on compute-2-6-17 (bash special_states_2_18.qsu
 Launcher: Task 29 running job 30 on compute-2-6-17 (bash special_states_2_29.qsub)
 Launcher: Task 19 running job 20 on compute-2-6-17 (bash special_states_2_19.qsub)
 Launcher: Task 22 running job 23 on compute-2-6-17 (bash special_states_2_22.qsub)
+slurmstepd: error: *** JOB 522247 ON compute-2-6-16 CANCELLED AT 2023-03-30T16:02:11 DUE TO TIME LIMIT ***
+Killed by signal 15.
+Killed by signal 15.
