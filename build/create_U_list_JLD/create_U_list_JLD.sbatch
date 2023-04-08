@@ -3,11 +3,11 @@
 #SBATCH --job-name=create_U_list_JLD
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=128s
 #
 # Processors:
-#SBATCH --ntasks=64
-#SBATCH --nodes=4
+#SBATCH --ntasks=16
+#SBATCH --nodes=1
 #
 # Wall clock limit:
 #SBATCH --time=4-00:00:00
