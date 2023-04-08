@@ -4,7 +4,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 12;
+L = 6;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
@@ -33,12 +33,12 @@ NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
 Identity(dimension) = spdiagm(0 => ones(dimension));
 I2 = Identity(2);
-Z = [1 0;0 -1];
+Z = sparse([1 0;0 -1]);
 H = (1/sqrt(2))*[1 1;1 -1]
-Rx(theta)= exp(-1im*(theta/2)*(I2-[0 1;1 0]));
-Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
-CX(noise) = exp(-1im*((pi/2+noise))*(I2-[0 1;1 0])); # This is X gate.
-Z_gate(noise) = exp(-1im*(pi/2+noise)*(I2-Z)) #Hadamard(noise)*CX(noise)*Hadamard(noise); # noise
+Rx(theta)= sparse(exp(-1im*(theta/2)*(I2-[0 1;1 0])));
+Hadamard(noise) = sparse(exp(-1im*(pi/2+noise)*(I2-H))); #Ry(pi/2+noise)*Pauli_Z;
+CX(noise) = sparse(exp(-1im*((pi/2+noise))*(I2-[0 1;1 0]))); # This is X gate.
+Z_gate(noise) = sparse(exp(-1im*(pi/2+noise)*(I2-Z))) #Hadamard(noise)*CX(noise)*Hadamard(noise); # noise
 
 int(x) = floor(Int,x);
 
@@ -101,11 +101,11 @@ function CU(U,c,t)
     return PI_0_matrix + PI_1_matrix    
 end;
 
-U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
-U_0[1,1] = -1
-A = ones(2^L,2^L);
-U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
-G_exact = U_x*U_0;
+#U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
+#U_0[1,1] = -1
+#A = ones(2^L,2^L);
+#U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
+#G_exact = U_x*U_0;
 #V = py"eigu"(G_exact)[2];
 
 #DELTA = 0.01
