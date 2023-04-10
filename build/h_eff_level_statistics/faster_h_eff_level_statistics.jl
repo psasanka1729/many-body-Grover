@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 4000+parse(Int64,ARGS[1])
+SEED = 5000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -348,7 +348,7 @@ end;
 
 H_eff_Eigvals = H_eff_Eigenvalues(0.0);
 
-npzwrite("h_eff_eigenvalues.npy",)
+npzwrite("h_eff_eigenvalues.npy",H_eff_Eigvals)
 
 
 eigenvalues_diff = Array{Float64, 1}(undef, 0)
