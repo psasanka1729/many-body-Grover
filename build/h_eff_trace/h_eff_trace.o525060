@@ -129,3 +129,8 @@ Launcher: Task 62 running job 63 on compute-2-6-20 (bash h_eff_trace_62.qsub)
 Launcher: Task 60 running job 61 on compute-2-6-20 (bash h_eff_trace_60.qsub)
 Launcher: Task 61 running job 62 on compute-2-6-20 (bash h_eff_trace_61.qsub)
 Launcher: Task 58 running job 59 on compute-2-6-20 (bash h_eff_trace_58.qsub)
+slurmstepd: error: *** JOB 525060 ON compute-2-6-16 CANCELLED AT 2023-04-10T22:28:34 ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
