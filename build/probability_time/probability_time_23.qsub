@@ -4,7 +4,7 @@
 RUN_NAME=probability_time
 PROJECT_NAME=many-body-Grover
 SCRATCH=$HOME/scratch
-SCRATCH_DIR=$SCRATCH/$RUN_NAME/b2
+SCRATCH_DIR=$SCRATCH/$RUN_NAME/b23
 LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
@@ -20,7 +20,7 @@ then
 fi
 cd $SCRATCH_DIR/
 
-{ time julia ./$EXEC 2; } > temp.out 2> error.err
+{ time julia ./$EXEC 23; } > temp.out 2> error.err
 
 if [ "$(pwd)" == $SCRATCH_DIR ]; then
     echo "Removing files"

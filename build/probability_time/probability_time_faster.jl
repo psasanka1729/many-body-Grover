@@ -1,4 +1,4 @@
-L = 18;
+L = 16;
 
 using Random
 using LinearAlgebra
@@ -179,8 +179,8 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-Delta = 0.01
-U = Grover_operator(Delta);
+Delta = 0.02
+@time U = Grover_operator(Delta);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 p_0l = []
@@ -191,7 +191,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:210
+for i=1:250
     psi = U*psi
     p_0 = abs(psi[1])^2
     p_xbar = Pxbar(psi)
@@ -219,8 +219,8 @@ omega_1 = fit.param[3]
 phi_1 = fit.param[4]
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 # Define the second order data set
-xdata = [i for i = 50:200];
-ydata = p_0l[50:200]
+xdata = [i for i = 100:240];
+ydata = p_0l[100:240]
 # Define an initial guess for the parameters
 p0 = [  A_1,   B_1,   omega_1, phi_1]
 # Call the curve_fit function
@@ -238,4 +238,4 @@ def Write_file_fit(A, B, omega, phi, error):
     f = open('fitted_data'+'.txt', 'a')
     f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) + '\t' +str(error) + '\n')
  """
-py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[200]-(A_2+B_2*cos(omega_2*200+phi_2)))
+py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[250]-(A_2+B_2*cos(omega_2*250+phi_2)))
