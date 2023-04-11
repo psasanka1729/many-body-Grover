@@ -99,7 +99,7 @@ function single_qubit_controlled_gate_matrix(single_qubit_gate,c,t)
         PI_1_matrix = kron(PI_1_matrix,Matrices[p1[i]])        
     end
            
-    return sparse(PI_0_matrix + PI_1_matrix)     
+    return PI_0_matrix + PI_1_matrix     
 end;
 
 U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
@@ -109,7 +109,7 @@ U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0;
 #V = py"eigu"(G_exact)[2];
 
-function h_eff_eigenvalues(DELTA)
+function h_eff_eigensystem(DELTA)
     
     U_list = [];
     H_list = [];
@@ -119,7 +119,7 @@ function h_eff_eigenvalues(DELTA)
 
     
     # U_x
-    for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
+    @time for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
         if Gates_data_1[i] == "H"
             
             
@@ -178,7 +178,7 @@ function h_eff_eigenvalues(DELTA)
 
     U_0_delta = sparse(Identity(2^L));    
     # U_0
-    for i = 1 : U_0_gate_number
+    @time for i = 1 : U_0_gate_number
         if Gates_data_1[i] == "H"
         
             epsilon = NOISE[i]
@@ -254,14 +254,22 @@ function h_eff_eigenvalues(DELTA)
          =#
             
     h_eff = spzeros(2^L,2^L);
+    @time for k = 1:length(U_list)
+        f_k = Identity(2^L);
+        for i = k:length(U_list)-1
+            f_k = f_k*U_list[length(U_list)-i+k]
+        end     
+        h_eff += f_k*H_list[k]*(f_k')
+    end
     
+    #=
     # First time it starts with an identity.
     u_matrix_product = Identity(2^L)
     
     #=
     From k =1 to Number_of_Gates/2.
     =#
-    for k = 1:int(length(U_list)/2)          
+    @time for k = 1:int(length(U_list)/2)          
         u_matrix_product = (U_list[k])' * u_matrix_product         
         h_eff_left_side = sparse(G_exact) * u_matrix_product
         h_eff += NOISE_list[k] * h_eff_left_side * H_list[k] * (h_eff_left_side')
@@ -271,28 +279,48 @@ function h_eff_eigenvalues(DELTA)
     h_eff_left_side = Identity(2^L)
     
     # From k = length(Number_of_Gates)/2 to length(Number_of_Gates).
-    for k = length(U_list):-1:int(length(U_list)/2)+2
+    @time for k = length(U_list):-1:int(length(U_list)/2)+2
         h_eff_left_side *= U_list[k]
         h_eff += NOISE_list[k-1]*h_eff_left_side * H_list[k-1] * (h_eff_left_side')
     end      
     
     #= The k = Number_of_Gates term. =#
     h_eff += NOISE_list[length(U_list)] * H_list[length(U_list)]   
+    =#
     
-    h_eff = h_eff[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
-    E_eff_D = eigvals(collect(h_eff)) # Diagonalizing H_eff matrix.
-    E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.    
+    # Eigenvalues.
+    h_eff_bulk = h_eff[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
+    h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
+    h_eff_bulk_energies = sort(real(h_eff_bulk_energies),rev = true); # Soring the eigenvalues in descending order.
     
-    return E_eff_D_sorted
+    # Eigenvectors.
+    # Defining the state |0> in sigma_z basis.
+    ket_0 = zeros(2^L)
+    ket_0[1] = 1
+    # Defining the state |x_bar> in sigma_z basis.
+    N = 2^L
+    ket_x = (1/sqrt(N))*ones(N)
+    ket_xbar = sqrt(N/(N-1))*ket_x-1/sqrt(N-1)*ket_0 # Normalization checked.    
+    P_0 = ket_0*ket_0'
+    P_xbar = ket_xbar*ket_xbar'
+    #= 
+    h_eff_truncated = (1-|xbar><xbar|)(1-|0><0|)h_eff(1-|0><0|)(1-|xbar><xbar|).
+    =#
+    h_eff_truncated = (Identity(2^L)-P_xbar)*(Identity(2^L)-P_0)*h_eff*(Identity(2^L)-P_0)*(Identity(2^L)-P_xbar)    
+    h_eff_eigenvectors = eigvecs(h_eff_truncated) # Diagonalizing h_eff.    
+    
+    return h_eff_bulk_energies,h_eff_eigenvectors
 end;
 
-h_eff_eigvals = h_eff_eigenvalues(0.0);
+eigensystem_h_eff = h_eff_eigensystem(0.0);
 
-npzwrite("h_eff_eigenvalues.npy",h_eff_eigvals)
+h_eff_bulk_energies = eigensystem_h_eff[1]
+
+npzwrite("h_eff_eigenvalues.npy",h_eff_bulk_energies)
 
 eigenvalues_diff = Array{Float64, 1}(undef, 0)
 for i = 2:2^L-2 # relative index i.e length of the eigenvector array.
-    push!(eigenvalues_diff,h_eff_eigvals[i]-h_eff_eigvals[i-1])
+    push!(eigenvalues_diff,h_eff_bulk_energies[i]-h_eff_bulk_energies[i-1])
 end
 npzwrite("h_diffence_eigenvalues.npy",eigenvalues_diff)
 
@@ -302,6 +330,45 @@ end;
 
 h_eff_level_statistics = Array{Float64, 1}(undef, 0)
 for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
-    push!(h_eff_level_statistics,Level_Statistics(i,h_eff_eigvals))
+    push!(h_eff_level_statistics,Level_Statistics(i,h_eff_bulk_energies))
 end
 npzwrite("h_eff_level_statistics.npy",h_eff_level_statistics)
+
+h_eff_eigenvectors = eigensystem_h_eff[2]
+
+function KLd(Eigenvectors_Matrix)
+    KL = []
+    for n = 1:2^L-1 # Eigenvector index goes from 1 to dim(H)-1.
+        #=
+        Here n is the index of the eigenstate e.g n = 3 denotes the
+        third eigenstate of the h_eff matrix in sigma_z basis.
+        =#
+
+        #= Calculates the p(i) = |<i|n>|^2 for a given i. This is the moduli
+        squared of the i-th component of the n-th eigenstate. This is because
+        in the sigma_z basis <i|n> = i-th component of |n>.
+        =#
+
+        # Initialize the sum.
+        KLd_sum = 0.0
+
+        # The sum goes from 1 to dim(H) i.e length of an eigenvector.
+        for i = 1:2^L
+            p = abs(Eigenvectors_Matrix[:,n][i])^2 + 1.e-9 # To avoid singularity in log.
+            q = abs(Eigenvectors_Matrix[:,n+1][i])^2 + 1.e-9           
+
+            KLd_sum += p*log(p/q)
+        end
+        #println(KLd_sum)
+        push!(KL,KLd_sum)  
+    end
+    return KL
+end;
+
+KLd_calculated = KLd(h_eff_eigenvectors)
+KLD = Array{Float64, 1}(undef, 0)
+for k = 1:2^L-1
+    push!(KLD,KLd_calculated[k])
+end
+
+npzwrite("h_eff_KLd.npy",KLD)
