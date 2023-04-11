@@ -123,8 +123,8 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
     ket_xbar = x_bar(1)
     eigenstate_1 = (ket_0-1im*ket_xbar)/sqrt(2)
     eigenstate_2 = (ket_0+1im*ket_xbar)/sqrt(2)
-    V = V+ eigenstate_1*ket_1'
-    V = V+ eigenstate_2*ket_0'
+    V = V+ ket_1*(eigenstate_1')
+    V = V+ ket_0*(eigenstate_2')
     
     # The buk.
     for n=2:2^L-1
@@ -132,7 +132,7 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
         ket_n    = spzeros(2^L);
         ket_n[n+1] = 1 
         
-        V = V+x_bar(n-1)*ket_n'
+        V = V+ket_n*(x_bar(n-1)')
     end
     return V
 end;
@@ -273,7 +273,8 @@ function h_eff_eigensystem(DELTA)
         h_eff += NOISE_list[k]*f_k*H_list[k]*(f_k')
     end
     
-    h_eff = (basis_change_matrix')*h_eff*(basis_change_matrix) # Matrix in |0> and |xbar> basis.
+    # h_eff_xbar = V * h_eff_z * V^{\dagger}.
+    h_eff = (basis_change_matrix)*h_eff*(basis_change_matrix') # Matrix in |0> and |xbar> basis.
     
     # Eigenvalues.
     h_eff_bulk = h_eff[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
@@ -339,8 +340,11 @@ function KLd(Eigenvectors_Matrix)
 
         # Initialize the sum.
         KLd_sum = 0.0
-        eigenvector_1_z_basis = basis_change_matrix'*Eigenvectors_Matrix[:,n]
-        eigenvector_2_z_basis = basis_change_matrix'*Eigenvectors_Matrix[:,n+1]
+        
+        # V|x_bar> = |n+1>.
+        eigenvector_1_z_basis = basis_change_matrix*Eigenvectors_Matrix[:,n]
+        eigenvector_2_z_basis = basis_change_matrix*Eigenvectors_Matrix[:,n+1]
+        
         # The sum goes from 1 to dim(H) i.e length of an eigenvector.
         for i = 1:2^L
             p = abs(eigenvector_1_z_basis[i])^2 + 1.e-9 # To avoid singularity in log.
