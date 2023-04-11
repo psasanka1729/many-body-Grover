@@ -1,3 +1,4 @@
+#using PyCall
 using NPZ
 using Random
 using LinearAlgebra
@@ -102,12 +103,41 @@ function single_qubit_controlled_gate_matrix(single_qubit_gate,c,t)
     return PI_0_matrix + PI_1_matrix     
 end;
 
-U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
-U_0[1,1] = -1
-A = ones(2^L,2^L);
-U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
-G_exact = U_x*U_0;
-#V = py"eigu"(G_exact)[2];
+function x_bar(n)
+    s = zeros(2^L)
+    k_n = (2*pi*n)/(2^L-1)
+    for j=1:2^L-1
+        ket_j    = zeros(2^L);
+        ket_j[j+1] = 1 
+        s = s+ exp(1im*(j-1)*k_n)*ket_j
+    end
+    return s/sqrt(2^L-1)
+end;
+
+function sigma_z_to_x_bar_basis_change_matrix(L)
+    V     = spzeros(2^L,2^L)
+    ket_0 = spzeros(2^L)
+    ket_0[1] = 1
+    ket_1    = spzeros(2^L);
+    ket_1[2] = 1
+    ket_xbar = x_bar(1)
+    eigenstate_1 = (ket_0-1im*ket_xbar)/sqrt(2)
+    eigenstate_2 = (ket_0+1im*ket_xbar)/sqrt(2)
+    V = V+ ket_1*(eigenstate_1')
+    V = V+ ket_0*(eigenstate_2')
+    
+    # The buk.
+    for n=2:2^L-1
+        # ket_n has n+1 th position as 1 in comutational basis.
+        ket_n    = spzeros(2^L);
+        ket_n[n+1] = 1 
+        
+        V = V+ket_n*(x_bar(n-1)')
+    end
+    return V
+end;
+
+basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
 
 function h_eff_eigensystem(DELTA)
     
@@ -234,59 +264,17 @@ function h_eff_eigensystem(DELTA)
         end
     end
         
-    #= The following loop sums over all epsilon to get H_eff. =#
-
-        #=
-        Terms before and after the half of the number of gates will be summed seperatly.
-        =#
-        #= 
-        For k < (Number of gates)/2
-            The kth_term = 
-                        G_0 * U_1^\dagger * U_2^\dagger * ... * U_k^\dagger
-                        * H_k *
-                        (G_0 * U_1^\dagger * U_2^\dagger * ... * U_k^\dagger)^\dagger
-        For k > (Number of gates)/2
-            The kth_term = 
-                        (U_k+1 * ... * U_Number of Gates)^\dagger
-                        * H_k *
-                        (U_k+1 * ... * U_Number of Gates)
-
-         =#
-            
     h_eff = spzeros(2^L,2^L);
     @time for k = 1:length(U_list)
         f_k = Identity(2^L);
         for i = k:length(U_list)-1
             f_k = f_k*U_list[length(U_list)-i+k]
         end     
-        h_eff += f_k*H_list[k]*(f_k')
+        h_eff += NOISE_list[k]*f_k*H_list[k]*(f_k')
     end
     
-    #=
-    # First time it starts with an identity.
-    u_matrix_product = Identity(2^L)
-    
-    #=
-    From k =1 to Number_of_Gates/2.
-    =#
-    @time for k = 1:int(length(U_list)/2)          
-        u_matrix_product = (U_list[k])' * u_matrix_product         
-        h_eff_left_side = sparse(G_exact) * u_matrix_product
-        h_eff += NOISE_list[k] * h_eff_left_side * H_list[k] * (h_eff_left_side')
-    end        
-    
-    # First time it starts with an identity.
-    h_eff_left_side = Identity(2^L)
-    
-    # From k = length(Number_of_Gates)/2 to length(Number_of_Gates).
-    @time for k = length(U_list):-1:int(length(U_list)/2)+2
-        h_eff_left_side *= U_list[k]
-        h_eff += NOISE_list[k-1]*h_eff_left_side * H_list[k-1] * (h_eff_left_side')
-    end      
-    
-    #= The k = Number_of_Gates term. =#
-    h_eff += NOISE_list[length(U_list)] * H_list[length(U_list)]   
-    =#
+    # h_eff_xbar = V * h_eff_z * V^{\dagger}.
+    h_eff = (basis_change_matrix)*h_eff*(basis_change_matrix') # Matrix in |0> and |xbar> basis.
     
     # Eigenvalues.
     h_eff_bulk = h_eff[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
@@ -307,6 +295,7 @@ function h_eff_eigensystem(DELTA)
     h_eff_truncated = (1-|xbar><xbar|)(1-|0><0|)h_eff(1-|0><0|)(1-|xbar><xbar|).
     =#
     h_eff_truncated = (Identity(2^L)-P_xbar)*(Identity(2^L)-P_0)*h_eff*(Identity(2^L)-P_0)*(Identity(2^L)-P_xbar)    
+    #h_eff_z_basis = basis_change_matrix*h_eff_truncated*(basis_change_matrix')
     h_eff_eigenvectors = eigvecs(h_eff_truncated) # Diagonalizing h_eff.    
     
     return h_eff_bulk_energies,h_eff_eigenvectors
@@ -351,11 +340,15 @@ function KLd(Eigenvectors_Matrix)
 
         # Initialize the sum.
         KLd_sum = 0.0
-
+        
+        # V|x_bar> = |n+1>.
+        eigenvector_1_z_basis = basis_change_matrix*Eigenvectors_Matrix[:,n]
+        eigenvector_2_z_basis = basis_change_matrix*Eigenvectors_Matrix[:,n+1]
+        
         # The sum goes from 1 to dim(H) i.e length of an eigenvector.
         for i = 1:2^L
-            p = abs(Eigenvectors_Matrix[:,n][i])^2 + 1.e-9 # To avoid singularity in log.
-            q = abs(Eigenvectors_Matrix[:,n+1][i])^2 + 1.e-9           
+            p = abs(eigenvector_1_z_basis[i])^2 + 1.e-9 # To avoid singularity in log.
+            q = abs(eigenvector_2_z_basis[i])^2 + 1.e-9           
 
             KLd_sum += p*log(p/q)
         end
