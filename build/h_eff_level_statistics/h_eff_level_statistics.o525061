@@ -129,3 +129,8 @@ Launcher: Task 48 running job 49 on compute-2-6-15 (bash h_eff_level_statistics_
 Launcher: Task 62 running job 63 on compute-2-6-15 (bash h_eff_level_statistics_62.qsub)
 Launcher: Task 52 running job 53 on compute-2-6-15 (bash h_eff_level_statistics_52.qsub)
 Launcher: Task 63 running job 64 on compute-2-6-15 (bash h_eff_level_statistics_63.qsub)
+slurmstepd: error: *** JOB 525061 ON compute-2-6-12 CANCELLED AT 2023-04-10T21:45:08 ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.

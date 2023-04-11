@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 7000+parse(Int64,ARGS[1])
+SEED = 4000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -42,45 +42,44 @@ Z_gate(noise)   = sparse(exp(-1im*(pi/2+noise)*collect(I2-Z))) #Hadamard(noise)*
 Identity(dimension) = spdiagm(0 => ones(dimension));
 int(x) = floor(Int,x);
 
-function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
+function single_qubit_gate_matrix(single_qubit_gate, qubit)
     
     ## The case Qubit=1 is treated differently because we need to
     # initialize the matrix as U before starting the kronecker product.
     
-    if Qubit == 1
+    if qubit == 1
         
-        M = sparse(Gate)
+        gate_matrix = sparse(single_qubit_gate)
         for i=2:L
-            M = kron(M, I2)
+            gate_matrix = kron(gate_matrix, I2)
         end
         
+    #=
+        Single qubit gates acting on qubits othe than the first.
+        =#
     else
         
-        M = I2
+        gate_matrix = I2
         for i=2:L
-            if i == Qubit
-                M = kron(M, Gate)
+            if i == qubit
+                gate_matrix = kron(gate_matrix, single_qubit_gate)
             else
-                M = kron(M, sparse([1 0;0 1]))
+                gate_matrix = kron(gate_matrix, I2)
             end
         end
     end
     
-    return M
+    return gate_matrix
 end;
 
-function CU(U,c,t)
+function single_qubit_controlled_gate_matrix(single_qubit_gate,c,t)
 
+    # |0><0|.
     PI_0 = (I2+Z)/2
+    # |1><1|.
     PI_1 = (I2-Z)/2
      
-    #function Rx(Noise)
-        #A = cos((pi+Noise)/2)
-        #B = -1im*sin((pi+Noise)/2)
-        #return 1im*[A B;B A]
-    #end
-    
-    Matrices = Dict("I" => I2,"PI_0" => PI_0,"U" => U, "PI_1" => PI_1)
+    Matrices = Dict("I" => I2,"PI_0" => PI_0,"U" => single_qubit_gate, "PI_1" => PI_1)
     
     p0 = fill("I", L)
     p1 = fill("I", L)
@@ -100,7 +99,6 @@ function CU(U,c,t)
         PI_1_matrix = kron(PI_1_matrix,Matrices[p1[i]])        
     end
            
-    #return p0,p1
     return sparse(PI_0_matrix + PI_1_matrix)     
 end;
 
@@ -111,15 +109,14 @@ U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0;
 #V = py"eigu"(G_exact)[2];
 
-#DELTA = 0.01
-function H_eff_Eigenvalues(DELTA)
+function h_eff_eigenvalues(DELTA)
     
     U_list = [];
+    H_list = [];
+    U_x_delta = sparse(Identity(2^L));
+    
     NOISE_list = []
 
-    Gates_data_new_1 = []
-    Gates_data_new_2 = []
-    Gates_data_new_3 = []
     
     # U_x
     for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
@@ -128,41 +125,31 @@ function H_eff_Eigenvalues(DELTA)
             
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)
-
         
-            push!(Gates_data_new_1,"H")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i])
+            push!(U_list,single_qubit_gate_matrix(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
         
-            push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
+            Qubit = Gates_data_3[i] # qubit.
+            push!(H_list,single_qubit_gate_matrix(I2-H,Qubit)) #= H_had = I2-Had. =#            
             
         elseif Gates_data_1[i] == "X"
         
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
+            push!(NOISE_list,epsilon)             
 
-        
-            push!(Gates_data_new_1,"X")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-
-        
-            push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
+            push!(U_list,single_qubit_gate_matrix(CX(0.0),Gates_data_3[i])) # Noiseless.
+            
+            Qubit = Gates_data_3[i] # qubit.
+            push!(H_list,single_qubit_gate_matrix(I2-X,Qubit)) #= H_X = I2-X. =#   
             
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-
-        
-            push!(Gates_data_new_1,"Z")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-
-        
-            push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            
+            push!(U_list,single_qubit_gate_matrix(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            
+            Qubit = Gates_data_3[i] # qubit.
+            push!(H_list,single_qubit_gate_matrix(I2-Z,Qubit)) #= H_Z = I2-Z. =#  
             
         else
             #push!(ux_list,"CRX")
@@ -170,21 +157,26 @@ function H_eff_Eigenvalues(DELTA)
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
 
-        
-            push!(Gates_data_new_1,Gates_data_1[i])
-            push!(Gates_data_new_2,Gates_data_2[i])
-            push!(Gates_data_new_3,Gates_data_3[i])
-        
-
-        
-            push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiselss.
-            
+            push!(U_list,single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiselss.
+           
+            Angle = Gates_data_1[i]
+            Control_Qubit = int(Gates_data_2[i])
+            Target_Qubit = int(Gates_data_3[i])
+            #= H = ((I-Z)/2)_c \otimes ((I-X)/2)_t.=#
+            Matrices = Dict("I" => I2,"U" => [1 -1;-1 1]/2, "PI_1" => (I2-Z)/2)
+            p1 = fill("I", L)
+            p1[Control_Qubit] = "PI_1"
+            p1[Target_Qubit] = "U"
+            H_k = Matrices[p1[1]]
+            for i = 2:L
+                H_k = kron(H_k,Matrices[p1[i]])
+            end
+            push!(H_list,H_k)
         end
     end
     
 
-    
-    #u0_list = []
+    U_0_delta = sparse(Identity(2^L));    
     # U_0
     for i = 1 : U_0_gate_number
         if Gates_data_1[i] == "H"
@@ -192,14 +184,10 @@ function H_eff_Eigenvalues(DELTA)
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
 
-        
-            push!(Gates_data_new_1,"H")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i])
-        
-
-        
-            push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
+            push!(U_list,single_qubit_gate_matrix(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
+            
+            Qubit = Gates_data_3[i] # qubit.
+            push!(H_list,single_qubit_gate_matrix(I2-H,Qubit)) #= H_had = I2-Had. =#               
             
         elseif Gates_data_1[i] == "X"
 
@@ -207,153 +195,104 @@ function H_eff_Eigenvalues(DELTA)
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
 
-        
-            push!(Gates_data_new_1,"X")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-        
-            push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
+            push!(U_list,single_qubit_gate_matrix(CX(0.0),Gates_data_3[i])) # Noiseless.
+            
+            Qubit = Gates_data_3[i] # qubit.
+            push!(H_list,single_qubit_gate_matrix(I2-X,Qubit)) #= H_X = I2-X. =# 
             
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
 
-        
-            push!(Gates_data_new_1,"Z")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-        
-            push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            push!(U_list,single_qubit_gate_matrix(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            
+            Qubit = Gates_data_3[i] # qubit.
+            push!(H_list,single_qubit_gate_matrix(I2-Z,Qubit)) #= H_Z = I2-Z. =#              
             
         else
             #push!(u0_list,"CRX")
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-        
-            push!(Gates_data_new_1,Gates_data_1[i])
-            push!(Gates_data_new_2,Gates_data_2[i])
-            push!(Gates_data_new_3,Gates_data_3[i])
-        
-        
-            push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiseless.
+
+            push!(U_list,single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiseless.
             
+            Angle = Gates_data_1[i]
+            Control_Qubit = int(Gates_data_2[i])
+            Target_Qubit = int(Gates_data_3[i])
+            #= H = ((I-Z)/2)_c \otimes ((I-X)/2)_t.=#
+            Matrices = Dict("I" => I2,"U" => [1 -1;-1 1]/2, "PI_1" => (I2-Z)/2)
+            p1 = fill("I", L)
+            p1[Control_Qubit] = "PI_1"
+            p1[Target_Qubit] = "U"
+            H_k = Matrices[p1[1]]
+            for i = 2:L
+                H_k = kron(H_k,Matrices[p1[i]])
+            end
+            push!(H_list,H_k)
         end
     end
         
-    
-    function kth_term(k)
-
-            #=
-            Terms before and after the half of the number of gates will be summed seperatly.
-            =#
-            #= 
-            For k < (Number of gates)/2
-                The kth_term = 
-                            G_0 * U_1^\dagger * U_2^\dagger * ... * U_k^\dagger
-                            * H_k *
-                            (G_0 * U_1^\dagger * U_2^\dagger * ... * U_k^\dagger)^\dagger
-            For k > (Number of gates)/2
-                The kth_term = 
-                            (U_k+1 * ... * U_Number of Gates)^\dagger
-                            * H_k *
-                            (U_k+1 * ... * U_Number of Gates)
-    
-            =#
-        
-            if k < Number_of_Gates/2
-                temp_matrix = sparse(G_exact)
-                for i = 1:k
-                    temp_matrix *= (U_list[i])'
-                end
-            else
-                temp_matrix = sparse(Identity(2^L))
-                # Constructing the term on the right of H_k.
-                for i = k+1:Number_of_Gates
-                    temp_matrix *= U_list[i]'
-                end
-                temp_matrix = temp_matrix'
-            end
-        
-            #= Corresponding H for the kth term. =#
-            if Gates_data_new_1[k] == "H"
-
-                Qubit = Gates_data_new_3[k] # qubit.
-                H_k = Matrix_Gate(I2-H,Qubit) #= H_had = I2-Had. =#
-
-            elseif Gates_data_new_1[k] == "X"
-
-                Qubit = Gates_data_new_3[k] # qubit.
-                H_k = Matrix_Gate(I2-X,Qubit) #= H_X = I2-X. =#
-            
-            elseif Gates_data_new_1[k] == "Z"
-
-                Qubit = Gates_data_new_3[k] # qubit.
-                H_k = Matrix_Gate(I2-Z,Qubit) #= H_Z = I2-Z. =#
-            
-            else
-        
-                Angle = Gates_data_new_1[k]
-                Control_Qubit = int(Gates_data_new_2[k])
-                Target_Qubit = int(Gates_data_new_3[k])
-                #= H = ((I-Z)/2)_c \otimes ((I-X)/2)_t.=#
-                Matrices = Dict("I" => I2,"U" => [1 -1;-1 1]/2, "PI_1" => (I2-Z)/2)
-                p1 = fill("I", L)
-                p1[Control_Qubit] = "PI_1"
-                p1[Target_Qubit] = "U"
-                H_k = Matrices[p1[1]]
-                for i = 2:L
-                    H_k = kron(H_k,Matrices[p1[i]])
-                end                                 
-            end
-    
-    
-        return temp_matrix*H_k*(temp_matrix')
-    end; 
-    
     #= The following loop sums over all epsilon to get H_eff. =#
-    h_eff = sparse(zeros(2^L,2^L));
-    @time for i = 1:length(U_list)
-        h_eff += NOISE_list[i]*kth_term(i)
-    end        
 
-    # Defining the state |0> in sigma_z basis.
-    ket_0 = zeros(2^L)
-    ket_0[1] = 1
+        #=
+        Terms before and after the half of the number of gates will be summed seperatly.
+        =#
+        #= 
+        For k < (Number of gates)/2
+            The kth_term = 
+                        G_0 * U_1^\dagger * U_2^\dagger * ... * U_k^\dagger
+                        * H_k *
+                        (G_0 * U_1^\dagger * U_2^\dagger * ... * U_k^\dagger)^\dagger
+        For k > (Number of gates)/2
+            The kth_term = 
+                        (U_k+1 * ... * U_Number of Gates)^\dagger
+                        * H_k *
+                        (U_k+1 * ... * U_Number of Gates)
+
+         =#
+            
+    h_eff = spzeros(2^L,2^L);
     
-    # Defining the state |x_bar> in sigma_z basis.
-    N = 2^L
-    ket_x = (1/sqrt(N))*ones(N)
-    ket_xbar = sqrt(N/(N-1))*ket_x-1/sqrt(N-1)*ket_0 # Normalization checked.    
-
-    P_0 = ket_0*ket_0'
-    P_xbar = ket_xbar*ket_xbar'
-    #= 
-    h_eff_truncated = (1-|xbar><xbar|)(1-|0><0|)h_eff(1-|0><0|)(1-|xbar><xbar|).
+    # First time it starts with an identity.
+    u_matrix_product = Identity(2^L)
+    
+    #=
+    From k =1 to Number_of_Gates/2.
     =#
-    h_eff_trunc = (Identity(2^L)-P_xbar)*(Identity(2^L)-P_0)*h_eff*(Identity(2^L)-P_0)*(Identity(2^L)-P_xbar)    
+    for k = 1:int(length(U_list)/2)          
+        u_matrix_product = (U_list[k])' * u_matrix_product         
+        h_eff_left_side = sparse(G_exact) * u_matrix_product
+        h_eff += NOISE_list[k] * h_eff_left_side * H_list[k] * (h_eff_left_side')
+    end        
     
-
-    h_eff_D = h_eff_trunc[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
-    @time E_eff_D = eigvals(h_eff_D) # Diagonalizing H_eff matrix.
+    # First time it starts with an identity.
+    h_eff_left_side = Identity(2^L)
     
+    # From k = length(Number_of_Gates)/2 to length(Number_of_Gates).
+    for k = length(U_list):-1:int(length(U_list)/2)+2
+        h_eff_left_side *= U_list[k]
+        h_eff += NOISE_list[k-1]*h_eff_left_side * H_list[k-1] * (h_eff_left_side')
+    end      
+    
+    #= The k = Number_of_Gates term. =#
+    h_eff += NOISE_list[length(U_list)] * H_list[length(U_list)]   
+    
+    h_eff = h_eff[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
+    E_eff_D = eigvals(collect(h_eff)) # Diagonalizing H_eff matrix.
     E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.    
-
     
     return E_eff_D_sorted
 end;
 
-H_eff_Eigvals = H_eff_Eigenvalues(0.0);
+h_eff_eigvals = h_eff_eigenvalues(0.0);
 
-npzwrite("h_eff_eigenvalues.npy",H_eff_Eigvals)
-
+npzwrite("h_eff_eigenvalues.npy",h_eff_eigvals)
 
 eigenvalues_diff = Array{Float64, 1}(undef, 0)
 for i = 2:2^L-2 # relative index i.e length of the eigenvector array.
-    push!(eigenvalues_diff,H_eff_Eigvals[i]-H_eff_Eigvals[i-1])
+    push!(eigenvalues_diff,h_eff_eigvals[i]-h_eff_eigvals[i-1])
 end
 npzwrite("h_diffence_eigenvalues.npy",eigenvalues_diff)
 
@@ -363,8 +302,6 @@ end;
 
 h_eff_level_statistics = Array{Float64, 1}(undef, 0)
 for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
-    push!(h_eff_level_statistics,Level_Statistics(i,H_eff_Eigvals))
+    push!(h_eff_level_statistics,Level_Statistics(i,h_eff_eigvals))
 end
 npzwrite("h_eff_level_statistics.npy",h_eff_level_statistics)
-
-npzread("h_eff_level_statistics.npy")
