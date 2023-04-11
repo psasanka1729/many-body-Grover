@@ -1,11 +1,11 @@
 bash create_U_list_JLD_0.qsub
 bash create_U_list_JLD_1.qsub
-bash create_U_list_JLD_2.qsub
-bash create_U_list_JLD_3.qsub
-bash create_U_list_JLD_4.qsub
-bash create_U_list_JLD_5.qsub
-bash create_U_list_JLD_6.qsub
-bash create_U_list_JLD_7.qsub
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
 echo "Fake run"
 echo "Fake run"
 echo "Fake run"
