@@ -294,3 +294,8 @@ Removing files
 rm: cannot remove ‘h_eff_level_stat_KLd.jl’: No such file or directory
 Launcher: Job 7 completed in 146 seconds.
 Launcher: Task 6 done. Exiting.
+slurmstepd: error: *** JOB 525084 ON compute-2-6-16 CANCELLED AT 2023-04-11T11:09:21 ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
