@@ -5,7 +5,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 8;
+L = 6;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
@@ -303,15 +303,21 @@ end;
 
 eigensystem_h_eff = h_eff_eigensystem(0.0);
 
+eigenvalue_file       = open("eigenvalues.txt", "w")
+level_statistics_file = open("level_statistics.txt", "w")
+KLd_file              = open("KLd.txt", "w")
+
 h_eff_bulk_energies = eigensystem_h_eff[1]
 
-npzwrite("h_eff_eigenvalues.npy",h_eff_bulk_energies)
-
-eigenvalues_diff = Array{Float64, 1}(undef, 0)
-for i = 2:2^L-2 # relative index i.e length of the eigenvector array.
-    push!(eigenvalues_diff,h_eff_bulk_energies[i]-h_eff_bulk_energies[i-1])
+for i = 1:2^L-2
+    write(eigenvalue_file, string(i))
+    write(eigenvalue_file, "\t")  # Add a tab indentation between the columns
+    write(eigenvalue_file, string(h_eff_bulk_energies[i]))
+    write(eigenvalue_file, "\n")  # Add a newline character to start a new line
 end
-npzwrite("h_diffence_eigenvalues.npy",eigenvalues_diff)
+
+# Close the file
+close(eigenvalue_file)
 
 function Level_Statistics(n,Es)
     return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
@@ -321,7 +327,17 @@ h_eff_level_statistics = Array{Float64, 1}(undef, 0)
 for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
     push!(h_eff_level_statistics,Level_Statistics(i,h_eff_bulk_energies))
 end
-npzwrite("h_eff_level_statistics.npy",h_eff_level_statistics)
+
+
+for i = 1:2^L-4
+    write(level_statistics_file, string(i))
+    write(level_statistics_file, "\t")  # Add a tab indentation between the columns
+    write(level_statistics_file, string(h_eff_level_statistics[i]))
+    write(level_statistics_file, "\n")  # Add a newline character to start a new line
+end
+
+# Close the file
+close(level_statistics_file)
 
 h_eff_eigenvectors = eigensystem_h_eff[2]
 
@@ -358,10 +374,12 @@ function KLd(Eigenvectors_Matrix)
     return KL
 end;
 
-KLd_calculated = KLd(h_eff_eigenvectors)
-KLD = Array{Float64, 1}(undef, 0)
-for k = 1:2^L-1
-    push!(KLD,KLd_calculated[k])
+for i = 1:2^L-1
+    write(KLd_file , string(i))
+    write(KLd_file , "\t")  # Add a tab indentation between the columns
+    write(KLd_file , string(KLd_calculated[i]))
+    write(KLd_file , "\n")  # Add a newline character to start a new line
 end
 
-npzwrite("h_eff_KLd.npy",KLD)
+# Close the file
+close(KLd_file)
