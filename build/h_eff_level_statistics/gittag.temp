@@ -1,3 +1,45 @@
+commit 907619f743850ffba84eab37c265e0bbe3c1a49f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Apr 14 14:40:52 2023 -0500
+
+    Commit before run h_eff_level_statistics
+
+commit affd212d41326f0df7a7ad509ee407d199e6cd06
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Apr 14 14:25:08 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 959bbff9368d1ddc8c60a61ac9ef14849ffa0e1a
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Fri Apr 14 14:23:24 2023 -0500
+
+    Delete h_eff_spectrum_faster
+
+commit 68fc6fb976cf5b954373bcaaf444e4dab8423d54
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Fri Apr 14 14:23:16 2023 -0500
+
+    calculates h_eff from derivative of G
+
+commit 6a170872a55d68de43cf7731279ebfc688e64d4c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Apr 14 14:22:28 2023 -0500
+
+    cluster backup
+
+commit 4c7b70d33dc92cc007d43cac2fdf76e9113cce95
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Fri Apr 14 14:19:21 2023 -0500
+
+    calculates h_eff from derivative of G
+
+commit 1e735abf70d39d7c4a023e2f367573efc25add5a
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Apr 14 14:18:20 2023 -0500
+
+    cluster backup
+
 commit 4e107ac10a19d92443726deb7f44b11df0d8d541
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Fri Apr 14 14:02:44 2023 -0500
