@@ -3,14 +3,14 @@
 #SBATCH --job-name=h_eff_energies
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT
 #
 # Processors:
-#SBATCH --ntasks=128
-#SBATCH --nodes=8
+#SBATCH --ntasks=32
+#SBATCH --nodes=2
 #
 # Wall clock limit:
-#SBATCH --time=4-00:00:00
+#SBATCH --time=7-00:00:00
 #
 # Email at end:
 #SBATCH --mail-user=sxd190113@utdallas.edu
