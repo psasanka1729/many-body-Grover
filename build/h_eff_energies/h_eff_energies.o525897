@@ -74,3 +74,6 @@ Launcher: Task 27 running job 28 on compute-2-6-15 (bash h_eff_energies_27.qsub)
 Removing files
 Launcher: Job 9 completed in 89744 seconds.
 Launcher: Task 8 done. Exiting.
+Removing files
+Launcher: Job 11 completed in 91440 seconds.
+Launcher: Task 10 done. Exiting.
