@@ -370,6 +370,7 @@ function Grover_delta(DELTA)
     end
     
     GROVER_DELTA = U_x_delta*U_0_delta
+    return GROVER_DELTA
 end;
 
 function derivative_of_G(h)
@@ -378,12 +379,14 @@ end;
 
 function h_eff_from_derivative(h)
     h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+    return h_eff_matrix
 end;
 
 function h_eff_bulk_energies(h)
     h_eff_bulk = h_eff_from_derivative(h)[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
     h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
     effec_energies = sort(real(h_eff_bulk_energies),rev = true) # Soring the eigenvalues in descending order.
+    return effec_energies
 end;
 
 eigenvalue_file       = open("eigenvalues.txt", "w")

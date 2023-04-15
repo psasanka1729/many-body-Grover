@@ -129,3 +129,30 @@ Launcher: Task 44 running job 45 on compute-2-6-19 (bash h_eff_trace_44.qsub)
 Launcher: Task 36 running job 37 on compute-2-6-19 (bash h_eff_trace_36.qsub)
 Launcher: Task 33 running job 34 on compute-2-6-19 (bash h_eff_trace_33.qsub)
 Launcher: Task 43 running job 44 on compute-2-6-19 (bash h_eff_trace_43.qsub)
+Removing files
+Launcher: Job 29 completed in 178269 seconds.
+Launcher: Task 28 done. Exiting.
+Removing files
+Launcher: Job 20 completed in 180678 seconds.
+Launcher: Task 19 done. Exiting.
+Removing files
+Launcher: Job 38 completed in 181933 seconds.
+Launcher: Task 37 done. Exiting.
+Removing files
+Launcher: Job 9 completed in 182341 seconds.
+Launcher: Task 8 done. Exiting.
+Removing files
+Launcher: Job 2 completed in 182767 seconds.
+Launcher: Task 1 done. Exiting.
+Removing files
+Launcher: Job 12 completed in 182879 seconds.
+Launcher: Task 11 done. Exiting.
+Removing files
+Launcher: Job 3 completed in 183330 seconds.
+Launcher: Task 2 done. Exiting.
+Removing files
+Launcher: Job 59 completed in 183442 seconds.
+Launcher: Task 58 done. Exiting.
+Removing files
+Launcher: Job 14 completed in 183783 seconds.
+Launcher: Task 13 done. Exiting.
