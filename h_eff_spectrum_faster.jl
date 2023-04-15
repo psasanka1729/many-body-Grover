@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1945
+SEED = 4000
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -313,6 +313,8 @@ A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s>
 G_exact = U_x*U_0;
 
+
+
 function Grover_delta(DELTA)
 
     U_x_delta = Identity(2^L)
@@ -324,20 +326,25 @@ function Grover_delta(DELTA)
             epsilon = NOISE[i]
             U_x_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])
                       
+            
         elseif Gates_data_1[i] == "X"
         
             epsilon = NOISE[i]       
             U_x_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])   
 
+            
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]       
             U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])
- 
+
+            
         else
         
             epsilon = NOISE[i]       
             U_x_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+
+            
         end
     end
     
@@ -349,46 +356,65 @@ function Grover_delta(DELTA)
         
             epsilon = NOISE[i]      
             U_0_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])          
+
             
         elseif Gates_data_1[i] == "X"
 
         
             epsilon = NOISE[i]       
             U_0_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])
+
             
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]     
             U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])          
+
             
         else
 
             epsilon = NOISE[i]     
             U_0_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
 
+            
         end 
     end
     
     GROVER_DELTA = U_x_delta*U_0_delta
+    return GROVER_DELTA
 end;
 
 function derivative_of_G(h)
-    return (Grover_delta(h)-(-G_exact))/h
+    # Forward difference.
+    #return (Grover_delta(h)-(-G_exact))/h
+    # Central difference.
+    return (Grover_delta(h)-Grover_delta(-h))/(2*h)
 end;
 
 function h_eff_from_derivative(h)
     h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+    # h_eff_xbar = V * h_eff_z * V^{\dagger}.
+    h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
+    return h_eff_matrix_xbar_basis
+end;
+
+function h_eff_full_spectrum(h)
+    h_eff_full = h_eff_from_derivative(h); # Deleting the |0> and |xbar> basis.
+    h_eff_full_energies = eigvals(collect(h_eff_full)) # Diagonalizing H_eff matrix.
+    all_energies = sort(real(h_eff_full_energies),rev = true) # Soring the eigenvalues in descending order.
+    return all_energies
 end;
 
 function h_eff_bulk_energies(h)
     h_eff_bulk = h_eff_from_derivative(h)[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
     h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
-    effec_energies = sort(real(h_eff_bulk_energies),rev = true) # Soring the eigenvalues in descending order.
+    effective_energies = sort(real(h_eff_bulk_energies),rev = true) # Soring the eigenvalues in descending order.
+    return effective_energies
 end;
 
 eigenvalue_file       = open("eigenvalues.txt", "w")
 level_statistics_file = open("level_statistics.txt", "w")
-KLd_file              = open("KLd.txt", "w")
+KLd_file              = open("KLd.txt", "w");
 
 bulk_energies = h_eff_bulk_energies(1.e-10)
 
