@@ -3,11 +3,11 @@
 #SBATCH --job-name=phi_delta_2
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=128s
 #
 # Processors:
-#SBATCH --ntasks=48
-#SBATCH --nodes=3
+#SBATCH --ntasks=64
+#SBATCH --nodes=4
 #
 # Wall clock limit:
 #SBATCH --time=4-00:00:00
