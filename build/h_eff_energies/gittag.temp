@@ -1,3 +1,69 @@
+commit 066b438cb98840b3585a4daeed21b967a03b4b3e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Apr 15 19:29:16 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit d01d114c32decb4de38ba755d89f4bb7865c8192
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Apr 15 17:19:50 2023 -0500
+
+    Commit before run h_eff_eigensystem
+
+commit 7d0a6fa95de738d222b315fce55b17d50669e223
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Apr 15 15:50:07 2023 -0500
+
+    Commit before run h_eff_eigensystem
+
+commit 8eefac96e29a90ddb1603fdac980244984871583
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Apr 15 15:46:30 2023 -0500
+
+    Commit before run h_eff_eigensystem
+
+commit 684ca53577cc0ad1b4d804dbd10686a80533d34a
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Apr 15 15:43:49 2023 -0500
+
+    Commit before run h_eff_eigensystem
+
+commit 460aac04cfd1c4215648ce58b8d7d5e53be4e8c8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Apr 15 15:12:38 2023 -0500
+
+    Commit before run h_eff_eigensystem
+
+commit 0f0fd37fc7bddbe82a4eaac9d9861165ac4cc14c
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Apr 15 15:10:32 2023 -0500
+
+    derivative is calculated using central difference
+
+commit 8bbb6a6090ca973bf3e77b4155a4d72a7dce5ef1
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Apr 15 15:08:41 2023 -0500
+
+    derivative is calculated using central difference
+
+commit 9af77fa794978711f949a623a9ad589845ffa804
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Apr 15 15:07:31 2023 -0500
+
+    cluster backup
+
+commit ce98368d53e8b25919d7afee6d43d56876601c23
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Apr 14 14:42:24 2023 -0500
+
+    Commit before run h_eff_level_statistics
+
+commit 907619f743850ffba84eab37c265e0bbe3c1a49f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Apr 14 14:40:52 2023 -0500
+
+    Commit before run h_eff_level_statistics
+
 commit affd212d41326f0df7a7ad509ee407d199e6cd06
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Fri Apr 14 14:25:08 2023 -0500
