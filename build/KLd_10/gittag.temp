@@ -1,3 +1,21 @@
+commit 049453c2649405f4c50e0ed07768cbda97b0e904
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 15:28:41 2023 -0500
+
+    Commit before run KLd_10
+
+commit a78e0d486b4fd926c501178e02436d01667c6149
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sun Apr 16 15:26:44 2023 -0500
+
+    h_eff is calculated using derivative of G(\delta)
+
+commit 6f1eb0e4a64bbed3524cc26ce4fcc96371bbf3c7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 15:26:03 2023 -0500
+
+    cluster backup
+
 commit b7a0d19233917752824665748041839da261a2ed
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sun Apr 16 11:39:57 2023 -0500

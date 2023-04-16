@@ -10,7 +10,7 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 mkdir -p $SCRATCH_DIR
 
 EXEC=faster_h_eff_KLd.jl
-HELPER="8_new_Grover_gates_data.txt"
+HELPER="14_new_Grover_gates_data.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
 cp $EXEC $SCRATCH_DIR/
