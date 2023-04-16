@@ -1,6 +1,5 @@
 L = 10;
 
-#using NPZ
 using Random
 using LinearAlgebra
 using SparseArrays
@@ -27,63 +26,61 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 26546 
+
+# Good seeds = 10,14, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
+SEED = 26546
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
-I2 = [1 0; 0 1];
-Z = [1 0;0 -1];
-H = (1/sqrt(2))*[1 1;1 -1]
-Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
-Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
-CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
-Z_gate(noise) = exp(-1im*(pi/2+noise)*(I2-Z))#Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
+I2 = sparse([1 0; 0 1]);
+Z  = sparse([1 0;0 -1]);
+X  = sparse([0 1;1 0])
+H  = (1/sqrt(2))*[1 1;1 -1]
+Rx(theta)       = sparse(exp(-1im*(theta/2)*collect(I2-X)));
+Hadamard(noise) = sparse(exp(-1im*(pi/2+noise)*collect(I2-H))) #Ry(pi/2+noise)*Pauli_Z;
+CX(noise)       = sparse(exp(-1im*((pi/2+noise))*collect(I2-X))); # This is X gate.
+Z_gate(noise)   = sparse(exp(-1im*(pi/2+noise)*collect(I2-Z))) #Hadamard(noise)*CX(noise)*Hadamard(noise); # noise
 Identity(dimension) = spdiagm(0 => ones(dimension));
 int(x) = floor(Int,x);
 
-
-function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
+function single_qubit_gate_matrix(single_qubit_gate, qubit)
     
     ## The case Qubit=1 is treated differently because we need to
     # initialize the matrix as U before starting the kronecker product.
     
-    if Qubit == 1
+    if qubit == 1
         
-        M = sparse(Gate)
+        gate_matrix = sparse(single_qubit_gate)
         for i=2:L
-            M = kron(M, sparse([1 0;0 1]))
+            gate_matrix = kron(gate_matrix, I2)
         end
         
+    #=
+        Single qubit gates acting on qubits othe than the first.
+        =#
     else
         
-        M = sparse([1 0;0 1])
+        gate_matrix = I2
         for i=2:L
-            if i == Qubit
-                M = kron(M, Gate)
+            if i == qubit
+                gate_matrix = kron(gate_matrix, single_qubit_gate)
             else
-                M = kron(M, sparse([1 0;0 1]))
+                gate_matrix = kron(gate_matrix, I2)
             end
         end
     end
     
-    return M
+    return gate_matrix
 end;
 
-function CU(U,c,t)
-    
-    I2 = sparse([1 0;0 1])
-    Z = sparse([1 0;0 -1])
+function single_qubit_controlled_gate_matrix(single_qubit_gate,c,t)
 
+    # |0><0|.
     PI_0 = (I2+Z)/2
+    # |1><1|.
     PI_1 = (I2-Z)/2
      
-    #function Rx(Noise)
-        #A = cos((pi+Noise)/2)
-        #B = -1im*sin((pi+Noise)/2)
-        #return 1im*[A B;B A]
-    #end
-    
-    Matrices = Dict("I" => I2,"PI_0" => PI_0,"U" => U, "PI_1" => PI_1)
+    Matrices = Dict("I" => I2,"PI_0" => PI_0,"U" => single_qubit_gate, "PI_1" => PI_1)
     
     p0 = fill("I", L)
     p1 = fill("I", L)
@@ -103,80 +100,7 @@ function CU(U,c,t)
         PI_1_matrix = kron(PI_1_matrix,Matrices[p1[i]])        
     end
            
-    #return p0,p1
     return PI_0_matrix + PI_1_matrix     
-end;
-
-function Grover_operator(DELTA)
-    
-    U_x_delta = Identity(2^L);
-
-    # U_x
-    for i = U_0_gate_number+1 : U_0_gate_number+U_x_gate_number
-        if Gates_data_1[i] == "H"
-            
-            
-            epsilon = NOISE[i]
-            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            U_x_delta *= h_matrix
-
-            
-        elseif Gates_data_1[i] == "X"
-        
-            epsilon = NOISE[i]    
-            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= x_matrix
-            
-        elseif Gates_data_1[i] == "Z"
-
-            epsilon = NOISE[i]    
-            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= z_matrix
-            
-        else
-
-            epsilon = NOISE[i]      
-            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            U_x_delta *= rx_matrix
-            
-        end
-    end
-    
-    U_0_delta = Identity(2^L);
-    
- 
-    # U_0
-    for i = 1 : U_0_gate_number
-        if Gates_data_1[i] == "H"
-        
-            epsilon = NOISE[i]      
-            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            U_0_delta *= h_matrix
-            
-        elseif Gates_data_1[i] == "X"
-  
-            epsilon = NOISE[i]     
-            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            U_0_delta *= x_matrix
-            
-        elseif Gates_data_1[i] == "Z"
-
-            epsilon = NOISE[i]    
-            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= z_matrix  
-            
-        else
-        
-            epsilon = NOISE[i]     
-            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            U_0_delta *= rx_matrix
-            
-        end
-    end
-        
-    GROVER_DELTA = U_x_delta*U_0_delta
-    
-    return collect(GROVER_DELTA)
 end;
 
 using PyCall
@@ -237,6 +161,273 @@ def eigu(U,tol=1e-9):
     return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
 """
 
+function Grover_delta(DELTA)
+
+    noise_sum = 0
+    U_x_delta = Identity(2^L)
+    # U_x
+    for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
+        if Gates_data_1[i] == "H"
+            
+            
+            epsilon = NOISE[i]
+            U_x_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])
+                      
+            noise_sum += epsilon
+            
+        elseif Gates_data_1[i] == "X"
+        
+            epsilon = NOISE[i]       
+            U_x_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])   
+
+            noise_sum += epsilon
+            
+        elseif Gates_data_1[i] == "Z"
+        
+            epsilon = NOISE[i]       
+            U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])
+ 
+            noise_sum += epsilon
+            
+        else
+        
+            epsilon = NOISE[i]       
+            U_x_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+            
+            noise_sum += epsilon/4
+            
+        end
+    end
+    
+
+    U_0_delta = Identity(2^L);    
+    # U_0
+    for i = 1 : U_0_gate_number
+        if Gates_data_1[i] == "H"
+        
+            epsilon = NOISE[i]      
+            U_0_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])          
+            
+            noise_sum += epsilon
+            
+        elseif Gates_data_1[i] == "X"
+
+        
+            epsilon = NOISE[i]       
+            U_0_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])
+            
+            noise_sum += epsilon
+            
+        elseif Gates_data_1[i] == "Z"
+        
+            epsilon = NOISE[i]     
+            U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])          
+            
+            noise_sum += epsilon
+            
+        else
+
+            epsilon = NOISE[i]     
+            U_0_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+            
+            noise_sum += epsilon/4
+            
+        end 
+    end
+    GROVER_DELTA = U_x_delta*U_0_delta
+    return GROVER_DELTA
+end;
+
+#=
+function Entropy(Psi)   
+    
+    LS = Int64(L/2)
+
+    #Psi = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1im];
+    
+    # Normalizing Psi.
+    Psi = Psi/norm(Psi) 
+    
+    psi(s) = Psi[(2^LS)*(s-1)+1:(2^LS)*s]
+    
+    #=
+        psi(s_p) is a row matrix/vector. psi(s) is a column matrix/vector.      
+        Dimension of rhoA is N/2 x N/2. 
+        The element <s|rhoA|sp> is given by psi_sp^\dagger * psi_s.
+    =#
+    
+    
+    # psi(s_p)^\dagger * psi(s) is the element of (s,s_p) of rho_AB. 
+    rhoA(s,s_p) = psi(s_p)' * psi(s)
+    
+    
+    # Following function returns the reduced density matrix rho_A.
+    function rhoA_Matrix()
+        
+        LS = Int64(L/2)
+            
+        # Creates a zero matrix to store the density matrix.
+        M = zeros(ComplexF64,2^LS,2^LS)
+        
+        #=
+        rho is Hermitian, it is sufficient to calculate the elements above the diagonal.
+        The the elements below the diagonal can be replace by the complex cpnjugate of the
+        elements above the diagonal.
+        =#
+    
+        for i=1:2^LS
+            for j=1:2^LS
+                if i<=j
+                    M[i,j] = rhoA(i,j)
+                else
+                    # Elements below diagonals are replaced by the elements above the diagonal.
+                    M[i,j] = M[j,i]' 
+                end
+            end
+        end
+        return M
+    end;
+    
+    w = eigvals(rhoA_Matrix()) # Eigenvalues of the reduced density matrix.
+    #=
+    The following loop calculates S = - sum \lamba_i * log(\lambda_i).
+    =#
+    
+    # Array to store the log of the eigenvalues.
+    DL = zeros(ComplexF64,2^LS)
+    for i=1:length(w)
+        if abs(w[i]) < 1.e-8 # Avoid zeros.
+            continue
+        else
+            DL[i] = log(w[i])
+        end
+    end
+    return real(-sum(w.*DL)) # S = -tr(rho *log(rho)).
+end;
+
+Bin2Dec(BinaryNumber) = parse(Int, string(BinaryNumber); base=2);
+Dec2Bin(DecimalNumber) = string(DecimalNumber, base=2);
+
+List = [i for i=0:2^L-1]; # List with numbers from 0 to 2^L-1.
+
+#=
+The following function converts all numbers in decimals in the above list 
+ from 0 to 2^L -1 to binary.
+=#
+
+function List_Bin(Lst)
+    
+    l = []
+    
+    for i in Lst
+        
+        i_Bin = Dec2Bin(i)
+        
+        #=
+        While converting numbers from decimal to binary, for example, 1
+        is mapped to 1, to make sure that
+        every numbers have N qubits in them, the following loop adds leading 
+        zeros to make the
+        length of the binary string equal to N. Now, 1 is mapped to 000.....1
+        (string of length N).
+        =#
+        
+        while length(i_Bin) < L
+            i_Bin = "0"*i_Bin
+        end
+            
+        # Puts the binary number in the list l after its length is L.
+        push!(l,i_Bin)
+    end
+    return l
+end;
+
+#=
+    The following function takes a binary string as input and rolls the qubits by one and
+    returns the rolled string.
+=#
+
+Roll_String(Binary_String) = last(Binary_String)*Binary_String[1:L-1];
+
+#=
+    The following function takes a wavefunction as input and performs one roll
+    on the qubits and returns the resultant wavefunction.
+=#
+
+function Psi_Roll(Initial_Psi)
+    
+    #=
+        The following list contains all possible 2^N qubits after one roll 
+        is performed on them.
+        For example, the first position 0001 is changed to 1000.
+    =#
+    
+    # Rolls every string in the list List by one qubit.
+    Rl = [ Roll_String(i) for i in List_Bin(List)]
+    
+    #=
+        The following list contains the previous list but in decimal numbers. For example,
+        for N =4, the first position 1 is changed to 8.
+    =#
+    
+    Rl_d = [Bin2Dec(i) for i in Rl]
+    
+    #=
+        The following loop rearranges the coefficients of Psi after rolling. 
+        For example, for N = 4, if the first coefficient 0001 is mapped to the
+        eighth coefficient 1000 after one rotation of the qubits. 
+        The coefficient of the rolled Psi in the i ^ th position is in the
+        Rl_d[i] ^ th positon of the initial Psi.
+    =#
+    
+    Psi_Rolled = []
+    
+    for i=1:2^L
+        
+        # Rearranging the coefficients according to the list l_d.
+        push!(Psi_Rolled,Initial_Psi[Rl_d[i]+1])
+        
+        #= The addition of 1 to the index is necessary because Julia counts from 1,
+           rather than 0. But we need to represent all the numbers from 1 to 16 using 
+           four binary digits. So we started with the List = [0 to 15], then after
+           rolling we just add 1 to each index to make it work for Julia.
+        =#
+    end
+    return Psi_Rolled
+end
+
+#=
+The following function performs specified number of rolls Num on the qubits.
+=#
+
+function N_Rolled(Num, Initial_Psi)
+    
+    if Num == 0 
+        return Initial_Psi
+    else
+        
+        s = Psi_Roll(Initial_Psi)
+        for i=1:Num-1
+            s = Psi_Roll(s)
+        end
+        return s
+    end
+end
+
+
+function Average_Entropy(Initial_Psi)
+    
+    list_of_entropies = []
+    #=
+    The loop calculates all the entropies and returns a list containing them.
+    =#
+    for i=1:L
+        S = Entropy(N_Rolled(i,Initial_Psi))
+        push!(list_of_entropies,S)
+    end
+    return sum(list_of_entropies)/length(list_of_entropies)
+end;
+=#
 
 #=
 The following function returns the matrix of rolling operator.
@@ -345,7 +536,7 @@ function average_entanglement_entropy(initial_wavefunction)
     
     return sum(rolled_entropies)/L
 end;
-              
+
 py"""
 f = open('plot_data'+'.txt', 'w')
 def Write_file(Noise, Energy, Entropy):
@@ -361,7 +552,6 @@ delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
 Num = 16
 
-              
 #=
 Arrays to hold delta, energy and entropy before they are written into the file.              
 =#
@@ -371,7 +561,7 @@ Entropies = []
               
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
-    Op = Grover_operator(delta)
+    Op = Grover_delta(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
     Y = real(1im*log.(EIGU[1]))
@@ -382,6 +572,56 @@ for i=0:Num
     end
 end
 
-#npzwrite("deltas.npy",deltas)
-#npzwrite("Ys.npy",Ys)
-#npzwrite("Entropies.npy",Entropies)              
+#=
+using Plots
+using DelimitedFiles
+using ColorSchemes
+#using CSV
+using LaTeXStrings
+#using PyPlot
+file = raw"plot_data.txt"
+M = readdlm(file)
+delta = M[:,1]; # index
+energy = M[:,2]; # eigenvalue
+entropy = M[:,3]; # entropy
+S_Page = 0.5*L*log(2)-0.5
+quasienergy = pi-atan(2/sqrt(2^L-1));
+gr()
+plot_font = "Computer Modern"
+default(fontfamily=plot_font)
+MyTitle = "L = "*string(L)*", Page Value = "*string(round(0.5*L*log(2)-0.5;digits = 2))*" ";
+p = plot(delta,energy,
+    seriestype = :scatter,
+    markerstrokecolor = "grey30",
+    markerstrokewidth=0.0,
+    markersize=2,
+    thickness_scaling = 1.4,
+    xlims=(0,0.4), 
+    ylims=(-3.14,3.14),
+    title = MyTitle,
+    label = "",
+    #legend = :bottomleft,
+    dpi=600,
+    zcolor = entropy,
+    grid = false,
+    #colorbar_title = "Average entanglement entropy",
+    font="CMU Serif",
+    color = :jet1,
+    #:linear_bmy_10_95_c78_n256,#:diverging_rainbow_bgymr_45_85_c67_n256,#:linear_bmy_10_95_c78_n256,#:rainbow1,
+    right_margin = 5Plots.mm,
+    left_margin = Plots.mm,
+    titlefontsize=16,
+    guidefontsize=16,
+    tickfontsize=16,
+    legendfontsize=16,
+    framestyle = :box
+    )
+plot!(size=(900,700))
+#plot!(yticks = ([(-pi) : (-pi/2): (-pi/4): 0: (pi/4) : (pi/2) : pi;], ["-\\pi", "-\\pi/2", "-\\pi/4","0","\\pi/4","\\pi/2","\\pi"]))
+hline!([[-quasienergy]],lc=:magenta,linestyle= :dashdotdot,legend=false)
+hline!([ [0]],lc=:magenta,linestyle= :dashdotdot,legend=false)
+hline!([ [quasienergy]],lc=:magenta,linestyle= :dashdotdot,legend=false)
+xlabel!("Noise \$\\delta\$")
+ylabel!("Energy \$\\phi_{F}\$")
+savefig(string(L)*"_delta_energy_"*string(SEED)*".png")
+=#
