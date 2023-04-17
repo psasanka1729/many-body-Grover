@@ -1,4 +1,4 @@
-L = 14;
+L = 8;
 
 using Random
 using LinearAlgebra
@@ -562,7 +562,7 @@ Entropies = []
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
     Op = Grover_delta(delta)
-    EIGU = py"eigu"(Op)
+    EIGU = py"eigu"(collect(Op))
     X = string(delta)
     Y = real(1im*log.(EIGU[1]))
     V = EIGU[2]
