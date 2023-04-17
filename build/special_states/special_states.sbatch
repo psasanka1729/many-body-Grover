@@ -3,7 +3,7 @@
 #SBATCH --job-name=special_states
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=Hassanipour
 #
 # Processors:
 #SBATCH --ntasks=32
