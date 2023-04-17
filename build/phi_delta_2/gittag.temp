@@ -1,3 +1,129 @@
+commit a63409aba1ace2340f82221b6582ecf5abfcdd4c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Apr 17 14:44:31 2023 -0500
+
+    Commit before run phi_delta_2
+
+commit a30a5ee2ac80405ea9518a6f3ca2045ea84263c0
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Apr 17 11:48:22 2023 -0500
+
+    Commit before run special_states_2
+
+commit d0b2fedfc50e10e4d5734453a794d5098f49692f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Apr 17 11:48:20 2023 -0500
+
+    Commit before run special_states_2
+
+commit ce5c68efdd5f8e121e5500793fa604f4f922ff9d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Apr 17 11:07:03 2023 -0500
+
+    Commit before run special_states_2
+
+commit df653c7330bbf8b9f9e427f649d19d8c46b8e462
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Apr 17 10:30:01 2023 -0500
+
+    Commit before run special_states_2
+
+commit 71892ab38be568e8b3c43a411589bdb637f33ce7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Apr 17 10:07:55 2023 -0500
+
+    Commit before run special_states_2
+
+commit 25f36f68d94275b4ecaf5c019d9cc529d8e58e87
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Apr 17 10:04:57 2023 -0500
+
+    Commit before run special_states
+
+commit 52e45d727eafdd3a6c3520284999d56c59169e58
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 21:15:04 2023 -0500
+
+    Commit before run special_states
+
+commit e49aa12191120038e606e617eb5bbe1703776854
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 21:14:45 2023 -0500
+
+    Commit before run special_states
+
+commit ed66fee2bb26611b0a6495d94950ce4bb873675e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 21:05:30 2023 -0500
+
+    Commit before run special_states
+
+commit 8088595efa1d39791b7378c63ebf353e34437a4f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 20:55:17 2023 -0500
+
+    Commit before run special_states
+
+commit 21032a3dc15bd631ca14178a4f7646bdb2e07105
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sun Apr 16 20:53:30 2023 -0500
+
+    h_eff is calculated using derivative of G(\delta)
+
+commit 52ec97848f1d0f24b2aa0216510fa4907602ba9b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 20:52:58 2023 -0500
+
+    cluster backup
+
+commit 144642131692b4a90ccb2eeb16c25e713ab2fb36
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 15:33:26 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit f4014ee29549d8fa090419697d46649a695e8449
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 15:32:20 2023 -0500
+
+    Commit before run KLd_10_run_1
+
+commit 049453c2649405f4c50e0ed07768cbda97b0e904
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 15:28:41 2023 -0500
+
+    Commit before run KLd_10
+
+commit a78e0d486b4fd926c501178e02436d01667c6149
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sun Apr 16 15:26:44 2023 -0500
+
+    h_eff is calculated using derivative of G(\delta)
+
+commit 6f1eb0e4a64bbed3524cc26ce4fcc96371bbf3c7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 15:26:03 2023 -0500
+
+    cluster backup
+
+commit b7a0d19233917752824665748041839da261a2ed
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 11:39:57 2023 -0500
+
+    Commit before run KLd_10
+
+commit 4091e81c5e72667ea58e9e3df77eb9f642f799ac
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sun Apr 16 11:34:18 2023 -0500
+
+    basis change matrix is corrected
+
+commit e7dd903ec2aee75f995736ee964f722ba3101a96
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Apr 16 11:33:43 2023 -0500
+
+    cluster backup
+
 commit b296107e30736bcf32ffd53662dca84d99b744d6
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sat Apr 15 23:41:47 2023 -0500
