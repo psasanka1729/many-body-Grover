@@ -3,7 +3,7 @@
 #SBATCH --job-name=phi_delta_2
 #
 # Partition:
-#SBATCH --partition=128s
+#SBATCH --partition=normal
 #
 # Processors:
 #SBATCH --ntasks=64
