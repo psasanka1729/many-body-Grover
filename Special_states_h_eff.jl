@@ -1,11 +1,11 @@
-L = 4;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"4_new_Grover_gates_data.txt" # Change for every L.
+file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -26,65 +26,59 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-# Good seeds = 10, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 1945
+SEED = 3141516
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
-#length(NOISE)
-
-I2 = [1 0; 0 1];
-Z = [1 0;0 -1];
-H = (1/sqrt(2))*[1 1;1 -1]
-Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
-Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
-CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
-Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
-Identity(dimension) = 1* Matrix(I, dimension, dimension);
+I2 = sparse([1 0; 0 1]);
+Z  = sparse([1 0;0 -1]);
+X  = sparse([0 1;1 0])
+H  = (1/sqrt(2))*[1 1;1 -1]
+Rx(theta)       = sparse(exp(-1im*(theta/2)*collect(I2-X)));
+Hadamard(noise) = sparse(exp(-1im*(pi/2+noise)*collect(I2-H))) #Ry(pi/2+noise)*Pauli_Z;
+CX(noise)       = sparse(exp(-1im*((pi/2+noise))*collect(I2-X))); # This is X gate.
+Z_gate(noise)   = sparse(exp(-1im*(pi/2+noise)*collect(I2-Z))) #Hadamard(noise)*CX(noise)*Hadamard(noise); # noise
+Identity(dimension) = spdiagm(0 => ones(dimension));
 int(x) = floor(Int,x);
 
-function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
+function single_qubit_gate_matrix(single_qubit_gate, qubit)
     
     ## The case Qubit=1 is treated differently because we need to
     # initialize the matrix as U before starting the kronecker product.
     
-    if Qubit == 1
+    if qubit == 1
         
-        M = sparse(Gate)
+        gate_matrix = sparse(single_qubit_gate)
         for i=2:L
-            M = kron(M, sparse([1 0;0 1]))
+            gate_matrix = kron(gate_matrix, I2)
         end
         
+    #=
+        Single qubit gates acting on qubits othe than the first.
+        =#
     else
         
-        M = sparse([1 0;0 1])
+        gate_matrix = I2
         for i=2:L
-            if i == Qubit
-                M = kron(M, Gate)
+            if i == qubit
+                gate_matrix = kron(gate_matrix, single_qubit_gate)
             else
-                M = kron(M, sparse([1 0;0 1]))
+                gate_matrix = kron(gate_matrix, I2)
             end
         end
     end
     
-    return M
+    return gate_matrix
 end;
 
-function CU(U,c,t)
-    
-    I2 = sparse([1 0;0 1])
-    Z = sparse([1 0;0 -1])
+function single_qubit_controlled_gate_matrix(single_qubit_gate,c,t)
 
+    # |0><0|.
     PI_0 = (I2+Z)/2
+    # |1><1|.
     PI_1 = (I2-Z)/2
      
-    #function Rx(Noise)
-        #A = cos((pi+Noise)/2)
-        #B = -1im*sin((pi+Noise)/2)
-        #return 1im*[A B;B A]
-    #end
-    
-    Matrices = Dict("I" => I2,"PI_0" => PI_0,"U" => U, "PI_1" => PI_1)
+    Matrices = Dict("I" => I2,"PI_0" => PI_0,"U" => single_qubit_gate, "PI_1" => PI_1)
     
     p0 = fill("I", L)
     p1 = fill("I", L)
@@ -104,9 +98,14 @@ function CU(U,c,t)
         PI_1_matrix = kron(PI_1_matrix,Matrices[p1[i]])        
     end
            
-    #return p0,p1
     return PI_0_matrix + PI_1_matrix     
 end;
+
+U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
+U_0[1,1] = -1
+A = ones(2^L,2^L);
+U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
+G_exact = U_x*U_0;
 
 using PyCall
 py"""
@@ -166,236 +165,110 @@ def eigu(U,tol=1e-9):
     return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
 """
 
-U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
-U_0[1,1] = -1
-A = ones(2^L,2^L);
-U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
-G_exact = U_x*U_0
-V = py"eigu"(G_exact)[2];
+function Grover_delta(DELTA)
 
-#DELTA = 0.01
-function Special_states_matrix()
-    DELTA = 0.0
-    U_list = [];
-    U_noise_list = [];
-    U_x_delta = sparse(Identity(2^L));
-    #ux_list = []
-    NOISE_list = []
-
-    Gates_data_new_1 = []
-    Gates_data_new_2 = []
-    Gates_data_new_3 = []
-    
+    U_x_delta = Identity(2^L)
     # U_x
     for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
         if Gates_data_1[i] == "H"
             
             
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)
-            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            U_x_delta *= h_matrix
-        
-            push!(Gates_data_new_1,"H")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i])
-        
-            push!(U_noise_list,h_matrix) # Noise.
-        
-            push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
+            U_x_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])
+                      
             
         elseif Gates_data_1[i] == "X"
         
-            epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
-            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= x_matrix
-        
-            push!(Gates_data_new_1,"X")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-            push!(U_noise_list,x_matrix) # Noise.
-        
-            push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
+            epsilon = NOISE[i]       
+            U_x_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])   
+
             
         elseif Gates_data_1[i] == "Z"
         
-            epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
-            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= z_matrix
-        
-            push!(Gates_data_new_1,"Z")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-            push!(U_noise_list,z_matrix) # Noise.
-        
-            push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            epsilon = NOISE[i]       
+            U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])
+
             
         else
-            #push!(ux_list,"CRX")
         
-            epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
-            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            U_x_delta *= rx_matrix
-        
-            push!(Gates_data_new_1,Gates_data_1[i])
-            push!(Gates_data_new_2,Gates_data_2[i])
-            push!(Gates_data_new_3,Gates_data_3[i])
-        
-            push!(U_noise_list,rx_matrix) # Noise.
-        
-            push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiselss.
+            epsilon = NOISE[i]       
+            U_x_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+
             
         end
     end
     
-    U_0_delta = sparse(Identity(2^L));
-    
-    #u0_list = []
+
+    U_0_delta = Identity(2^L);    
     # U_0
     for i = 1 : U_0_gate_number
         if Gates_data_1[i] == "H"
         
-            epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
-            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
-            U_0_delta *= h_matrix
-        
-            push!(Gates_data_new_1,"H")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i])
-        
-            push!(U_noise_list,h_matrix) # Noise.
-        
-            push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
+            epsilon = NOISE[i]      
+            U_0_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])          
+
             
         elseif Gates_data_1[i] == "X"
 
         
-            epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
-            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
-            U_0_delta *= x_matrix
-        
-            push!(Gates_data_new_1,"X")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-            push!(U_noise_list,x_matrix) # Noise.
-        
-            push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
+            epsilon = NOISE[i]       
+            U_0_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])
+
             
         elseif Gates_data_1[i] == "Z"
         
-            epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
-            z_matrix = Matrix_Gate(Z_gate(DELTA*epsilon),Gates_data_3[i])
-            U_x_delta *= z_matrix
-        
-            push!(Gates_data_new_1,"Z")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
-        
-            push!(U_noise_list,z_matrix) # Noise.
-        
-            push!(U_list,Matrix_Gate(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            epsilon = NOISE[i]     
+            U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])          
+
             
         else
-            #push!(u0_list,"CRX")
-        
-            epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
-            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
-            U_0_delta *= rx_matrix
-        
-            push!(Gates_data_new_1,Gates_data_1[i])
-            push!(Gates_data_new_2,Gates_data_2[i])
-            push!(Gates_data_new_3,Gates_data_3[i])
-        
-            push!(U_noise_list,rx_matrix) # Noise.
-        
-            push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiseless.
+
+            epsilon = NOISE[i]     
+            U_0_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+
             
-        end
+        end 
     end
-        
+    
     GROVER_DELTA = U_x_delta*U_0_delta
     
-    function kth_term(k)
+    return GROVER_DELTA
+end;
 
-            f_k = Identity(2^L);
-    
-            for i = k:length(U_list)-1
-                f_k = f_k*collect(U_list[length(U_list)-i+k])
-            end     
-            #= Corresponding H for the kth term. =#
-            if Gates_data_new_1[k] == "H"
 
-                Qubit = Gates_data_new_3[k] # qubit.
-                H_k = Matrix_Gate(I2-H,Qubit) #= H_had = I2-Had. =#
+#=
+Derivative of G(\delta) is calculated using forward difference.
+=#
+function h_eff_from_derivative(h)
+    h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+    return h_eff_matrix
+end;
 
-            elseif Gates_data_new_1[k] == "X"
+# h_eff matrix is created once to use in the following calculation.
+h = 1.e-10
+matrix_of_h_effective = h_eff_from_derivative(h);
 
-                Qubit = Gates_data_new_3[k] # qubit.
-                H_k = Matrix_Gate([1 0;0 1]-[0 1;1 0],Qubit) #= H_X = I2-X. =#
-            
-            elseif Gates_data_new_1[k] == "Z"
 
-                Qubit = Gates_data_new_3[k] # qubit.
-                H_k = Matrix_Gate([1 0;0 1]-[1 0;0 -1],Qubit) #= H_Z = I2-Z. =#
-            
-            else
-        
-                Angle = Gates_data_new_1[k]
-                Control_Qubit = int(Gates_data_new_2[k])
-                Target_Qubit = int(Gates_data_new_3[k])
-                #= H = ((I-Z)/2)_c \otimes ((I-X)/2)_t.=#
-                Matrices = Dict("I" => [1 0;0 1],"U" => [1 -1;-1 1]/2, "PI_1" => (I2-Z)/2)
-                p1 = fill("I", L)
-                p1[Control_Qubit] = "PI_1"
-                p1[Target_Qubit] = "U"
-                H_k = Matrices[p1[1]]
-                for i = 2:L
-                    H_k = kron(H_k,Matrices[p1[i]])
-                end                                 
-            end
-    
-    
-        return f_k*H_k*(f_k')
-    end; 
-    
-    #EIGU = py"eigu"(collect(GROVER_DELTA))
-    #E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
-    #E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
-    
-    #= The following loop sums over all epsilon to get H_eff. =#
-    h_eff = zeros(2^L,2^L);
-    for i = 1:length(U_list)
-        h_eff += NOISE_list[i]*kth_term(i)
-    end        
+function block_h_eff_matrix(h_eff_matrix)
 
     #= 
     Construction of block 2x2 H_eff matrix.
     =#
     
     # Defining the state |0> in sigma_z basis.
-    ket_0 = zeros(2^L)
+    ket_0    = zeros(2^L)
     ket_0[1] = 1
     
     # Defining the state |x_bar> in sigma_z basis.
     N = 2^L
-    ket_x = (1/sqrt(N))*ones(N)
+    ket_x    = (1/sqrt(N))*ones(N)
     ket_xbar = sqrt(N/(N-1))*ket_x-1/sqrt(N-1)*ket_0 # Normalization checked.
     
     # Matrix elements of h_eff in |0> and |xbar> basis.
-    h_0_0 = ket_0' * h_eff * ket_0
-    h_0_xbar = ket_0' * h_eff * ket_xbar
-    h_xbar_0 = ket_xbar' * h_eff * ket_0
-    h_xbar_xbar = ket_xbar' * h_eff * ket_xbar
+    h_0_0       = ket_0'    * h_eff_matrix * ket_0
+    h_0_xbar    = ket_0'    * h_eff_matrix * ket_xbar
+    h_xbar_0    = ket_xbar' * h_eff_matrix * ket_0
+    h_xbar_xbar = ket_xbar' * h_eff_matrix * ket_xbar
     
 
     # h_eff block matrix.
@@ -409,47 +282,53 @@ function Special_states_matrix()
     return h_eff_block*G_0_block # h_eff * G_0.
 end;
 
-# Calculate the 2x2 matrix in the basis |0> and |x_bar>.
-Block = Special_states_matrix();
-
-# Loading numerical integrator.
-using QuadGK
+# Calculate the 2x2 matrix h_eff*G_0 in the basis |0> and |x_bar>.
+H_eff_G_0 = block_h_eff_matrix(matrix_of_h_effective);
 
 # Calculate the matrix B in sigma_y basis.
-function B_matrix()
+function B_matrix_y_basis()
+    
     N = 2^L
     theta = asin(2*sqrt(N-1)/N)
     
-    # Eigenstates of tau_y in the |0> and |xbar> basis.
-    y_s_p = (1/sqrt(2))*[1 1im]'
-    y_s_n = (1/sqrt(2))*[1 -1im]'
+    # Eigenstates of tau_y in the |0> and |xbar> basis as row vectors.
+    y_s_p = (1/sqrt(2))*[1  1im]'  # corresponding to +1 eigenvalue.
+    y_s_n = (1/sqrt(2))*[1 -1im]'  # corresponding to -1 eigenvalue.
     
-    Block = Special_states_matrix()
+    # Value of the integration for each possible eigenvalues.
+    I_11 = exp(-im*theta)                          # -1 -1.
+    I_12 = (1im/(sin(theta)))*log(exp(-1im*theta)) # -1  1.
+    I_21 = I_12                                    #  1 -1.
+    I_22 = exp(im*theta)                           #  1  1.
     
-    # -1 -1 element.
-    f_11(z) = 1/(exp(1im*theta)+z) * y_s_n'*Block*y_s_n * 1/(exp(1im*theta)+z)
+    return [[(I_11*y_s_n'*H_eff_G_0*y_s_n) (I_12*y_s_n'*H_eff_G_0*y_s_p)];
+            [(I_21*y_s_p'*H_eff_G_0*y_s_n) (I_22*y_s_p'*H_eff_G_0*y_s_p)]]
+end;
+
+function sigma_y_to_sigma_z_basis_change(Matrix)
     
-    # -1 1 element.
-    f_12(z) = 1/(exp(1im*theta)+z) * y_s_n'*Block*y_s_p * 1/(exp(-1im*theta)+z)
+    sigma_y_n = (1/sqrt(2))*[1 -1im]'   # corresponding to -1 eigenvalue.
+    sigma_y_p = (1/sqrt(2))*[1  1im]'   # corresponding to +1 eigenvalue.
     
-    # 1 -1 element.
-    f_21(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Block*y_s_n * 1/(exp(1im*theta)+z)
+    sigma_z_n = [0 1]'                   # corresponding to -1 eigenvalue.
+    sigma_z_p = [1 0]'                   # corresponding to +1 eigenvalue.
     
-    # 1 1 element.
-    f_22(z) = 1/(exp(-1im*theta)+z) * y_s_p'*Block*y_s_p * 1/(exp(-1im*theta)+z)
+    V = spzeros(2,2)
     
+    V = V + sigma_z_n * sigma_y_n'
+    V = V + sigma_z_p * sigma_y_p'
     
-    #= Integration of the elements.=#
-    
-    I_11,est = quadgk(f_11, 1.e-6, 10^9, rtol=1e-10)
-    I_12,est = quadgk(f_12, 1.e-6, 10^9, rtol=1e-10)
-    I_21,est = quadgk(f_21, 1.e-6, 10^9, rtol=1e-10)
-    I_22,est = quadgk(f_22, 1.e-6, 10^9, rtol=1e-10)
-    
-    # Returns the B matrix.
-    return [[I_11 I_12]; [I_21 I_22]]
-    
-end
+    return V*Matrix*V'
+end;
+
+#=
+Basis transformation matrix from sigma_y to sigma_z.
+=#
+#sigma_y_to_sigma_z(Matrix) = ((1/sqrt(2))*[[1,1] [-1im, 1im]])*Matrix*inv((1/sqrt(2))*[[1,1] [-1im,1im]]);
+
+# Changing the B matrix from sigma_y basis to sigma_z basis.
+B_y_basis = B_matrix_y_basis()
+B_matrix_z_basis = sigma_y_to_sigma_z(B_y_basis);
 
 #=
 Write the matrix B as B = B_0 * sigma_0 + B_1 * sigma_1 + B_2 * sigma_2 + B_3 * sigma_3.
@@ -473,12 +352,6 @@ function Pauli_coefficients(B)
     return B_0,B_1,B_2,B_3
 end;
 
-#=
-First the matrix B has to be written in the sigma_z basis.
-=#
-
-sigma_y_to_sigma_z(Matrix) = (1/sqrt(2))*[[1,1] [-1im, im]]*Matrix;
-
 py"""
 f = open('Pauli_coefficients_data'+'.txt', 'w')
 def Write_file_Pauli(b_0, b_1, b_2, b_3):
@@ -486,11 +359,7 @@ def Write_file_Pauli(b_0, b_1, b_2, b_3):
     f.write(str(b_0) +'\t'+ str(b_1)+ '\t' + str(b_2) +'\t' + str(b_3) +'\n')
 """
 
-Bm_y = B_matrix();
-# Changing the B matrix from sigma_y basis to sigma_z basis.
-Bm_z = sigma_y_to_sigma_z(Bm_y)
-PC = Pauli_coefficients(Bm_z)
-
+PC = Pauli_coefficients(B_matrix_z_basis)
 py"Write_file_Pauli"(PC[1],PC[2],PC[3],PC[4])
 
 py"""
@@ -501,6 +370,132 @@ def Write_file(eigenvalue_1, eigenvalue_2):
 """
 
 # Diagonalize the special state matrix.
-Special_eigenvalues = eigvals(Bm_z)
+Special_eigenvalues = eigvals(B_matrix_z_basis)
 # Write the two eigenvalue to the data file.
 py"Write_file"(Special_eigenvalues[1],Special_eigenvalues[2])
+
+#=
+function exp_h_spec(delta)
+    theta = asin(2*sqrt(2^L-1)/2^L)
+    H_0_spec = [-theta 0;0 theta]
+    H_spec   = B_y_basis
+    return exp(-1im*(H_0_spec + delta*H_spec))
+end;
+=#
+
+#=
+Exact_list = []
+Effec_list = []
+delta_list = []
+Num = 10;
+for i = 1:Num
+    delta = 0.15*(i/Num)
+
+    eigu_h_eff = py"eigu"(-exp_h_spec(delta))
+    h_eff_energies = real(1im*log.(eigu_h_eff[1])); # Eigenvalue.
+    
+    EIGU = py"eigu"(collect(Grover_delta(delta)))
+    G_delta_energies = real(1im*log.(EIGU[1])); # Eigenvalue.
+    special_states_exact = [G_delta_energies[1];G_delta_energies[2^L]]
+    
+    for j = 1:2
+        #py"Write_file2"(delta,Exact[j],Effec[j])
+        push!(delta_list,delta)
+        push!(Exact_list,special_states_exact[j])
+        push!(Effec_list,h_eff_energies[j])
+        #println(delta);
+    end
+end;
+=#
+
+#=
+using Plots
+using DelimitedFiles
+using ColorSchemes
+using LaTeXStrings
+
+Markersize = 4
+delta = delta_list
+exact = Exact_list # exact energy.
+effec = Effec_list # effective energy.
+
+S_Page = 0.5*L*log(2)-0.5
+
+plot_font = "Computer Modern"
+default(fontfamily=plot_font)
+gr()
+S_Page = 0.5*L*log(2)-0.5
+MyTitle = "L = 4 ";
+p = plot(delta,exact,
+    seriestype = :scatter,
+    markercolor = "firebrick1 ",#"red2",
+    markerstrokewidth=0.0,
+    markersize=Markersize,
+    thickness_scaling = 1.4,
+    xlims=(0,0.35), 
+    ylims=(-3.14,3.14),
+    #title = MyTitle,
+    label = "Exact",
+    legend = :bottomleft,
+    dpi=500,
+    #zcolor = entropy,
+    grid = false,
+    #colorbar_title = "Average entanglement entropy",
+    font="CMU Serif",
+    color = :jet1,
+    right_margin = 5Plots.mm,
+    left_margin = Plots.mm,
+    titlefontsize=10,
+    guidefontsize=13,
+    tickfontsize=13,
+    legendfontsize=15,
+    framestyle = :box
+    )
+
+p = plot!(delta,effec,
+    seriestype = :scatter,
+    markercolor = "blue2",
+    markershape=:pentagon,#:diamond,
+    markerstrokewidth=0.0,
+    markersize=3,
+    thickness_scaling = 1.4,
+    xlims=(0,0.15), 
+    ylims=(-3.14,3.14),
+    #title = MyTitle,
+    label = "Effective",
+    legend = :bottomleft,
+    dpi=500,
+    #zcolor = entropy,
+    grid = false,
+    #colorbar_title = "Average entanglement entropy",
+    font="CMU Serif",
+    right_margin = 5Plots.mm,
+    left_margin = Plots.mm,
+    titlefontsize=10,
+    guidefontsize=18,
+    tickfontsize=18,
+    legendfontsize=20,
+    framestyle = :box
+    )
+#=
+Adjust the length of the axis tick.
+=#
+function ticks_length!(;tl=0.02)
+    p = Plots.current()
+    xticks, yticks = Plots.xticks(p)[1][1], Plots.yticks(p)[1][1]
+    xl, yl = Plots.xlims(p), Plots.ylims(p)
+    x1, y1 = zero(yticks) .+ xl[1], zero(xticks) .+ yl[1]
+    sz = p.attr[:size]
+    r = sz[1]/sz[2]
+    dx, dy = tl*(xl[2] - xl[1]), tl*r*(yl[2] - yl[1])
+    plot!([xticks xticks]', [y1 y1 .+ dy]', c=:black, labels=false,linewidth = 1.5)
+    plot!([x1 x1 .+ dx]', [yticks yticks]', c=:black, labels=false,linewidth = 1.5, xlims=xl, ylims=yl)
+    return Plots.current()
+end
+ticks_length!(tl=0.015)
+plot!(size=(900,700))
+
+xlabel!("Noise, "*L"\delta")
+ylabel!("Energy of the bulk")
+#savefig("exact_effec_"*string(L)*"_"*string(SEED)*".png")
+=#
