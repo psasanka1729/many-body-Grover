@@ -42,3 +42,12 @@ Launcher: Task 9 running job 10 on compute-2-6-11 (bash phi_delta_9.qsub)
 Launcher: Task 15 running job 16 on compute-2-6-11 (bash phi_delta_15.qsub)
 Launcher: Task 13 running job 14 on compute-2-6-11 (bash phi_delta_13.qsub)
 Launcher: Task 14 running job 15 on compute-2-6-11 (bash phi_delta_14.qsub)
+Removing files
+Launcher: Job 8 completed in 252135 seconds.
+Launcher: Task 7 done. Exiting.
+Removing files
+Launcher: Job 11 completed in 252137 seconds.
+Launcher: Task 10 done. Exiting.
+Removing files
+Launcher: Job 16 completed in 252138 seconds.
+Launcher: Task 15 done. Exiting.
