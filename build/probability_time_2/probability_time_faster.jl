@@ -192,9 +192,9 @@ py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
 for i=1:500
-    psi = U*psi
-    p_0 = abs(psi[1])^2
-    p_xbar = Pxbar(psi)
+    global psi = U*psi
+    global p_0 = abs(psi[1])^2
+    global p_xbar = Pxbar(psi)
     py"Write_file"(real(p_0),real(p_xbar),i)
     push!(p_0l,p_0)
     push!(p_x_barl,p_xbar)
