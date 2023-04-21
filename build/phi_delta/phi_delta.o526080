@@ -1,5 +1,5 @@
 Starting job phi_delta
-WARNING (04/15/23 21:34:43): LAUNCHER_WORKDIR variable not set. Using current directory.
+WARNING (04/19/23 02:32:08): LAUNCHER_WORKDIR variable not set. Using current directory.
 Launcher: Setup complete.
 
 ------------- SUMMARY ---------------
@@ -12,7 +12,7 @@ Launcher: Setup complete.
 
 -------------------------------------
 Launcher: Starting parallel tasks...
-using /tmp/launcher.526080.hostlist.57Mpwu0Y to get hosts
+using /tmp/launcher.526080.hostlist.G97YhAAp to get hosts
 starting job on compute-2-6-11
 Lmod has detected the following error: The following module(s) are unknown:
 "git"
@@ -26,28 +26,21 @@ Also make sure that all modulefiles written in TCL start with the string
 
 
 
-Launcher: Task 3 running job 4 on compute-2-6-11 (bash phi_delta_3.qsub)
-Launcher: Task 10 running job 11 on compute-2-6-11 (bash phi_delta_10.qsub)
-Launcher: Task 2 running job 3 on compute-2-6-11 (bash phi_delta_2.qsub)
 Launcher: Task 4 running job 5 on compute-2-6-11 (bash phi_delta_4.qsub)
-Launcher: Task 0 running job 1 on compute-2-6-11 (bash phi_delta_0.qsub)
-Launcher: Task 12 running job 13 on compute-2-6-11 (bash phi_delta_12.qsub)
+Launcher: Task 9 running job 10 on compute-2-6-11 (bash phi_delta_9.qsub)
+Launcher: Task 1 running job 2 on compute-2-6-11 (bash phi_delta_1.qsub)
+Launcher: Task 8 running job 9 on compute-2-6-11 (bash phi_delta_8.qsub)
 Launcher: Task 6 running job 7 on compute-2-6-11 (bash phi_delta_6.qsub)
 Launcher: Task 7 running job 8 on compute-2-6-11 (bash phi_delta_7.qsub)
-Launcher: Task 1 running job 2 on compute-2-6-11 (bash phi_delta_1.qsub)
-Launcher: Task 5 running job 6 on compute-2-6-11 (bash phi_delta_5.qsub)
-Launcher: Task 8 running job 9 on compute-2-6-11 (bash phi_delta_8.qsub)
-Launcher: Task 11 running job 12 on compute-2-6-11 (bash phi_delta_11.qsub)
-Launcher: Task 9 running job 10 on compute-2-6-11 (bash phi_delta_9.qsub)
+Launcher: Task 0 running job 1 on compute-2-6-11 (bash phi_delta_0.qsub)
 Launcher: Task 15 running job 16 on compute-2-6-11 (bash phi_delta_15.qsub)
-Launcher: Task 13 running job 14 on compute-2-6-11 (bash phi_delta_13.qsub)
+Launcher: Task 10 running job 11 on compute-2-6-11 (bash phi_delta_10.qsub)
+Launcher: Task 2 running job 3 on compute-2-6-11 (bash phi_delta_2.qsub)
+Launcher: Task 5 running job 6 on compute-2-6-11 (bash phi_delta_5.qsub)
 Launcher: Task 14 running job 15 on compute-2-6-11 (bash phi_delta_14.qsub)
-Removing files
-Launcher: Job 8 completed in 252135 seconds.
-Launcher: Task 7 done. Exiting.
-Removing files
-Launcher: Job 11 completed in 252137 seconds.
-Launcher: Task 10 done. Exiting.
-Removing files
-Launcher: Job 16 completed in 252138 seconds.
-Launcher: Task 15 done. Exiting.
+Launcher: Task 11 running job 12 on compute-2-6-11 (bash phi_delta_11.qsub)
+Launcher: Task 12 running job 13 on compute-2-6-11 (bash phi_delta_12.qsub)
+Launcher: Task 3 running job 4 on compute-2-6-11 (bash phi_delta_3.qsub)
+Launcher: Task 13 running job 14 on compute-2-6-11 (bash phi_delta_13.qsub)
+slurmstepd: error: *** JOB 526080 ON compute-2-6-11 CANCELLED AT 2023-04-19T10:14:53 ***
+Killed by signal 15.

@@ -1,4 +1,4 @@
-L = 18;
+L = 14;
 
 using Random
 using LinearAlgebra
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 4000+parse(Int64,ARGS[1])
+SEED = 10000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -199,6 +199,8 @@ for i=1:210
     push!(p_0l,p_0)
     push!(p_x_barl,p_xbar)
 end;
+
+#=
 using Plots
 plot(p_0l,label="p0")
 plot!(p_x_barl,label="p_x_bar")
@@ -239,3 +241,4 @@ def Write_file_fit(A, B, omega, phi, error):
     f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) + '\t' +str(error) + '\n')
  """
 py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[200]-(A_2+B_2*cos(omega_2*200+phi_2)))
+=#
