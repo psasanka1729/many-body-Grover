@@ -1,4 +1,4 @@
-L = 14;
+L = 10;
 
 using Random
 using LinearAlgebra
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 10000+parse(Int64,ARGS[1])
+SEED = 50000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -191,7 +191,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:210
+for i=1:500
     psi = U*psi
     p_0 = abs(psi[1])^2
     p_xbar = Pxbar(psi)
