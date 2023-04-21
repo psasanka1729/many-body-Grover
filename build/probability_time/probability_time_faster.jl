@@ -1,4 +1,4 @@
-L = 16;
+L = 12;
 
 using Random
 using LinearAlgebra
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 28505+parse(Int64,ARGS[1])
+SEED = 40000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -179,7 +179,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-Delta = 0.01
+Delta = 0.03
 U = Grover_operator(Delta);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
@@ -191,7 +191,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:215
+for i=1:500
     global psi = U*psi
     global p_0 = abs(psi[1])^2
     global p_xbar = Pxbar(psi)
@@ -202,7 +202,7 @@ end;
 #using Plots
 #plot(p_0l,label="p0")
 #plot!(p_x_barl,label="p_x_bar")
-
+#=
 using LsqFit
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 # Define the first order data set.
@@ -239,3 +239,4 @@ def Write_file_fit(A, B, omega, phi, error):
     f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) + '\t' +str(error) + '\n')
  """
 py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[215]-(A_2+B_2*cos(omega_2*215+phi_2)))
+=#
