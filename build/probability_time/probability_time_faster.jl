@@ -1,4 +1,4 @@
-L = 12;
+L = 10;
 
 using Random
 using LinearAlgebra
@@ -179,7 +179,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-Delta = 0.03
+Delta = 0.04
 U = Grover_operator(Delta);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
@@ -191,7 +191,7 @@ p_xbar = Pxbar(psi)
 py"Write_file"(real(p_0),real(p_xbar),0)
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:500
+for i=1:2000
     global psi = U*psi
     global p_0 = abs(psi[1])^2
     global p_xbar = Pxbar(psi)
