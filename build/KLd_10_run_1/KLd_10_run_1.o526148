@@ -1,0 +1,581 @@
+Starting job KLd_10_run_1
+WARNING (04/17/23 22:53:24): LAUNCHER_WORKDIR variable not set. Using current directory.
+Launcher: Setup complete.
+
+------------- SUMMARY ---------------
+   Number of hosts:    4
+   Working directory:  /home/sxd190113/many-body-Grover/build/KLd_10_run_1
+   Processes per host: 16
+   Total processes:    64
+   Total jobs:         64
+   Scheduling method:  interleaved
+
+-------------------------------------
+Launcher: Starting parallel tasks...
+using /tmp/launcher.526148.hostlist.YtNv7Pwp to get hosts
+starting job on compute-7-3-11
+starting job on compute-7-3-25
+starting job on compute-7-3-26
+starting job on compute-7-6-14
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Launcher: Task 9 running job 10 on compute-7-3-11 (bash KLd_10_run_1_9.qsub)
+Launcher: Task 12 running job 13 on compute-7-3-11 (bash KLd_10_run_1_12.qsub)
+Launcher: Task 8 running job 9 on compute-7-3-11 (bash KLd_10_run_1_8.qsub)
+Launcher: Task 2 running job 3 on compute-7-3-11 (bash KLd_10_run_1_2.qsub)
+Launcher: Task 14 running job 15 on compute-7-3-11 (bash KLd_10_run_1_14.qsub)
+Launcher: Task 5 running job 6 on compute-7-3-11 (bash KLd_10_run_1_5.qsub)
+Launcher: Task 0 running job 1 on compute-7-3-11 (bash KLd_10_run_1_0.qsub)
+Launcher: Task 13 running job 14 on compute-7-3-11 (bash KLd_10_run_1_13.qsub)
+Launcher: Task 7 running job 8 on compute-7-3-11 (bash KLd_10_run_1_7.qsub)
+Launcher: Task 3 running job 4 on compute-7-3-11 (bash KLd_10_run_1_3.qsub)
+Launcher: Task 11 running job 12 on compute-7-3-11 (bash KLd_10_run_1_11.qsub)
+Launcher: Task 1 running job 2 on compute-7-3-11 (bash KLd_10_run_1_1.qsub)
+Launcher: Task 15 running job 16 on compute-7-3-11 (bash KLd_10_run_1_15.qsub)
+Launcher: Task 4 running job 5 on compute-7-3-11 (bash KLd_10_run_1_4.qsub)
+Launcher: Task 10 running job 11 on compute-7-3-11 (bash KLd_10_run_1_10.qsub)
+Launcher: Task 6 running job 7 on compute-7-3-11 (bash KLd_10_run_1_6.qsub)
+Launcher: Task 18 running job 19 on compute-7-3-25 (bash KLd_10_run_1_18.qsub)
+Launcher: Task 31 running job 32 on compute-7-3-25 (bash KLd_10_run_1_31.qsub)
+Launcher: Task 24 running job 25 on compute-7-3-25 (bash KLd_10_run_1_24.qsub)
+Launcher: Task 29 running job 30 on compute-7-3-25 (bash KLd_10_run_1_29.qsub)
+Launcher: Task 25 running job 26 on compute-7-3-25 (bash KLd_10_run_1_25.qsub)
+Launcher: Task 21 running job 22 on compute-7-3-25 (bash KLd_10_run_1_21.qsub)
+Launcher: Task 23 running job 24 on compute-7-3-25 (bash KLd_10_run_1_23.qsub)
+Launcher: Task 16 running job 17 on compute-7-3-25 (bash KLd_10_run_1_16.qsub)
+Launcher: Task 26 running job 27 on compute-7-3-25 (bash KLd_10_run_1_26.qsub)
+Launcher: Task 30 running job 31 on compute-7-3-25 (bash KLd_10_run_1_30.qsub)
+Launcher: Task 28 running job 29 on compute-7-3-25 (bash KLd_10_run_1_28.qsub)
+Launcher: Task 20 running job 21 on compute-7-3-25 (bash KLd_10_run_1_20.qsub)
+Launcher: Task 19 running job 20 on compute-7-3-25 (bash KLd_10_run_1_19.qsub)
+Launcher: Task 27 running job 28 on compute-7-3-25 (bash KLd_10_run_1_27.qsub)
+Launcher: Task 22 running job 23 on compute-7-3-25 (bash KLd_10_run_1_22.qsub)
+Launcher: Task 17 running job 18 on compute-7-3-25 (bash KLd_10_run_1_17.qsub)
+Launcher: Task 47 running job 48 on compute-7-3-26 (bash KLd_10_run_1_47.qsub)
+Launcher: Task 40 running job 41 on compute-7-3-26 (bash KLd_10_run_1_40.qsub)
+Launcher: Task 35 running job 36 on compute-7-3-26 (bash KLd_10_run_1_35.qsub)
+Launcher: Task 37 running job 38 on compute-7-3-26 (bash KLd_10_run_1_37.qsub)
+Launcher: Task 34 running job 35 on compute-7-3-26 (bash KLd_10_run_1_34.qsub)
+Launcher: Task 39 running job 40 on compute-7-3-26 (bash KLd_10_run_1_39.qsub)
+Launcher: Task 33 running job 34 on compute-7-3-26 (bash KLd_10_run_1_33.qsub)
+Launcher: Task 45 running job 46 on compute-7-3-26 (bash KLd_10_run_1_45.qsub)
+Launcher: Task 43 running job 44 on compute-7-3-26 (bash KLd_10_run_1_43.qsub)
+Launcher: Task 32 running job 33 on compute-7-3-26 (bash KLd_10_run_1_32.qsub)
+Launcher: Task 36 running job 37 on compute-7-3-26 (bash KLd_10_run_1_36.qsub)
+Launcher: Task 46 running job 47 on compute-7-3-26 (bash KLd_10_run_1_46.qsub)
+Launcher: Task 41 running job 42 on compute-7-3-26 (bash KLd_10_run_1_41.qsub)
+Launcher: Task 44 running job 45 on compute-7-3-26 (bash KLd_10_run_1_44.qsub)
+Launcher: Task 38 running job 39 on compute-7-3-26 (bash KLd_10_run_1_38.qsub)
+Launcher: Task 42 running job 43 on compute-7-3-26 (bash KLd_10_run_1_42.qsub)
+Launcher: Task 58 running job 59 on compute-7-6-14 (bash KLd_10_run_1_58.qsub)
+Launcher: Task 54 running job 55 on compute-7-6-14 (bash KLd_10_run_1_54.qsub)
+Launcher: Task 63 running job 64 on compute-7-6-14 (bash KLd_10_run_1_63.qsub)
+Launcher: Task 62 running job 63 on compute-7-6-14 (bash KLd_10_run_1_62.qsub)
+Launcher: Task 55 running job 56 on compute-7-6-14 (bash KLd_10_run_1_55.qsub)
+Launcher: Task 48 running job 49 on compute-7-6-14 (bash KLd_10_run_1_48.qsub)
+Launcher: Task 51 running job 52 on compute-7-6-14 (bash KLd_10_run_1_51.qsub)
+Launcher: Task 49 running job 50 on compute-7-6-14 (bash KLd_10_run_1_49.qsub)
+Launcher: Task 60 running job 61 on compute-7-6-14 (bash KLd_10_run_1_60.qsub)
+Launcher: Task 52 running job 53 on compute-7-6-14 (bash KLd_10_run_1_52.qsub)
+Launcher: Task 50 running job 51 on compute-7-6-14 (bash KLd_10_run_1_50.qsub)
+Launcher: Task 53 running job 54 on compute-7-6-14 (bash KLd_10_run_1_53.qsub)
+Launcher: Task 57 running job 58 on compute-7-6-14 (bash KLd_10_run_1_57.qsub)
+Launcher: Task 61 running job 62 on compute-7-6-14 (bash KLd_10_run_1_61.qsub)
+Launcher: Task 56 running job 57 on compute-7-6-14 (bash KLd_10_run_1_56.qsub)
+Launcher: Task 59 running job 60 on compute-7-6-14 (bash KLd_10_run_1_59.qsub)
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b45/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b24/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b58/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b14/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b36/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b16/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b56/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b44/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b18/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b59/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b10/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b19/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b42/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b57/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b11/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b31/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b53/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b37/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b15/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b25/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b55/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b6/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b27/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b62/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b33/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b28/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b8/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b52/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b17/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b39/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b49/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b29/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b13/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b34/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b23/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b63/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b4/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b46/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b22/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b51/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b9/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b43/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b26/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b7/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b32/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b20/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b61/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b3/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b41/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b54/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b1/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b30/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b40/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b24/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b2/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b60/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b47/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b16/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b12/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b58/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b38/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b18/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 17 completed in 51 seconds.
+Launcher: Task 16 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 25 completed in 51 seconds.
+Launcher: Task 24 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b14/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 19 completed in 53 seconds.
+Launcher: Task 18 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b45/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b19/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 20 completed in 55 seconds.
+Launcher: Task 19 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 59 completed in 56 seconds.
+Launcher: Task 58 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b31/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b36/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 15 completed in 57 seconds.
+Launcher: Task 14 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b57/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b10/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 32 completed in 58 seconds.
+Launcher: Task 31 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b25/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 46 completed in 59 seconds.
+Launcher: Task 45 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 37 completed in 59 seconds.
+Launcher: Task 36 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b44/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 58 completed in 59 seconds.
+Launcher: Task 57 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 11 completed in 60 seconds.
+Launcher: Task 10 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 26 completed in 60 seconds.
+Launcher: Task 25 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b53/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b11/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 45 completed in 61 seconds.
+Launcher: Task 44 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b42/14_new_Grover_gates_data.txt': No space left on device
+Launcher: Job 54 completed in 62 seconds.
+Launcher: Task 53 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 12 completed in 63 seconds.
+Launcher: Task 11 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b28/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b37/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 43 completed in 65 seconds.
+Launcher: Task 42 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b62/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b17/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 29 completed in 65 seconds.
+Launcher: Task 28 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b6/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 38 completed in 66 seconds.
+Launcher: Task 37 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 63 completed in 67 seconds.
+Launcher: Task 62 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b35/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b52/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 18 completed in 67 seconds.
+Launcher: Task 17 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 7 completed in 68 seconds.
+Launcher: Task 6 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b29/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b8/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 53 completed in 69 seconds.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b49/14_new_Grover_gates_data.txt': No space left on device
+Launcher: Task 52 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b33/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 30 completed in 70 seconds.
+Launcher: Task 29 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b23/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 9 completed in 71 seconds.
+Launcher: Task 8 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b0/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b48/faster_h_eff_KLd.jl': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 50 completed in 72 seconds.
+Launcher: Task 49 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 34 completed in 72 seconds.
+Launcher: Task 33 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b39/14_new_Grover_gates_data.txt': No space left on device
+Launcher: Job 24 completed in 72 seconds.
+Launcher: Task 23 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b22/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b13/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b63/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 40 completed in 74 seconds.
+Launcher: Task 39 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 23 completed in 74 seconds.
+Launcher: Task 22 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b34/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 64 completed in 76 seconds.
+Launcher: Task 63 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 14 completed in 76 seconds.
+Launcher: Task 13 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b4/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 35 completed in 77 seconds.
+Launcher: Task 34 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b51/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b46/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b20/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 5 completed in 78 seconds.
+Launcher: Task 4 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 52 completed in 78 seconds.
+Launcher: Task 51 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b9/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b50/faster_h_eff_KLd.jl': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 21 completed in 79 seconds.
+Launcher: Task 20 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 47 completed in 79 seconds.
+Launcher: Task 46 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b21/faster_h_eff_KLd.jl': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b43/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 10 completed in 81 seconds.
+Launcher: Task 9 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b61/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b7/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 44 completed in 82 seconds.
+Launcher: Task 43 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b30/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b32/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 62 completed in 83 seconds.
+Launcher: Task 61 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 8 completed in 84 seconds.
+Launcher: Task 7 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b54/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 31 completed in 84 seconds.
+Launcher: Task 30 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b3/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b27/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 33 completed in 85 seconds.
+Launcher: Task 32 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b41/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 55 completed in 86 seconds.
+Launcher: Task 54 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 4 completed in 86 seconds.
+Launcher: Task 3 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 28 completed in 87 seconds.
+Launcher: Task 27 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b1/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b26/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 42 completed in 88 seconds.
+Launcher: Task 41 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b40/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 2 completed in 89 seconds.
+Launcher: Task 1 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b60/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 27 completed in 89 seconds.
+Launcher: Task 26 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b21/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b2/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 41 completed in 91 seconds.
+Launcher: Task 40 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 61 completed in 91 seconds.
+Launcher: Task 60 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b56/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b47/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 22 completed in 92 seconds.
+Launcher: Task 21 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 3 completed in 92 seconds.
+Launcher: Task 2 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b12/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 48 completed in 93 seconds.
+Launcher: Task 47 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 57 completed in 93 seconds.
+Launcher: Task 56 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b38/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 13 completed in 94 seconds.
+Launcher: Task 12 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 39 completed in 96 seconds.
+Launcher: Task 38 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b55/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b35/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b15/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 56 completed in 98 seconds.
+Launcher: Task 55 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b48/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 36 completed in 99 seconds.
+Launcher: Task 35 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 16 completed in 100 seconds.
+Launcher: Task 15 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b0/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 49 completed in 100 seconds.
+Launcher: Task 48 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b50/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 1 completed in 102 seconds.
+Launcher: Task 0 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b5/faster_h_eff_KLd.jl': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 51 completed in 103 seconds.
+Launcher: Task 50 done. Exiting.
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b5/14_new_Grover_gates_data.txt': No space left on device
+cp: cannot create regular file '/home/sxd190113/scratch/KLd_10_run_1/b59/14_new_Grover_gates_data.txt': No space left on device
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 6 completed in 107 seconds.
+Launcher: Task 5 done. Exiting.
+Removing files
+rm: cannot remove 'faster_h_eff_KLd.jl': No such file or directory
+rm: cannot remove '14_new_Grover_gates_data.txt': No such file or directory
+Launcher: Job 60 completed in 108 seconds.
+Launcher: Task 59 done. Exiting.
+Launcher: Done. Job exited without errors
+Job KLd_10_run_1 complete
