@@ -28,7 +28,7 @@ Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 
 # Good seeds = 10,14, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 26546
+SEED = 5000
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -547,10 +547,10 @@ def Write_file(Noise, Energy, Entropy):
 # delta_index runs from 0 to 128.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.20,16+1)
+Delta = LinRange(0.0,0.20,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 10
+Num = 3
 
 #=
 Arrays to hold delta, energy and entropy before they are written into the file.              
