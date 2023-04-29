@@ -3,14 +3,14 @@
 #SBATCH --job-name=special_states
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=Hassanipour
 #
 # Processors:
-#SBATCH --ntasks=64
-#SBATCH --nodes=4
+#SBATCH --ntasks=32
+#SBATCH --nodes=2
 #
 # Wall clock limit:
-#SBATCH --time=7-00:00:00
+#SBATCH --time=4-00:00:00
 #
 # Email at end:
 #SBATCH --mail-user=sxd190113@utdallas.edu
