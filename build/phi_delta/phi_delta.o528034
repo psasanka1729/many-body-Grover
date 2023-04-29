@@ -129,3 +129,8 @@ Launcher: Task 60 running job 61 on compute-2-6-15 (bash phi_delta_60.qsub)
 Launcher: Task 59 running job 60 on compute-2-6-15 (bash phi_delta_59.qsub)
 Launcher: Task 50 running job 51 on compute-2-6-15 (bash phi_delta_50.qsub)
 Launcher: Task 51 running job 52 on compute-2-6-15 (bash phi_delta_51.qsub)
+slurmstepd: error: *** JOB 528034 ON compute-2-6-12 CANCELLED AT 2023-04-28T22:26:17 ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
