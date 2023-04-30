@@ -272,6 +272,10 @@ function h_eff_special_states(h, delta_1)
     return delta_1*((h_eff_block_matrix) .- tr(h_eff_block_matrix)/2)#+phi*[1 0;0 -1] + 
 end;
 
+h_spec_traceless(Matrix) = Matrix .- tr(Matrix)/2
+
+
+
 function sigma_y_to_sigma_z_basis_change(Matrix)
     
     sigma_y_n = (1/sqrt(2))*[1 -1im]'   # corresponding to -1 eigenvalue.
@@ -330,4 +334,3 @@ write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[1])))
 write(h_spec_eigenvalues_file, "\t")
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[2])))
 
-h_spec_eigenvalues
