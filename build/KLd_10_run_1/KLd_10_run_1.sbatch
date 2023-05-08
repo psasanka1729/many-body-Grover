@@ -3,11 +3,11 @@
 #SBATCH --job-name=KLd_10_run_1
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=Hassanipour
 #
 # Processors:
-#SBATCH --ntasks=64
-#SBATCH --nodes=4
+#SBATCH --ntasks=32
+#SBATCH --nodes=2
 #
 # Wall clock limit:
 #SBATCH --time=4-00:00:00
