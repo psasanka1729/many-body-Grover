@@ -3,11 +3,11 @@
 #SBATCH --job-name=KLd_10_run_2
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT-Kepler
 #
 # Processors:
-#SBATCH --ntasks=128
-#SBATCH --nodes=8
+#SBATCH --ntasks=16
+#SBATCH --nodes=1
 #
 # Wall clock limit:
 #SBATCH --time=4-00:00:00
