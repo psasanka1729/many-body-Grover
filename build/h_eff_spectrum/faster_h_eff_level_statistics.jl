@@ -318,7 +318,6 @@ end
 
 # Close the file
 close(eigenvalue_file)
-=#
 
 function Level_Statistics(n,Es)
     return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
