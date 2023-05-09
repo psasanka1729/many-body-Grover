@@ -381,8 +381,8 @@ function h_eff_from_derivative(h)
     h_eff_matrix = 1im*dG*(-G_exact');
 end
 
-function h_eff_bulk_energies(h)
-    h_eff_bulk = h_eff_from_derivative(h)[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
+function h_eff_bulk_energies(matrix_of_h_eff)
+    h_eff_bulk = matrix_of_h_eff[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
     h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
     effec_energies = sort(real(h_eff_bulk_energies),rev = true) # Soring the eigenvalues in descending order.
 end
@@ -391,7 +391,8 @@ eigenvalue_file       = open("eigenvalues.txt", "w")
 level_statistics_file = open("level_statistics.txt", "w")
 KLd_file              = open("KLd.txt", "w")
 
-bulk_energies = h_eff_bulk_energies(1.e-5)
+h_eff_matrix = h_eff_from_derivative(1.e-5)
+bulk_energies = h_eff_bulk_energies(h_eff_matrix)
 
 for i = 1:2^L-2
     write(eigenvalue_file, string(i))
@@ -449,7 +450,6 @@ function KLd(Eigenvectors_Matrix)
         for i = 1:2^L
             p = abs(eigenvector_1_z_basis[i])^2 + 1.e-9 # To avoid singularity in log.
             q = abs(eigenvector_2_z_basis[i])^2 + 1.e-9           
-
             KLd_sum += p*log(p/q)
         end
         #println(KLd_sum)
@@ -457,6 +457,8 @@ function KLd(Eigenvectors_Matrix)
     end
     return KL
 end;
+
+KLd_calculated = KLd(h_eff_matrix)
 
 for i = 1:2^L-1
     write(KLd_file , string(i))
