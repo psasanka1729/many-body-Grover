@@ -374,6 +374,8 @@ function KLd(Eigenvectors_Matrix)
     return KL
 end;
 
+KLd_calculated = KLd(h_eff_eigenvectors)
+
 for i = 1:2^L-1
     write(KLd_file , string(i))
     write(KLd_file , "\t")  # Add a tab indentation between the columns
