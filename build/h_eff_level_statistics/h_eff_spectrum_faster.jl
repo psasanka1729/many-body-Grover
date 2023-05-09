@@ -392,7 +392,7 @@ eigenvalue_file       = open("eigenvalues.txt", "w")
 level_statistics_file = open("level_statistics.txt", "w")
 KLd_file              = open("KLd.txt", "w")
 
-h_eff_matrix_created_once = h_eff_from_derivative(1.e-4)
+h_eff_matrix_created_once = h_eff_from_derivative(1.e-8)
 #=
 bulk_energies = h_eff_bulk_energies(h_eff_matrix)
 
@@ -460,7 +460,7 @@ function KLd(Eigenvectors_Matrix)
     end
     return KL
 end;
-
+#=
 ket_0 = zeros(2^L)
 ket_0[1] = 1
 N = 2^L
@@ -469,8 +469,8 @@ ket_xbar = sqrt(N/(N-1))*ket_x-1/sqrt(N-1)*ket_0
 P_0 = ket_0*ket_0'
 P_xbar = ket_xbar*ket_xbar'
 h_eff_truncated = (Identity(2^L)-P_xbar)*(Identity(2^L)-P_0)*h_eff_matrix_created_once*(Identity(2^L)-P_0)*(Identity(2^L)-P_xbar)
-
-h_eff_bulk_matrix_eigenvectors = eigvecs(h_eff_truncated)
+=#
+h_eff_bulk_matrix_eigenvectors = eigvecs(h_eff_matrix_created_once)
 
 KLd_calculated = KLd(h_eff_bulk_matrix_eigenvectors)
 
