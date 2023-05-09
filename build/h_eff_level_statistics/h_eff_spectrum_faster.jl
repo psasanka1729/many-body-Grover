@@ -460,7 +460,18 @@ function KLd(Eigenvectors_Matrix)
     return KL
 end;
 
-KLd_calculated = KLd(h_eff_matrix)
+ket_0 = zeros(2^L)
+ket_0[1] = 1
+N = 2^L
+ket_x = (1/sqrt(N))*ones(N)
+ket_xbar = sqrt(N/(N-1))*ket_x-1/sqrt(N-1)*ket_0
+P_0 = ket_0*ket_0'
+P_xbar = ket_xbar*ket_xbar'
+h_eff_truncated = (Identity(2^L)-P_xbar)*(Identity(2^L)-P_0)*h_eff*(Identity(2^L)-P_0)*(Identity(2^L)-P_xbar)
+
+h_eff_bulk_matrix_eigenvectors = eigvecs(h_eff_truncated)
+
+KLd_calculated = KLd(h_eff_bulk_matrix_eigenvectors)
 
 for i = 1:2^L-1
     write(KLd_file , string(i))
