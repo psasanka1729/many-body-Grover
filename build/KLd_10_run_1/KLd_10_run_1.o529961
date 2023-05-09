@@ -71,3 +71,101 @@ Launcher: Task 30 running job 31 on compute-2-1-2 (bash KLd_10_run_1_30.qsub)
 Launcher: Task 27 running job 28 on compute-2-1-2 (bash KLd_10_run_1_27.qsub)
 Launcher: Task 25 running job 26 on compute-2-1-2 (bash KLd_10_run_1_25.qsub)
 Launcher: Task 21 running job 22 on compute-2-1-2 (bash KLd_10_run_1_21.qsub)
+Removing files
+Launcher: Job 22 completed in 2069 seconds.
+Launcher: Task 21 done. Exiting.
+Removing files
+Launcher: Job 26 completed in 2103 seconds.
+Launcher: Task 25 done. Exiting.
+Removing files
+Launcher: Job 19 completed in 2107 seconds.
+Launcher: Task 18 done. Exiting.
+Removing files
+Launcher: Job 28 completed in 2116 seconds.
+Launcher: Task 27 done. Exiting.
+Removing files
+Launcher: Job 32 completed in 2130 seconds.
+Launcher: Task 31 done. Exiting.
+Removing files
+Launcher: Job 27 completed in 2140 seconds.
+Launcher: Task 26 done. Exiting.
+Removing files
+Launcher: Job 10 completed in 2145 seconds.
+Launcher: Task 9 done. Exiting.
+Removing files
+Launcher: Job 2 completed in 2155 seconds.
+Launcher: Task 1 done. Exiting.
+Removing files
+Launcher: Job 11 completed in 2166 seconds.
+Launcher: Task 10 done. Exiting.
+Removing files
+Launcher: Job 24 completed in 2168 seconds.
+Launcher: Task 23 done. Exiting.
+Removing files
+Launcher: Job 7 completed in 2168 seconds.
+Launcher: Task 6 done. Exiting.
+Removing files
+Launcher: Job 23 completed in 2172 seconds.
+Launcher: Task 22 done. Exiting.
+Removing files
+Launcher: Job 21 completed in 2173 seconds.
+Launcher: Task 20 done. Exiting.
+Removing files
+Launcher: Job 18 completed in 2177 seconds.
+Launcher: Task 17 done. Exiting.
+Removing files
+Launcher: Job 20 completed in 2184 seconds.
+Launcher: Task 19 done. Exiting.
+Removing files
+Launcher: Job 16 completed in 2186 seconds.
+Launcher: Task 15 done. Exiting.
+Removing files
+Launcher: Job 4 completed in 2187 seconds.
+Launcher: Task 3 done. Exiting.
+Removing files
+Launcher: Job 1 completed in 2188 seconds.
+Launcher: Task 0 done. Exiting.
+Removing files
+Launcher: Job 30 completed in 2188 seconds.
+Launcher: Task 29 done. Exiting.
+Removing files
+Launcher: Job 17 completed in 2189 seconds.
+Launcher: Task 16 done. Exiting.
+Removing files
+Launcher: Job 12 completed in 2190 seconds.
+Launcher: Task 11 done. Exiting.
+Removing files
+Launcher: Job 8 completed in 2191 seconds.
+Launcher: Task 7 done. Exiting.
+Removing files
+Launcher: Job 3 completed in 2194 seconds.
+Launcher: Task 2 done. Exiting.
+Removing files
+Launcher: Job 15 completed in 2198 seconds.
+Launcher: Task 14 done. Exiting.
+Removing files
+Launcher: Job 29 completed in 2200 seconds.
+Launcher: Task 28 done. Exiting.
+Removing files
+Launcher: Job 25 completed in 2200 seconds.
+Launcher: Task 24 done. Exiting.
+Removing files
+Launcher: Job 9 completed in 2207 seconds.
+Launcher: Task 8 done. Exiting.
+Removing files
+Launcher: Job 6 completed in 2214 seconds.
+Launcher: Task 5 done. Exiting.
+Removing files
+Launcher: Job 13 completed in 2217 seconds.
+Launcher: Task 12 done. Exiting.
+Removing files
+Launcher: Job 14 completed in 2218 seconds.
+Launcher: Task 13 done. Exiting.
+Removing files
+Launcher: Job 31 completed in 2218 seconds.
+Launcher: Task 30 done. Exiting.
+Removing files
+Launcher: Job 5 completed in 2219 seconds.
+Launcher: Task 4 done. Exiting.
+Launcher: Done. Job exited without errors
+Job KLd_10_run_1 complete
