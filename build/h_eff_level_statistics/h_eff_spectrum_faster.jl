@@ -137,7 +137,6 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
     return V
 end;
 
-=#
 basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
 
 #=
