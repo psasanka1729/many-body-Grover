@@ -272,7 +272,8 @@ function h_eff_eigensystem(DELTA)
         end     
         h_eff += NOISE_list[k]*f_k*H_list[k]*(f_k')
     end
-    
+   
+    #=
     # h_eff_xbar = V * h_eff_z * V^{\dagger}.
     h_eff = (basis_change_matrix)*h_eff*(basis_change_matrix') # Matrix in |0> and |xbar> basis.
     
@@ -280,7 +281,7 @@ function h_eff_eigensystem(DELTA)
     h_eff_bulk = h_eff[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
     h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
     h_eff_bulk_energies = sort(real(h_eff_bulk_energies),rev = true); # Soring the eigenvalues in descending order.
-    
+    =#
     # Eigenvectors.
     # Defining the state |0> in sigma_z basis.
     ket_0 = zeros(2^L)
@@ -298,7 +299,7 @@ function h_eff_eigensystem(DELTA)
     #h_eff_z_basis = basis_change_matrix*h_eff_truncated*(basis_change_matrix')
     h_eff_eigenvectors = eigvecs(h_eff_truncated) # Diagonalizing h_eff.    
     
-    return h_eff_bulk_energies,h_eff_eigenvectors
+    return h_eff_eigenvectors
 end;
 
 eigensystem_h_eff = h_eff_eigensystem(0.0);
@@ -307,6 +308,7 @@ eigenvalue_file       = open("eigenvalues.txt", "w")
 level_statistics_file = open("level_statistics.txt", "w")
 KLd_file              = open("KLd.txt", "w")
 
+#=
 h_eff_bulk_energies = eigensystem_h_eff[1]
 
 for i = 1:2^L-2
@@ -338,8 +340,8 @@ end
 
 # Close the file
 close(level_statistics_file)
-
-h_eff_eigenvectors = eigensystem_h_eff[2]
+=#
+h_eff_eigenvectors = eigensystem_h_eff
 
 function KLd(Eigenvectors_Matrix)
     KL = []
@@ -358,8 +360,8 @@ function KLd(Eigenvectors_Matrix)
         KLd_sum = 0.0
         
         # V|x_bar> = |n+1>.
-        eigenvector_1_z_basis = basis_change_matrix*Eigenvectors_Matrix[:,n]
-        eigenvector_2_z_basis = basis_change_matrix*Eigenvectors_Matrix[:,n+1]
+        eigenvector_1_z_basis = Eigenvectors_Matrix[:,n]
+        eigenvector_2_z_basis = Eigenvectors_Matrix[:,n+1]
         
         # The sum goes from 1 to dim(H) i.e length of an eigenvector.
         for i = 1:2^L
