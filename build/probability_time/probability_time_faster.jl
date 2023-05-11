@@ -255,7 +255,7 @@ fit_data_file       = open("fit_data.txt", "w")
 
 write(fit_data_file, string(A_2))
 write(fit_data_file, "\t")
-write(fit_data_file, string(B_2)
+write(fit_data_file, string(B_2))
 write(fit_data_file, "\t")
 write(fit_data_file, string(omega_2))
 write(fit_data_file, "\t")
