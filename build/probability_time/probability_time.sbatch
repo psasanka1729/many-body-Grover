@@ -3,11 +3,11 @@
 #SBATCH --job-name=probability_time
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=CMT-Kepler
 #
 # Processors:
-#SBATCH --ntasks=64
-#SBATCH --nodes=4
+#SBATCH --ntasks=16
+#SBATCH --nodes=1
 #
 # Wall clock limit:
 #SBATCH --time=7-00:00:00
