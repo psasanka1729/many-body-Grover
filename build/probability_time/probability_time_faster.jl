@@ -227,7 +227,7 @@ model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 xdata = [i for i = 50:70];
 ydata = p_0l[50:70]
 # Define an initial guess for the parameters
-p0 = [  0.5,   0.5,   1.0, 10.0]
+p0 = [  0.5,   0.5,   0.125, 10.0]
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
 # Extract the best-fit parameters
