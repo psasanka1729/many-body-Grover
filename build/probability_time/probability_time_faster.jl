@@ -1,4 +1,4 @@
-L = 8;
+L = 10;
 
 using Random
 using LinearAlgebra
@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 200000+parse(Int64,ARGS[1])
+SEED = 300000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -227,7 +227,7 @@ model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 xdata = [i for i = 50:70];
 ydata = p_0l[50:70]
 # Define an initial guess for the parameters
-p0 = [  0.5,   0.5,   0.125, 10.0]
+p0 = [  0.5,   0.5,   0.0625, 10.0]
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
 # Extract the best-fit parameters
