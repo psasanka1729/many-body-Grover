@@ -1,4 +1,4 @@
-L = 10;
+L = 8;
 
 using Random
 using LinearAlgebra
@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 40000+parse(Int64,ARGS[1])
+SEED = 400000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -184,7 +184,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-Delta = 0.04
+Delta = 0.01
 U = Grover_operator(Delta);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
@@ -200,16 +200,23 @@ write(probability_time_file, "\t")
 write(probability_time_file, string(real(p_xbar)))
 write(probability_time_file, "\t")
 write(probability_time_file, string(0))
+write(probability_time_file, "\n")
 
 #push!(p_0l,p_0)
 #push!(p_x_barl,p_xbar)
-for i=1:2000
+for i=1:1000
     global psi = U*psi
     global p_0 = abs(psi[1])^2
     global p_xbar = Pxbar(psi)
     #py"Write_file"(real(p_0),real(p_xbar),i)
     #push!(p_0l,p_0)
     #push!(p_x_barl,p_xbar)
+    write(probability_time_file, string(real(p_0)))
+    write(probability_time_file, "\t")
+    write(probability_time_file, string(real(p_xbar)))
+    write(probability_time_file, "\t")
+    write(probability_time_file, string(i))
+    write(probability_time_file, "\n")
 end;
 #using Plots
 #plot(p_0l,label="p0")
