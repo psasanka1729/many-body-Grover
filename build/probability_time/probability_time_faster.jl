@@ -184,7 +184,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-Delta = 0.01
+Delta = 0.05
 U = Grover_operator(Delta);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
@@ -202,15 +202,15 @@ write(probability_time_file, "\t")
 write(probability_time_file, string(0))
 write(probability_time_file, "\n")
 
-#push!(p_0l,p_0)
-#push!(p_x_barl,p_xbar)
-for i=1:1000
+push!(p_0l,p_0)
+push!(p_x_barl,p_xbar)
+for i=1:210
     global psi = U*psi
     global p_0 = abs(psi[1])^2
     global p_xbar = Pxbar(psi)
     #py"Write_file"(real(p_0),real(p_xbar),i)
-    #push!(p_0l,p_0)
-    #push!(p_x_barl,p_xbar)
+    push!(p_0l,p_0)
+    push!(p_x_barl,p_xbar)
     write(probability_time_file, string(real(p_0)))
     write(probability_time_file, "\t")
     write(probability_time_file, string(real(p_xbar)))
@@ -221,7 +221,6 @@ end;
 #using Plots
 #plot(p_0l,label="p0")
 #plot!(p_x_barl,label="p_x_bar")
-#=
 using LsqFit
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 # Define the first order data set.
@@ -251,6 +250,19 @@ omega_2 = fit.param[3]
 phi_2 = fit.param[4]
 #scatter(xdata,ydata)
 #plot!(xdata,A_2 .+ B_2 .* cos.(omega_2 .* xdata .+ phi_2))
+
+fit_data_file       = open("fit_data.txt", "w")
+
+write(fit_data_file, string(A_2))
+write(fit_data_file, "\t")
+write(fit_data_file, string(B_2)
+write(fit_data_file, "\t")
+write(fit_data_file, string(omega_2))
+write(fit_data_file, "\t")
+write(fit_data_file, string(phi_2))
+write(fit_data_file, "\t")
+write(fit_data_file, string(p_0l[200]-(A_2+B_2*cos(omega_2*200+phi_2))))
+#=
 py"""
 f = open('fitted_data'+'.txt', 'w')
 def Write_file_fit(A, B, omega, phi, error):

@@ -3,7 +3,7 @@
 #SBATCH --job-name=probability_time
 #
 # Partition:
-#SBATCH --partition=CMT-Kepler
+#SBATCH --partition=Hassanipour
 #
 # Processors:
 #SBATCH --ntasks=16
