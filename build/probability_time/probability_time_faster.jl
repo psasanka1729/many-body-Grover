@@ -4,7 +4,8 @@ using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-using PyCall
+#using PyCall
+#
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
@@ -163,12 +164,16 @@ function Grover_operator(DELTA)
     return GROVER_DELTA
 end;
 
+#=
 py"""
 f = open('probability_data'+'.txt', 'w')
 def Write_file(p1, p2, i):
     f = open('probability_data'+'.txt', 'a')
     f.write(str(p1) +'\t'+ str(p2)+ '\t' + str(i) +'\n')
 """
+=#
+
+probability_time_file       = open("probability_time.txt", "w")
 
 function Pxbar(full_wavefunction)
     #= full wavefunction = \sum_{j=0 to 2^{L}-1} \alpha_{j} |j>.
@@ -188,16 +193,23 @@ p_x_barl = []
 psi = Psi_0(L);
 p_0 = psi[1]*conj.(psi[1])
 p_xbar = Pxbar(psi)
-py"Write_file"(real(p_0),real(p_xbar),0)
-push!(p_0l,p_0)
-push!(p_x_barl,p_xbar)
+
+#py"Write_file"(real(p_0),real(p_xbar),0)
+write(probability_time_file, string(real(p_0)))
+write(probability_time_file, "\t")
+write(probability_time_file, string(real(p_xbar)))
+write(probability_time_file, "\t")
+write(probability_time_file, string(0))
+
+#push!(p_0l,p_0)
+#push!(p_x_barl,p_xbar)
 for i=1:2000
     global psi = U*psi
     global p_0 = abs(psi[1])^2
     global p_xbar = Pxbar(psi)
-    py"Write_file"(real(p_0),real(p_xbar),i)
-    push!(p_0l,p_0)
-    push!(p_x_barl,p_xbar)
+    #py"Write_file"(real(p_0),real(p_xbar),i)
+    #push!(p_0l,p_0)
+    #push!(p_x_barl,p_xbar)
 end;
 #using Plots
 #plot(p_0l,label="p0")
