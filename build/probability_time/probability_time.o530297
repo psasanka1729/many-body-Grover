@@ -1,0 +1,50 @@
+Starting job probability_time
+WARNING (05/10/23 22:32:24): LAUNCHER_WORKDIR variable not set. Using current directory.
+Launcher: Setup complete.
+
+------------- SUMMARY ---------------
+   Number of hosts:    1
+   Working directory:  /home/sxd190113/many-body-Grover/build/probability_time
+   Processes per host: 16
+   Total processes:    16
+   Total jobs:         16
+   Scheduling method:  interleaved
+
+-------------------------------------
+Launcher: Starting parallel tasks...
+using /tmp/launcher.530297.hostlist.GawDtStF to get hosts
+starting job on compute-2-6-11
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+Access denied: user sxd190113 (uid=669355) has no active jobs on this node.
+Authentication failed.
+slurmstepd: error: *** JOB 530297 ON compute-2-6-11 CANCELLED AT 2023-05-10T22:48:56 ***
+slurmstepd: error: Unable to send job complete message: Unable to contact slurm controller (connect failure)
