@@ -5,7 +5,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 16;
+L = 12;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 50000+parse(Int64,ARGS[1])
+SEED = 4064+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -379,7 +379,8 @@ end;
 
 function h_eff_from_derivative(h)
     h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
-    return h_eff_matrix
+    h_eff_matrix_x_bar_basis = (basis_change_matrix)*h_eff_matrix*(basis_change_matrix')
+    return h_eff_matrix_x_bar_basis
 end;
 
 function h_eff_bulk_energies(h)
@@ -393,7 +394,7 @@ eigenvalue_file       = open("eigenvalues.txt", "w")
 level_statistics_file = open("level_statistics.txt", "w")
 KLd_file              = open("KLd.txt", "w")
 
-bulk_energies = h_eff_bulk_energies(1.e-7)
+bulk_energies = h_eff_bulk_energies(1.e-8)
 
 for i = 1:2^L-2
     write(eigenvalue_file, string(i))
@@ -426,7 +427,7 @@ end
 close(level_statistics_file)
 
 #h_eff_eigenvectors = eigensystem_h_eff[2]
-
+#=
 function KLd(Eigenvectors_Matrix)
     KL = []
     for n = 1:2^L-1 # Eigenvector index goes from 1 to dim(H)-1.
@@ -467,7 +468,7 @@ for i = 1:2^L-1
     write(KLd_file , string(KLd_calculated[i]))
     write(KLd_file , "\n")  # Add a newline character to start a new line
 end
-
+=#
 # Close the file
 close(KLd_file)
 =#
