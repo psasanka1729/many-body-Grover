@@ -3,14 +3,14 @@
 #SBATCH --job-name=KLd_10_run_1
 #
 # Partition:
-#SBATCH --partition=Hassanipour
+#SBATCH --partition=normal
 #
 # Processors:
-#SBATCH --ntasks=32
-#SBATCH --nodes=2
+#SBATCH --ntasks=128
+#SBATCH --nodes=8
 #
 # Wall clock limit:
-#SBATCH --time=7-00:00:00
+#SBATCH --time=4-00:00:00
 #
 # Email at end:
 #SBATCH --mail-user=sxd190113@utdallas.edu
