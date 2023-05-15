@@ -268,7 +268,7 @@ function h_eff_special_states(h, delta_1)
     #=
         If M is any matrix, then M' = M-tr(M)/2 is a tracelss matrix.
     =#
-    return delta_1*((h_eff_block_matrix) .- tr(h_eff_block_matrix)/2)+phi*[1 0;0 -1] + 
+    return delta_1*((h_eff_block_matrix) .- tr(h_eff_block_matrix)/2)+phi*[1 0;0 -1] 
 end;
 
 function sigma_y_to_sigma_z_basis_change(Matrix)
