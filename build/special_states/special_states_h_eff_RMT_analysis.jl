@@ -1,4 +1,4 @@
-using PyCall
+#using PyCall
 #using NPZ
 using Random
 using LinearAlgebra
@@ -28,8 +28,8 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-DELTA = 0.06
-SEED = 60000+parse(Int64,ARGS[1])
+DELTA = 0.01
+SEED = 100000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -263,7 +263,7 @@ function h_eff_special_states(h, delta_1)
     # h_eff as 2x2 block matrix.
     h_eff_block_matrix = [ h_1_1 h_1_2; h_2_1 h_2_2]
     
-    phi = -atan(2/sqrt(N-1))
+    phi = -atan(2*sqrt(N-1)/(N-2))
 
     # Making the h_spec matrix tracelss to write it in terms of Pauli matrices.
     #=
