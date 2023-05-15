@@ -5,7 +5,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 8;
+L = 14;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
@@ -388,12 +388,6 @@ function Grover_delta(DELTA)
     return GROVER_DELTA
 end;
 
-function derivative_of_G(h)
-    # Forward difference.
-    #return (Grover_delta(h)-(-G_exact))/h
-    # Central difference.
-    return (Grover_delta(h)-Grover_delta(-h))/(2*h)
-end;
 
 function h_eff_from_derivative(h)
     h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
@@ -402,12 +396,6 @@ function h_eff_from_derivative(h)
     return h_eff_matrix_xbar_basis
 end;
 
-function h_eff_full_spectrum(h)
-    h_eff_full = h_eff_from_derivative(h); # Deleting the |0> and |xbar> basis.
-    h_eff_full_energies = eigvals(collect(h_eff_full)) # Diagonalizing H_eff matrix.
-    all_energies = sort(real(h_eff_full_energies),rev = true) # Soring the eigenvalues in descending order.
-    return all_energies
-end;
 
 function h_eff_bulk_energies(h)
     h_eff_bulk = h_eff_from_derivative(h)[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
@@ -420,7 +408,7 @@ eigenvalue_file       = open("eigenvalues.txt", "w")
 level_statistics_file = open("level_statistics.txt", "w")
 KLd_file              = open("KLd.txt", "w");
 
-bulk_energies = h_eff_bulk_energies(1.e-10)
+bulk_energies = h_eff_bulk_energies(1.e-8)
 
 for i = 1:2^L-2
     write(eigenvalue_file, string(i))
@@ -453,7 +441,7 @@ end
 close(level_statistics_file)
 
 #h_eff_eigenvectors = eigensystem_h_eff[2]
-
+#=
 function KLd(Eigenvectors_Matrix)
     KL = []
     for n = 1:2^L-1 # Eigenvector index goes from 1 to dim(H)-1.
@@ -497,4 +485,5 @@ end
 
 # Close the file
 close(KLd_file)
+=#
 =#
