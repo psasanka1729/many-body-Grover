@@ -3,11 +3,11 @@
 #SBATCH --job-name=GUE_tenpy
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=Hassanipour
 #
 # Processors:
-#SBATCH --ntasks=48
-#SBATCH --nodes=3
+#SBATCH --ntasks=32
+#SBATCH --nodes=2
 #
 # Wall clock limit:
 #SBATCH --time=7-00:00:00
