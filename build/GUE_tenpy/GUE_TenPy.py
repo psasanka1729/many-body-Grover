@@ -15,14 +15,14 @@ import tenpy
 
 
 # Number of qubits.
-L = 12
+L = 14
 
 
 # In[11]:
 
 
 # Generating a random GUE.
-X = tenpy.linalg.random_matrix.GOE((2**L,2**L))
+X = tenpy.linalg.random_matrix.GUE((2**L,2**L))
 
 
 # In[12]:
