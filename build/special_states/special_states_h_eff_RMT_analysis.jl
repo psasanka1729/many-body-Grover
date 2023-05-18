@@ -5,7 +5,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 14;
+L = 12;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-DELTA = 0.01
+#DELTA = 0.01
 SEED = 100000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
@@ -229,7 +229,7 @@ function Grover_delta(DELTA)
     return GROVER_DELTA
 end;
 
-function h_eff_special_states(h, delta_1)
+function h_eff_special_states(h)
 
     #=Derivative of G(\delta) is calculated using forward difference.=#
     function h_eff_from_derivative(h::Float64)
@@ -249,8 +249,8 @@ function h_eff_special_states(h, delta_1)
     ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
     
     # Basis is chosen as (|0> +i*|x_bar>)/sqrt(2) and (|0> -i*|x_bar>)/sqrt(2).
-    basis_1 = (ket_0 + 1im*ket_xbar)/sqrt(2) # quasi-energy = -arctan(2/sqrt(N-1)).
-    basis_2 = (ket_0 - 1im*ket_xbar)/sqrt(2) # quasi-energy = arctan(2/sqrt(N-1)).
+    basis_1 = (ket_0 + 1im*ket_xbar)/sqrt(2) # quasi-energy = -arctan(2*sqrt(N-1)/(2-N)).
+    basis_2 = (ket_0 - 1im*ket_xbar)/sqrt(2) # quasi-energy = arctan(2*sqrt(N-1)/(2-N).
     
     h_eff_matrix_whole = h_eff_from_derivative(h)
     
@@ -263,13 +263,13 @@ function h_eff_special_states(h, delta_1)
     # h_eff as 2x2 block matrix.
     h_eff_block_matrix = [ h_1_1 h_1_2; h_2_1 h_2_2]
     
-    phi = -atan(2*sqrt(N-1)/(N-2))
+    phi = -atan(2*sqrt(N-1)/(2-N))
 
     # Making the h_spec matrix tracelss to write it in terms of Pauli matrices.
     #=
         If M is any matrix, then M' = M-tr(M)/2 is a tracelss matrix.
     =#
-    return delta_1*((h_eff_block_matrix) .- tr(h_eff_block_matrix)/2)#+phi*[1 0;0 -1] + 
+    return (h_eff_block_matrix) .- tr(h_eff_block_matrix)/2#+phi*[1 0;0 -1] + 
 end;
 
 function sigma_y_to_sigma_z_basis_change(Matrix)
@@ -289,7 +289,7 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
 end;
 
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
-h_spec_y_basis           = h_eff_special_states(1.e-8, DELTA)
+h_spec_y_basis           = h_eff_special_states(1.e-8)
 h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
 
 #=
@@ -330,8 +330,9 @@ write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[1])))
 write(h_spec_eigenvalues_file, "\t")
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[2])))
 
-
+#=
 h_spec_energy_file  = open("h_spec_energy.txt", "w")
 phi = -atan(2/sqrt(2^L-1))
 lambda = sqrt(phi^2+2*phi*PC[3]+DELTA^2*(PC[1]^2+PC[2]^2+PC[3]^2))
 write(h_spec_energy_file , string(real(lambda)))
+=#
