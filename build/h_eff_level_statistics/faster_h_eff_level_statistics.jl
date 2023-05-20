@@ -390,8 +390,8 @@ end;
 
 
 function h_eff_from_derivative(h)
-    h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
-    return h_eff_matrix
+    h_eff_matrix_d = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+    return h_eff_matrix_d
 end;
 
 
