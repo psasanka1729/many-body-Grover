@@ -5,7 +5,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 12;
+L = 8;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
@@ -389,8 +389,8 @@ function Grover_delta(DELTA)
 end;
 
 
-function h_eff_from_derivative(h)
-    h_eff_matrix_d = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+function h_eff_from_derivative(delta_h)
+    h_eff_matrix_d = 1im*((Grover_delta(delta_h)*(-G_exact)')-Identity(2^L))/delta_h
     return h_eff_matrix_d
 end;
 
