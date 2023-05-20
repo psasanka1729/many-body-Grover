@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 5128+parse(Int64,ARGS[1])
+SEED = 4000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -389,14 +389,15 @@ function Grover_delta(DELTA)
 end;
 
 
-function h_eff_from_derivative(delta_h)
-    h_eff_matrix_d = 1im*((Grover_delta(delta_h)*(-G_exact)')-Identity(2^L))/delta_h
-    return h_eff_matrix_d
+function h_eff_from_derivative(h)
+    h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+    # h_eff_xbar = V * h_eff_z * V^{\dagger}.
+    h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
+    return h_eff_matrix_xbar_basis
 end;
 
 
-function h_eff_bulk_energies(h_eff_matrix)
-    h_eff_matrix_x_bar_basis = (basis_change_matrix)*h_eff_matrix*(basis_change_matrix')
+function h_eff_bulk_energies(h)
     h_eff_bulk = h_eff_from_derivative(h)[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
     h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
     effective_energies = sort(real(h_eff_bulk_energies),rev = true) # Soring the eigenvalues in descending order.
@@ -407,9 +408,7 @@ eigenvalue_file       = open("eigenvalues.txt", "w")
 level_statistics_file = open("level_statistics.txt", "w")
 KLd_file              = open("KLd.txt", "w");
 
-
-h_eff_matrix_created_once = h_eff_from_derivative(1.e-8)
-bulk_energies = h_eff_bulk_energies(h_eff_matrix_created_once)
+bulk_energies = h_eff_bulk_energies(1.e-8)
 
 for i = 1:2^L-2
     write(eigenvalue_file, string(i))
@@ -475,7 +474,6 @@ function KLd(Eigenvectors_Matrix)
     end
     return KL
 end;
-=#
 
 #=
 for i = 1:2^L-1
@@ -487,4 +485,5 @@ end
 
 # Close the file
 close(KLd_file)
+=#
 =#
