@@ -9,7 +9,7 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=qiskit-energy_noise.jl
+EXEC=qiskit-energy-noise.jl
 HELPER="gates_list_10.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
