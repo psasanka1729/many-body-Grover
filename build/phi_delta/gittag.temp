@@ -1,3 +1,33 @@
+commit ae858ae39c8d7ea212d8263f86cbd9966c3aaa9b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Jun 15 16:20:40 2023 -0500
+
+    Commit before run phi_delta
+
+commit d44df984ee12281fba4a2faa05c0a4872e1ec4e4
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Thu Jun 15 16:16:27 2023 -0500
+
+    qsikit transpile gate list
+
+commit 77982917632e3c83db82458d0d09cc222d3ea4cd
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Thu Jun 15 16:15:37 2023 -0500
+
+    using transpile of qiskit
+
+commit 72906ac1450db03471d95c4d19472defa4afc0db
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Jun 15 16:14:57 2023 -0500
+
+    cluster backup
+
+commit fd547cea8bfef44c68c9f58c0a934179c0a37e66
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Jun 1 16:59:10 2023 -0500
+
+    Commit before run probability_time
+
 commit 5a54cb61b79f52b15a8254c6d27764c51fc364e7
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Tue May 30 21:52:09 2023 -0500

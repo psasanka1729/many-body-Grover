@@ -9,8 +9,8 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=energy_noise.jl
-HELPER="14_new_Grover_gates_data.txt"
+EXEC=qiskit-energy_noise.jl
+HELPER="gates_list_10.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
 cp $EXEC $SCRATCH_DIR/
