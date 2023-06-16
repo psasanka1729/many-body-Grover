@@ -1,11 +1,11 @@
-L = 8;
+L = 10;
 
 using PyCall
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"gates_list_8.txt" # Change for every L.
+file = raw"gates_list_10.txt" # Change for every L.
 M = readdlm(file)
 # Name.
 Gates_data_1 = M[:,1];
@@ -153,12 +153,14 @@ def eigu(U,tol=1e-9):
     return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
 """
 
+#=
 U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
 U_0[1,1] = -1
 A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
 #V = py"eigu"(G_exact)[2];
+=#
 
 function Grover_delta(DELTA)
 
@@ -210,7 +212,7 @@ function Grover_delta(DELTA)
     return -GROVER_DELTA'
 end;
 
-Gd = Grover_delta(0.0);
+#Gd = Grover_delta(0.0);
 
 #=
 The following function returns the matrix of rolling operator.
