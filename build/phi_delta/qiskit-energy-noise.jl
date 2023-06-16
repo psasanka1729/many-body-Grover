@@ -328,14 +328,14 @@ Entropies = []
 # delta_index runs from 0 to 128.
 delta_index = parse(Int64,ARGS[1])
 #
-Delta = LinRange(0.0,0.2,64+1)
+Delta = LinRange(0.0,0.1,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 30
+Num = 10
 
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
-    Op = collect(Grover_delta(delta))
+    Op = -collect(Grover_delta(delta))
     EIGU = py"eigu"(Op)
     X = string(delta)
     Y = real(1im*log.(EIGU[1]))
