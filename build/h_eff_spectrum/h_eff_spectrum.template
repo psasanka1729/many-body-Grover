@@ -10,7 +10,7 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 mkdir -p $SCRATCH_DIR
 
 EXEC=qisikit-level-statistics.jl
-HELPER="14_new_Grover_gates_data.txt"
+HELPER="gates_list_10.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
 cp $EXEC $SCRATCH_DIR/

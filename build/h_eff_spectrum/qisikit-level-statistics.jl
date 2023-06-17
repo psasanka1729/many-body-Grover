@@ -1,4 +1,4 @@
-L = 8;
+L = 10;
 
 using PyCall
 using Random
@@ -18,7 +18,7 @@ Number_of_Gates = length(Gates_data_1)
 
 #Gates_data_2;
 
-SEED = 10000
+SEED = parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -454,6 +454,7 @@ for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
     push!(h_eff_level_statistics,Level_Statistics(i,h_eff_D ))
 end
 
+#=
 h_eff_level_statistics
 
 using Statistics
