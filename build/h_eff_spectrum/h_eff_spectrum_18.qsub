@@ -9,7 +9,7 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=qisikit-level-statistics.jl
+EXEC=qisikit-level-statistics-KLd.jl
 HELPER="gates_list_10.txt"
 
 cd $LOCAL_DIR/$RUN_NAME

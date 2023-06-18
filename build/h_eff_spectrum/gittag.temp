@@ -1,3 +1,45 @@
+commit 215d57fff6462762a040766ac2350781e1d32db5
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Jun 18 15:08:21 2023 -0500
+
+    Commit before run h_eff_spectrum
+
+commit 68f3439f5693dfe4d8899760d0518e17d64c8eaa
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sun Jun 18 15:05:43 2023 -0500
+
+    level statistics and KLd of h_eff
+
+commit a0ae6b963d5982308e9959008179820405eec219
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Jun 18 15:05:05 2023 -0500
+
+    cluster backup
+
+commit ac5af3c40087983beac182dfc42f520f96a9978a
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Jun 18 13:03:19 2023 -0500
+
+    Commit before run phi_delta
+
+commit 295a832399d4a35a30935c4e3bc7895860e5a220
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Jun 18 12:17:03 2023 -0500
+
+    Commit before run phi_delta
+
+commit f956e31a328bdff22027b7647824e44b1abf321c
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sun Jun 18 12:14:02 2023 -0500
+
+    gate u1 rx cnot
+
+commit ed51ec9a2c9d80bfe056c977a49f668dc26181c9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Jun 18 12:12:22 2023 -0500
+
+    cluster backup
+
 commit 49fbff1aa3dfe99400cb2e3806b4696a51a32e5c
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sat Jun 17 15:00:20 2023 -0500
