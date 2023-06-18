@@ -1,11 +1,11 @@
-L = 12;
+L = 10;
 
 using PyCall
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"gates_list_12.txt" # Change for every L.
+file = raw"gates_list_"*string(L)*".txt" # Change for every L.
 M = readdlm(file)
 # Name.
 Gates_data_1 = M[:,1];
@@ -16,7 +16,6 @@ Gates_data_3 = M[:,3];
 
 Number_of_Gates = length(Gates_data_1)
 
-Gates_data_2;
 
 SEED = 5000
 Random.seed!(SEED)
@@ -28,6 +27,8 @@ Pauli_X  = [0 1;1 0]
 H  = (1/sqrt(2))*[1 1;1 -1]
 U1(theta) = [1 0; 0 exp(1im*theta)];
 Rx(theta)       = sparse(exp(-1im*(theta/2)*collect(Pauli_X)));
+Rz(theta)       = sparse(exp(-1im*(theta/2)*collect(Pauli_Z)));
+U1(theta)       = sparse(exp(-1im*(theta/2)*(collect(Pauli_Z)-I2)));
 Hadamard(noise) = sparse(exp(-1im*(pi/2+noise)*collect(I2-H))) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise)       = sparse(exp(-1im*((pi/2+noise))*collect(I2-Pauli_X))); # This is X gate.
 Z_gate(noise)   = sparse(exp(-1im*(pi/2+noise)*collect(I2-Pauli_Z))) #Hadamard(noise)*CX(noise)*Hadamard(noise); # noise
@@ -333,7 +334,7 @@ delta_index = parse(Int64,ARGS[1])
 Delta = LinRange(0.0,0.05,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 5
+Num = 10
 
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
