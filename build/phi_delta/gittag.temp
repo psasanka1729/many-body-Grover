@@ -1,3 +1,69 @@
+commit 295a832399d4a35a30935c4e3bc7895860e5a220
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Jun 18 12:17:03 2023 -0500
+
+    Commit before run phi_delta
+
+commit f956e31a328bdff22027b7647824e44b1abf321c
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sun Jun 18 12:14:02 2023 -0500
+
+    gate u1 rx cnot
+
+commit ed51ec9a2c9d80bfe056c977a49f668dc26181c9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Jun 18 12:12:22 2023 -0500
+
+    cluster backup
+
+commit 49fbff1aa3dfe99400cb2e3806b4696a51a32e5c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Jun 17 15:00:20 2023 -0500
+
+    Commit before run h_eff_spectrum
+
+commit f12e920461bc77d07f4f324b6f40ba314603a21d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Jun 17 15:00:04 2023 -0500
+
+    Commit before run h_eff_spectrum
+
+commit ed3b65520c633a02970c40423c6dc71652373a52
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Jun 17 12:52:53 2023 -0500
+
+    Commit before run h_eff_spectrum
+
+commit 05f08d9a5ce69e9712e51788f4548dbe5f6fac95
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Jun 17 12:47:42 2023 -0500
+
+    rz h cx z x
+
+commit a6d394edc9f578dc459cdaf62b9d99aa7a3d0b41
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Jun 17 12:45:01 2023 -0500
+
+    gates list with rz h cx z x
+
+commit 9b1b3bdd8400673c92d7aeeb85885d3a8287b98d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Jun 17 12:43:42 2023 -0500
+
+    cluster backup
+
+commit 5fbe7cc833e4049d163c478079373eb62a040374
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Jun 17 12:39:45 2023 -0500
+
+    Add files via upload
+
+commit c209d8c30b6e7db51799ed1b9daea506e89d530f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Jun 17 12:38:32 2023 -0500
+
+    cluster backup
+
 commit 557c99c45ee31b8a43fe4397fa1c39551aff61db
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Fri Jun 16 09:50:55 2023 -0500
