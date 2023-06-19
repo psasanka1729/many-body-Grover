@@ -18,7 +18,7 @@ Number_of_Gates = length(Gates_data_1)
 
 #Gates_data_2;
 
-SEED = 5064+parse(Int64,ARGS[1])
+SEED = 10000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -466,6 +466,18 @@ h_eff = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
 h_eff_D = h_eff[3:2^L,3:2^L];
 
 #h_eff_D
+eigenvalue_file       = open("eigenvalues.txt", "w")
+Eigvals_h_eff = eigvals(collect(h_eff_D))
+for i = 1:2^L-2
+        write(eigenvalue_file, string(i))
+        write(eigenvalue_file, "\t")  # Add a tab indentation between the columns
+        write(eigenvalue_file, string(Eigvals_h_eff[i]))
+        write(eigenvalue_file, "\n")  # Add a newline character to start a new line
+end
+
+
+
+
 
 function Level_Statistics(n,Es)
     return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
@@ -489,7 +501,7 @@ close(level_statistics_file)
 #using Statistics
 #mean(h_eff_level_statistics)
 
-Eigvals_h_eff = eigvals(collect(h_eff_D));
+#Eigvals_h_eff = eigvals(collect(h_eff_D));
 
 Eigvecs_h_eff = eigvecs(collect(h_eff));
 
