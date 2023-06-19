@@ -17,7 +17,7 @@ Gates_data_3 = M[:,3];
 Number_of_Gates = length(Gates_data_1)
 
 
-SEED = 5000
+SEED = 1729
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
