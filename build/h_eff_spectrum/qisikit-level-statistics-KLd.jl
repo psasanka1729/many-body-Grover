@@ -18,7 +18,7 @@ Number_of_Gates = length(Gates_data_1)
 
 #Gates_data_2;
 
-SEED = 5000+parse(Int64,ARGS[1])
+SEED = 5064+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
