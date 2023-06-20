@@ -1,4 +1,4 @@
-L = 10;
+L = 12;
 
 using PyCall
 using Random
@@ -331,10 +331,10 @@ Entropies = []
 # delta_index runs from 0 to 128.
 delta_index = parse(Int64,ARGS[1])
 #
-Delta = LinRange(0.0,0.4,64+1)
+Delta = LinRange(0.0,0.18,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 10
+Num = 5
 
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
