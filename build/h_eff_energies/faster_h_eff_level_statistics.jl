@@ -1,11 +1,11 @@
 #using PyCall
-using NPZ
+#using NPZ
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 14;
+L = 12;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1320+parse(Int64,ARGS[1])
+SEED = 1818+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -103,12 +103,13 @@ function single_qubit_controlled_gate_matrix(single_qubit_gate,c,t)
     return PI_0_matrix + PI_1_matrix     
 end;
 
+# n is from 0 to 2^L-2.
 function x_bar(n)
     s = zeros(2^L)
     k_n = (2*pi*n)/(2^L-1)
     for j=1:2^L-1
-        ket_j    = zeros(2^L);
-        ket_j[j+1] = 1 
+        ket_j      = zeros(2^L);
+        ket_j[j+1] = 1 # Julia counts from 1.
         s = s+ exp(1im*(j-1)*k_n)*ket_j
     end
     return s/sqrt(2^L-1)
@@ -116,29 +117,35 @@ end;
 
 function sigma_z_to_x_bar_basis_change_matrix(L)
     V     = spzeros(2^L,2^L)
+    
     ket_0 = spzeros(2^L)
     ket_0[1] = 1
+    
     ket_1    = spzeros(2^L);
     ket_1[2] = 1
-    ket_xbar = x_bar(1)
+    
+    ket_xbar = x_bar(0)
+    
     eigenstate_1 = (ket_0-1im*ket_xbar)/sqrt(2)
     eigenstate_2 = (ket_0+1im*ket_xbar)/sqrt(2)
-    V = V+ ket_1*(eigenstate_1')
-    V = V+ ket_0*(eigenstate_2')
+    
+    V = V+ ket_0*(eigenstate_1')
+    V = V+ ket_1*(eigenstate_2')
     
     # The buk.
-    for n=2:2^L-1
-        # ket_n has n+1 th position as 1 in comutational basis.
+    for n=1:2^L-2
+        # ket_(n+1) has n+2 th position as 1 in computational basis.
         ket_n    = spzeros(2^L);
-        ket_n[n+1] = 1 
+        ket_n[n+2] = 1 
         
-        V = V+ket_n*(x_bar(n-1)')
+        V = V+ket_n*(x_bar(n)')
     end
     return V
 end;
 
 basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
 
+#=
 function h_eff_eigensystem(DELTA)
     
     U_list = [];
@@ -274,10 +281,10 @@ function h_eff_eigensystem(DELTA)
     end
     
     # h_eff_xbar = V * h_eff_z * V^{\dagger}.
-    h_eff = (basis_change_matrix)*h_eff*(basis_change_matrix') # Matrix in |0> and |xbar> basis.
+    h_eff_xbar_basis = (basis_change_matrix)*h_eff*(basis_change_matrix') # Matrix in |0> and |xbar> basis.
     
     # Eigenvalues.
-    h_eff_bulk = h_eff[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
+    h_eff_bulk = h_eff_xbar_basis[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
     h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
     h_eff_bulk_energies = sort(real(h_eff_bulk_energies),rev = true); # Soring the eigenvalues in descending order.
     
@@ -298,20 +305,120 @@ function h_eff_eigensystem(DELTA)
     #h_eff_z_basis = basis_change_matrix*h_eff_truncated*(basis_change_matrix')
     h_eff_eigenvectors = eigvecs(h_eff_truncated) # Diagonalizing h_eff.    
     
-    return h_eff_bulk_energies,h_eff_eigenvectors
+    return h_eff,h_eff_bulk_energies,h_eff_eigenvectors
+end;
+=#
+
+#eigensystem_h_eff = h_eff_eigensystem(0.0);
+
+#h_eff_matrix = eigensystem_h_eff[1];
+
+U_0 = Identity(2^L)#[-1 0 0 0; 0 1 0 0; 0 0 1 0;0 0 0 1];
+U_0[1,1] = -1
+A = ones(2^L,2^L);
+U_x = (2/2^L)*A-Identity(2^L); # 2\s>
+G_exact = U_x*U_0;
+
+function Grover_delta(DELTA)
+
+    U_x_delta = Identity(2^L)
+    # U_x
+    for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
+        if Gates_data_1[i] == "H"
+            
+            
+            epsilon = NOISE[i]
+            U_x_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])
+                      
+            
+        elseif Gates_data_1[i] == "X"
+        
+            epsilon = NOISE[i]       
+            U_x_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])   
+
+            
+        elseif Gates_data_1[i] == "Z"
+        
+            epsilon = NOISE[i]       
+            U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])
+
+            
+        else
+        
+            epsilon = NOISE[i]       
+            U_x_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+
+            
+        end
+    end
+    
+
+    U_0_delta = Identity(2^L);    
+    # U_0
+    for i = 1 : U_0_gate_number
+        if Gates_data_1[i] == "H"
+        
+            epsilon = NOISE[i]      
+            U_0_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])          
+
+            
+        elseif Gates_data_1[i] == "X"
+
+        
+            epsilon = NOISE[i]       
+            U_0_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])
+
+            
+        elseif Gates_data_1[i] == "Z"
+        
+            epsilon = NOISE[i]     
+            U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])          
+
+            
+        else
+
+            epsilon = NOISE[i]     
+            U_0_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+
+            
+        end 
+    end
+    
+    GROVER_DELTA = U_x_delta*U_0_delta
+    return GROVER_DELTA
 end;
 
-eigensystem_h_eff = h_eff_eigensystem(0.0);
 
-h_eff_bulk_energies = eigensystem_h_eff[1]
+function h_eff_from_derivative(h)
+    h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+    # h_eff_xbar = V * h_eff_z * V^{\dagger}.
+    h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
+    return h_eff_matrix_xbar_basis
+end;
 
-npzwrite("h_eff_eigenvalues.npy",h_eff_bulk_energies)
 
-eigenvalues_diff = Array{Float64, 1}(undef, 0)
-for i = 2:2^L-2 # relative index i.e length of the eigenvector array.
-    push!(eigenvalues_diff,h_eff_bulk_energies[i]-h_eff_bulk_energies[i-1])
+function h_eff_bulk_energies(h)
+    h_eff_bulk = h_eff_from_derivative(h)[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
+    h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
+    effective_energies = sort(real(h_eff_bulk_energies),rev = true) # Soring the eigenvalues in descending order.
+    return effective_energies
+end;
+
+eigenvalue_file       = open("eigenvalues.txt", "w")
+level_statistics_file = open("level_statistics.txt", "w")
+KLd_file              = open("KLd.txt", "w");
+
+bulk_energies = h_eff_bulk_energies(1.e-8)
+
+for i = 1:2^L-2
+    write(eigenvalue_file, string(i))
+    write(eigenvalue_file, "\t")  # Add a tab indentation between the columns
+    write(eigenvalue_file, string(bulk_energies[i]))
+    write(eigenvalue_file, "\n")  # Add a newline character to start a new line
 end
-npzwrite("h_diffence_eigenvalues.npy",eigenvalues_diff)
+
+# Close the file
+close(eigenvalue_file)
 
 function Level_Statistics(n,Es)
     return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
@@ -319,12 +426,22 @@ end;
 
 h_eff_level_statistics = Array{Float64, 1}(undef, 0)
 for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
-    push!(h_eff_level_statistics,Level_Statistics(i,h_eff_bulk_energies))
+    push!(h_eff_level_statistics,Level_Statistics(i,bulk_energies))
 end
-npzwrite("h_eff_level_statistics.npy",h_eff_level_statistics)
 
-h_eff_eigenvectors = eigensystem_h_eff[2]
 
+for i = 1:2^L-4
+    write(level_statistics_file, string(i))
+    write(level_statistics_file, "\t")  # Add a tab indentation between the columns
+    write(level_statistics_file, string(h_eff_level_statistics[i]))
+    write(level_statistics_file, "\n")  # Add a newline character to start a new line
+end
+
+# Close the file
+close(level_statistics_file)
+
+#h_eff_eigenvectors = eigensystem_h_eff[2]
+#=
 function KLd(Eigenvectors_Matrix)
     KL = []
     for n = 1:2^L-1 # Eigenvector index goes from 1 to dim(H)-1.
@@ -358,10 +475,15 @@ function KLd(Eigenvectors_Matrix)
     return KL
 end;
 
-KLd_calculated = KLd(h_eff_eigenvectors)
-KLD = Array{Float64, 1}(undef, 0)
-for k = 1:2^L-1
-    push!(KLD,KLd_calculated[k])
+#=
+for i = 1:2^L-1
+    write(KLd_file , string(i))
+    write(KLd_file , "\t")  # Add a tab indentation between the columns
+    write(KLd_file , string(KLd_calculated[i]))
+    write(KLd_file , "\n")  # Add a newline character to start a new line
 end
 
-npzwrite("h_eff_KLd.npy",KLD)
+# Close the file
+close(KLd_file)
+=#
+=#
