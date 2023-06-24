@@ -5,7 +5,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 4;
+L = 10;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
