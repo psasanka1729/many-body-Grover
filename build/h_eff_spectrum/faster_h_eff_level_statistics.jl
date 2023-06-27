@@ -5,7 +5,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 14;
+L = 10;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1448+parse(Int64,ARGS[1])
+SEED = 10^5+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -408,7 +408,7 @@ eigenvalue_file       = open("eigenvalues.txt", "w")
 level_statistics_file = open("level_statistics.txt", "w")
 KLd_file              = open("KLd.txt", "w");
 
-bulk_energies = h_eff_bulk_energies(1.e-8)
+bulk_energies = h_eff_bulk_energies(1.e-5)
 
 for i = 1:2^L-2
     write(eigenvalue_file, string(i))
