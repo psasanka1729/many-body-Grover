@@ -1,4 +1,4 @@
-L = 12;
+L = 10;
 
 using Random
 using LinearAlgebra
@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 34000#1000+parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -184,9 +184,9 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-delta_index = 1+parse(Int64,ARGS[1])
-DELTAS = [0.0,0.01,0.02,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.15,0.2,0.21,0.24,0.3,0.4]
-Delta = DELTAS[delta_index]
+#delta_index = 1+parse(Int64,ARGS[1])
+#DELTAS = [0.0,0.01,0.02,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.15,0.2,0.21,0.24,0.3,0.4]
+Delta = 0.0#DELTAS[delta_index]
 
 U = Grover_operator(Delta);
 
