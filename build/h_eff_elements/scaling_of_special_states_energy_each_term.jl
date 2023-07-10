@@ -1,4 +1,4 @@
-L = 12;
+L = 10;
 
 using PyCall
 using Random
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1127+parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -302,10 +302,12 @@ N = 2^L
 ket_x    = (1/sqrt(N))   * ones(N)
 ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
 
-h_00 = ket_0'*H_EFF_MATRIX*ket_0
-h_0x = ket_0'*H_EFF_MATRIX*ket_xbar
-h_x0 = ket_xbar'*H_EFF_MATRIX*ket_0
-h_xx = ket_xbar'*H_EFF_MATRIX*ket_xbar
+eigenstate_1 = (ket_0-1im*ket_xbar)/sqrt(2)
+eigenstate_2 = (ket_0+1im*ket_xbar)/sqrt(2)
+h_00 = eigenstate_1'*H_EFF_MATRIX*eigenstate_1
+h_0x = eogenstate_1'*H_EFF_MATRIX*eigenstate_2
+h_x0 = eigenstate_2'*H_EFF_MATRIX*eigenstate_1
+h_xx = eigenstate_2'*H_EFF_MATRIX*eigenstate_2
 
 h_eff_elements_file       = open("h_eff_elements.txt", "w")
 write(h_eff_elements_file , string(h_00))
