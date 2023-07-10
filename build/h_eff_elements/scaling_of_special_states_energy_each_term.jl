@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1064+parse(Int64,ARGS[1])
+SEED = 1127+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -286,7 +286,8 @@ function Grover_delta(DELTA)
 end;
 
 function h_eff_from_derivative(h)
-    h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+    #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+    h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
     # h_eff_xbar = V * h_eff_z * V^{\dagger}.
     h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
     return h_eff_matrix_xbar_basis
