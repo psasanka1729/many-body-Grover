@@ -29,7 +29,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 #DELTA = 0.01
-SEED = 5000+64*10+parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -249,8 +249,8 @@ function h_eff_special_states(h)
     ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
     
     # Basis is chosen as (|0> +i*|x_bar>)/sqrt(2) and (|0> -i*|x_bar>)/sqrt(2).
-    basis_1 = (ket_0 + 1im*ket_xbar)/sqrt(2) # quasi-energy = -arctan(2*sqrt(N-1)/(2-N)).
-    basis_2 = (ket_0 - 1im*ket_xbar)/sqrt(2) # quasi-energy = arctan(2*sqrt(N-1)/(2-N).
+    basis_1 = (ket_0 - 1im*ket_xbar)/sqrt(2) # quasi-energy = -arctan(2*sqrt(N-1)/(2-N)).
+    basis_2 = (ket_0 + 1im*ket_xbar)/sqrt(2) # quasi-energy = arctan(2*sqrt(N-1)/(2-N).
     
     h_eff_matrix_whole = h_eff_from_derivative(h)
     

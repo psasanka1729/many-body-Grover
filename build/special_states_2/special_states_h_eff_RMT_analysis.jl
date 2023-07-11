@@ -248,8 +248,8 @@ function h_eff_special_states(h)
     ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
     
     # Basis is chosen as (|0> +i*|x_bar>)/sqrt(2) and (|0> -i*|x_bar>)/sqrt(2).
-    basis_1 = (ket_0 + 1im*ket_xbar)/sqrt(2) # quasi-energy = -arctan(2/sqrt(N-1)).
-    basis_2 = (ket_0 - 1im*ket_xbar)/sqrt(2) # quasi-energy = arctan(2/sqrt(N-1)).
+    basis_1 = (ket_0 - 1im*ket_xbar)/sqrt(2) # quasi-energy = -arctan(2/sqrt(N-1)).
+    basis_2 = (ket_0 + 1im*ket_xbar)/sqrt(2) # quasi-energy = arctan(2/sqrt(N-1)).
     
     h_eff_matrix_whole = h_eff_from_derivative(h)
     
