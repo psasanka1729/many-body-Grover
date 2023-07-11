@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1192+parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -190,8 +190,8 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
     ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
     eigenstate_1 = (ket_0-1im*ket_xbar)/sqrt(2)
     eigenstate_2 = (ket_0+1im*ket_xbar)/sqrt(2)
-    V = V+ ket_1*(eigenstate_1')
-    V = V+ ket_0*(eigenstate_2')
+    V = V+ ket_0*(eigenstate_1')
+    V = V+ ket_1*(eigenstate_2')
     
     # The buk.
     for n=2:2^L-1
