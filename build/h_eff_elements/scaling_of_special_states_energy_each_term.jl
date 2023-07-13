@@ -1,5 +1,5 @@
-L = 12;
-
+L = 10;
+using JLD
 using PyCall
 using Random
 using LinearAlgebra
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1192+parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -308,6 +308,8 @@ h_00 = eigenstate_1'*H_EFF_MATRIX*eigenstate_1
 h_0x = eigenstate_1'*H_EFF_MATRIX*eigenstate_2
 h_x0 = eigenstate_2'*H_EFF_MATRIX*eigenstate_1
 h_xx = eigenstate_2'*H_EFF_MATRIX*eigenstate_2
+
+save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)
 
 h_eff_elements_file       = open("h_eff_elements.txt", "w")
 write(h_eff_elements_file , string(h_00))
