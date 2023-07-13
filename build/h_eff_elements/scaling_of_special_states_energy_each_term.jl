@@ -1,4 +1,4 @@
-L = 10;
+L = 12;
 using JLD
 using PyCall
 using Random
