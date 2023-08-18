@@ -259,11 +259,10 @@ function h_eff_special_states(DELTA,h)
     h_1_2 = basis_1' * h_eff_matrix_whole * basis_2
     h_2_1 = basis_2' * h_eff_matrix_whole * basis_1
     h_2_2 = basis_2' * h_eff_matrix_whole * basis_2
-    
+   
     phi = atan(2*sqrt(N-1)/(2-N))
-
     # h_eff as 2x2 block matrix.
-    h_eff_block_matrix = phi*[0 -1im;0 1im] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
+    h_eff_block_matrix = phi*[0 -1im; 1im 0] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
     
     
     # Making the h_spec matrix tracelss to write it in terms of Pauli matrices.
