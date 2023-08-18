@@ -229,7 +229,7 @@ function Grover_delta(DELTA)
     return GROVER_DELTA
 end;
 
-function h_eff_special_states(h)
+function h_eff_special_states(DELTA,h)
 
     #=Derivative of G(\delta) is calculated using forward difference.=#
     function h_eff_from_derivative(h::Float64)
@@ -249,8 +249,8 @@ function h_eff_special_states(h)
     ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
     
     # Basis is chosen as (|0> +i*|x_bar>)/sqrt(2) and (|0> -i*|x_bar>)/sqrt(2).
-    basis_1 = (ket_0 - 1im*ket_xbar)/sqrt(2) # quasi-energy = -arctan(2*sqrt(N-1)/(2-N)).
-    basis_2 = (ket_0 + 1im*ket_xbar)/sqrt(2) # quasi-energy = arctan(2*sqrt(N-1)/(2-N).
+    basis_1 = ket_0 #(ket_0 - 1im*ket_xbar)/sqrt(2) # quasi-energy = -arctan(2*sqrt(N-1)/(2-N)).
+    basis_2 = ket_xbar #(ket_0 + 1im*ket_xbar)/sqrt(2) # quasi-energy = arctan(2*sqrt(N-1)/(2-N).
     
     h_eff_matrix_whole = h_eff_from_derivative(h)
     
@@ -260,16 +260,17 @@ function h_eff_special_states(h)
     h_2_1 = basis_2' * h_eff_matrix_whole * basis_1
     h_2_2 = basis_2' * h_eff_matrix_whole * basis_2
     
-    # h_eff as 2x2 block matrix.
-    h_eff_block_matrix = [ h_1_1 h_1_2; h_2_1 h_2_2]
-    
-    phi = -atan(2*sqrt(N-1)/(2-N))
+    phi = atan(2*sqrt(N-1)/(2-N))
 
+    # h_eff as 2x2 block matrix.
+    h_eff_block_matrix = phi*[0 -1im;0 1im] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
+    
+    
     # Making the h_spec matrix tracelss to write it in terms of Pauli matrices.
     #=
         If M is any matrix, then M' = M-tr(M)/2 is a tracelss matrix.
     =#
-    return (h_eff_block_matrix) .- tr(h_eff_block_matrix)/2#+phi*[1 0;0 -1] + 
+    return (h_eff_block_matrix)# .- tr(h_eff_block_matrix)/2#+phi*[1 0;0 -1] + 
 end;
 
 function sigma_y_to_sigma_z_basis_change(Matrix)
@@ -289,8 +290,8 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
 end;
 
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
-h_spec_y_basis           = h_eff_special_states(1.e-8)
-h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
+h_spec_y_basis           = h_eff_special_states(1.e-6)
+#h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
 
 #=
 Write the matrix B as B = B_0 * sigma_0 + B_1 * sigma_1 + B_2 * sigma_2 + B_3 * sigma_3.
@@ -315,7 +316,7 @@ function Pauli_coefficients(B)
 end;
 
 pauli_coefficients_file  = open("pauli_coefficients.txt", "w")
-PC = Pauli_coefficients(h_spec_z_basis)
+PC = Pauli_coefficients(h_spec_y_basis)
 write(pauli_coefficients_file , string(real(PC[1])))
 write(pauli_coefficients_file, "\t")
 write(pauli_coefficients_file , string(real(PC[2])))
