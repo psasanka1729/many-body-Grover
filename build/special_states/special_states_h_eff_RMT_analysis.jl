@@ -29,7 +29,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 #DELTA = 0.01
-SEED = 1064+parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -280,7 +280,7 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
 end;
 
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
-h_spec_y_basis           = h_eff_special_states(0.01,1.e-6)
+h_spec_y_basis           = h_eff_special_states(0.05,1.e-6)
 #h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
 
 #=
@@ -316,7 +316,7 @@ write(pauli_coefficients_file, "\t")
 write(pauli_coefficients_file , string(real(PC[4])))
 
 h_spec_eigenvalues_file  = open("h_spec_eigenvalues.txt", "w")
-h_spec_eigenvalues = eigvals(h_spec_z_basis)
+h_spec_eigenvalues = eigvals(h_spec_y_basis)
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[1])))
 write(h_spec_eigenvalues_file, "\t")
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[2])))
