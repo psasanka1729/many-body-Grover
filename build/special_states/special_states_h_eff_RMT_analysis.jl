@@ -29,7 +29,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 #DELTA = 0.01
-SEED = 1000+parse(Int64,ARGS[1])
+SEED = 1064+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -154,7 +154,6 @@ G_exact = U_x*U_0;
 
 function Grover_delta(DELTA)
 
-    noise_sum = 0
     U_x_delta = Identity(2^L)
     # U_x
     for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
@@ -164,28 +163,24 @@ function Grover_delta(DELTA)
             epsilon = NOISE[i]
             U_x_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])
                       
-            noise_sum += epsilon
             
         elseif Gates_data_1[i] == "X"
         
             epsilon = NOISE[i]       
             U_x_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])   
 
-            noise_sum += epsilon
             
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]       
             U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])
  
-            noise_sum += epsilon
             
         else
         
             epsilon = NOISE[i]       
             U_x_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
             
-            noise_sum += epsilon/4
             
         end
     end
@@ -199,7 +194,6 @@ function Grover_delta(DELTA)
             epsilon = NOISE[i]      
             U_0_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])          
             
-            noise_sum += epsilon
             
         elseif Gates_data_1[i] == "X"
 
@@ -207,21 +201,18 @@ function Grover_delta(DELTA)
             epsilon = NOISE[i]       
             U_0_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])
             
-            noise_sum += epsilon
             
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]     
             U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])          
             
-            noise_sum += epsilon
             
         else
 
             epsilon = NOISE[i]     
             U_0_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
             
-            noise_sum += epsilon/4
             
         end 
     end
