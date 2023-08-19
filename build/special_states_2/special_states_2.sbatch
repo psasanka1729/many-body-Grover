@@ -3,7 +3,7 @@
 #SBATCH --job-name=special_states_2
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT
 #
 # Processors:
 #SBATCH --ntasks=64
