@@ -295,7 +295,7 @@ function h_eff_from_derivative(h)
     return h_eff_matrix#_xbar_basis
 end;
 
-H_EFF_MATRIX = h_eff_from_derivative(1.e-8);
+H_EFF_MATRIX = h_eff_from_derivative(1.e-4);
 
 ket_0 = spzeros(2^L)
 ket_0[1] = 1
