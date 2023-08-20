@@ -398,6 +398,7 @@ end;
 
 
 function h_eff_bulk_energies(h)
+    h_eff_matrix = h_eff_from_derivative(1.e-8)
     h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix')
     h_eff_bulk = h_eff_from_derivative(h)[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
     h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
