@@ -275,7 +275,8 @@ function h_eff_special_states(DELTA,h)
 end;
 
 function sigma_y_to_sigma_z_basis_change(Matrix)
-    
+   
+    #=
     sigma_y_n = (1/sqrt(2))*[1 -1im]'   # corresponding to -1 eigenvalue.
     sigma_y_p = (1/sqrt(2))*[1  1im]'   # corresponding to +1 eigenvalue.
     
@@ -286,7 +287,8 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
     
     V = V + sigma_z_n * sigma_y_n'
     V = V + sigma_z_p * sigma_y_p'
-    
+    =#
+    V = (1/sqrt(2))*[1 -1im;1 1im]
     return V*Matrix*V'
 end;
 
