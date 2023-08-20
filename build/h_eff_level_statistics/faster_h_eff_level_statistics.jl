@@ -392,12 +392,13 @@ end;
 function h_eff_from_derivative(h)
     h_eff_matrix =  1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'#1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
     # h_eff_xbar = V * h_eff_z * V^{\dagger}.
-    h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
-    return h_eff_matrix_xbar_basis
+    #h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
+    return h_eff_matrix#_xbar_basis
 end;
 
 
 function h_eff_bulk_energies(h)
+    h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix')
     h_eff_bulk = h_eff_from_derivative(h)[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
     h_eff_bulk_energies = eigvals(collect(h_eff_bulk)) # Diagonalizing H_eff matrix.
     effective_energies = sort(real(h_eff_bulk_energies),rev = true) # Soring the eigenvalues in descending order.
@@ -444,7 +445,7 @@ close(level_statistics_file)
 h_eff matrix is transformed into the computational basis to calculate
 KL divergence.
 =#
-h_eff_eigenvectors = (basis_change_matrix)'*h_eff_from_derivative(1.e-8)*(basis_change_matrix)
+h_eff_eigenvectors = eigvecs(h_eff_from_derivative(1.e-8))#(basis_change_matrix)'*h_eff_from_derivative(1.e-8)*(basis_change_matrix)
 
 function KLd(Eigenvectors_Matrix)
     KL = []
