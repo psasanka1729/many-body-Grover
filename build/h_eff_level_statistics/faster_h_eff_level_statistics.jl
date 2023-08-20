@@ -5,7 +5,7 @@ using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-L = 14;
+L = 10;
 
 file = raw""*string(L)*"_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1978+parse(Int64,ARGS[1])
+SEED = 10000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -390,7 +390,7 @@ end;
 
 
 function h_eff_from_derivative(h)
-    h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+    h_eff_matrix =  1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'#1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
     # h_eff_xbar = V * h_eff_z * V^{\dagger}.
     h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
     return h_eff_matrix_xbar_basis
@@ -408,7 +408,7 @@ eigenvalue_file       = open("eigenvalues.txt", "w")
 level_statistics_file = open("level_statistics.txt", "w")
 KLd_file              = open("KLd.txt", "w");
 
-bulk_energies = h_eff_bulk_energies(1.e-5)
+bulk_energies = h_eff_bulk_energies(1.e-8)
 
 for i = 1:2^L-2
     write(eigenvalue_file, string(i))
@@ -440,8 +440,12 @@ end
 # Close the file
 close(level_statistics_file)
 
-#h_eff_eigenvectors = eigensystem_h_eff[2]
 #=
+h_eff matrix is transformed into the computational basis to calculate
+KL divergence.
+=#
+h_eff_eigenvectors = (basis_change_matrix)'*h_eff_from_derivative(1.e-8)*(basis_change_matrix)
+
 function KLd(Eigenvectors_Matrix)
     KL = []
     for n = 1:2^L-1 # Eigenvector index goes from 1 to dim(H)-1.
@@ -459,8 +463,8 @@ function KLd(Eigenvectors_Matrix)
         KLd_sum = 0.0
         
         # V|x_bar> = |n+1>.
-        eigenvector_1_z_basis = basis_change_matrix*Eigenvectors_Matrix[:,n]
-        eigenvector_2_z_basis = basis_change_matrix*Eigenvectors_Matrix[:,n+1]
+        eigenvector_1_z_basis = Eigenvectors_Matrix[:,n]
+        eigenvector_2_z_basis = Eigenvectors_Matrix[:,n+1]
         
         # The sum goes from 1 to dim(H) i.e length of an eigenvector.
         for i = 1:2^L
@@ -475,7 +479,6 @@ function KLd(Eigenvectors_Matrix)
     return KL
 end;
 
-#=
 for i = 1:2^L-1
     write(KLd_file , string(i))
     write(KLd_file , "\t")  # Add a tab indentation between the columns
@@ -485,5 +488,3 @@ end
 
 # Close the file
 close(KLd_file)
-=#
-=#
