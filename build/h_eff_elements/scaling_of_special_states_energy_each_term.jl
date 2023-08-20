@@ -1,4 +1,4 @@
-L = 12;
+L = 10;
 using JLD
 using PyCall
 using Random
@@ -177,6 +177,7 @@ function x_bar(n)
     return s/sqrt(2^L-1)
 end;
 
+#=
 function sigma_z_to_x_bar_basis_change_matrix(L)
     V     = spzeros(2^L,2^L)
     ket_0 = spzeros(2^L)
@@ -205,6 +206,7 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
 end;
 
 basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
+=#
 
 function Grover_delta(DELTA)
 
@@ -309,7 +311,7 @@ h_0x = eigenstate_1'*H_EFF_MATRIX*eigenstate_2
 h_x0 = eigenstate_2'*H_EFF_MATRIX*eigenstate_1
 h_xx = eigenstate_2'*H_EFF_MATRIX*eigenstate_2
 
-#save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)
+save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)
 
 h_eff_elements_file       = open("h_eff_elements.txt", "w")
 write(h_eff_elements_file , string(h_00))
