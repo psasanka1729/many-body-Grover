@@ -232,7 +232,8 @@ function h_eff_special_states(DELTA,h)
 
     #=Derivative of G(\delta) is calculated using forward difference.=#
     function h_eff_from_derivative(h::Float64)
-        h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+        #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+        h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
         return h_eff_matrix
     end;    
 
@@ -290,7 +291,7 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
 end;
 
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
-h_spec_y_basis           = h_eff_special_states(0.01,1.e-6)
+h_spec_y_basis           = h_eff_special_states(0.05,1.e-8)
 h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
 
 #=
