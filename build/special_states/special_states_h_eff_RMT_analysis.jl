@@ -29,7 +29,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 #DELTA = 0.01
-SEED = 1000+parse(Int64,ARGS[1])
+SEED = 10000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -224,7 +224,8 @@ function h_eff_special_states(DELTA,h)
 
     #=Derivative of G(\delta) is calculated using forward difference.=#
     function h_eff_from_derivative(h::Float64)
-        h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+        #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+        h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
         return h_eff_matrix
     end;    
 
@@ -260,11 +261,12 @@ function h_eff_special_states(DELTA,h)
     #=
         If M is any matrix, then M' = M-tr(M)/2 is a tracelss matrix.
     =#
-    return (h_eff_block_matrix) .- tr(h_eff_block_matrix)/2#+phi*[1 0;0 -1] + 
+    return (h_eff_block_matrix) .- [1 0;0 1]*tr(h_eff_block_matrix)/2#+phi*[1 0;0 -1] + 
 end;
 
 function sigma_y_to_sigma_z_basis_change(Matrix)
-    
+   
+    #=
     sigma_y_n = (1/sqrt(2))*[1 -1im]'   # corresponding to -1 eigenvalue.
     sigma_y_p = (1/sqrt(2))*[1  1im]'   # corresponding to +1 eigenvalue.
     
@@ -275,12 +277,13 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
     
     V = V + sigma_z_n * sigma_y_n'
     V = V + sigma_z_p * sigma_y_p'
-    
+    =#
+    V = (1/sqrt(2))*[1 -1im;1 1im]
     return V*Matrix*V'
 end;
 
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
-h_spec_y_basis           = h_eff_special_states(0.05,1.e-6)
+h_spec_y_basis           = h_eff_special_states(0.05,1.e-8)
 #h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
 
 #=
@@ -314,6 +317,7 @@ write(pauli_coefficients_file, "\t")
 write(pauli_coefficients_file , string(real(PC[3])))
 write(pauli_coefficients_file, "\t")
 write(pauli_coefficients_file , string(real(PC[4])))
+
 
 h_spec_eigenvalues_file  = open("h_spec_eigenvalues.txt", "w")
 h_spec_eigenvalues = eigvals(h_spec_y_basis)
