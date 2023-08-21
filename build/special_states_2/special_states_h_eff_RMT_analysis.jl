@@ -277,11 +277,11 @@ end;
 function sigma_y_to_sigma_z_basis_change(Matrix)
    
     #=
-    sigma_y_n = (1/sqrt(2))*[1 -1im]'   # corresponding to -1 eigenvalue.
-    sigma_y_p = (1/sqrt(2))*[1  1im]'   # corresponding to +1 eigenvalue.
+    sigma_y_n = (1/sqrt(2))*[1 ; -1im]   # corresponding to -1 eigenvalue.
+    sigma_y_p = (1/sqrt(2))*[1  ; 1im]'   # corresponding to +1 eigenvalue.
     
-    sigma_z_n = [0 1]'                   # corresponding to -1 eigenvalue.
-    sigma_z_p = [1 0]'                   # corresponding to +1 eigenvalue.
+    sigma_z_n = [0 ; 1]                   # corresponding to -1 eigenvalue.
+    sigma_z_p = [1 ; 0]                   # corresponding to +1 eigenvalue.
     
     V = spzeros(2,2)
     
@@ -293,7 +293,7 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
 end;
 
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
-h_spec_y_basis           = h_eff_special_states(0.05,1.e-8)
+h_spec_y_basis           = h_eff_special_states(0.01,1.e-8)
 h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
 
 #=
