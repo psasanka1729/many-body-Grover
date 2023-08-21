@@ -1,11 +1,11 @@
-L = 12;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"12_new_Grover_gates_data.txt" # Change for every L.
+file = raw"10_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 4000+parse(Int64,ARGS[1])
+SEED = 1000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -38,7 +38,7 @@ H = (1/sqrt(2))*[1 1;1 -1]
 Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
 Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
-Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
+Z_gate(noise) = exp(-1im*(pi/2+noise)*([1 0;0 1]-[1 0;0 -1]))#Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
 Identity(dimension) = spdiagm(0 => ones(dimension))#1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
 
@@ -113,8 +113,8 @@ A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0;
 
-function Special_states_matrix()
-    DELTA = 0.0
+function Special_states_matrix(DELTA)
+    #DELTA = 0.0
     U_list = [];
 
     #ux_list = []
@@ -343,21 +343,21 @@ function Special_states_matrix()
     h_xbar_0 = ket_xbar' * h_eff * ket_0
     h_xbar_xbar = ket_xbar' * h_eff * ket_xbar
     
-
+    phi = atan(2*sqrt(N-1)/(2-N))
     # h_eff block matrix.
-    h_eff_block = [ h_0_0 h_0_xbar; h_xbar_0 h_xbar_xbar]
+    h_eff_block_matrix = phi*[0 -1im; 1im 0]-DELTA*[ h_0_0 h_0_xbar; h_xbar_0 h_xbar_xbar]
     
 
     # G_0 block matrix.
-    N = 2^L
-    G_0_block = [2/N-1 -2*sqrt(N-1)/N;2*sqrt(N-1)/N 2/N-1]
+    #N = 2^L
+    #G_0_block = [2/N-1 -2*sqrt(N-1)/N;2*sqrt(N-1)/N 2/N-1]
     
-    return h_eff_block*G_0_block # h_eff * G_0.
+    return  h_eff_block_matrix - [1 0;0 1]*tr(h_eff_block_matrix)/2# h_eff * G_0.
 end;
 
 # Calculate the 2x2 matrix in the basis |0> and |x_bar>.
-H_eff_G_0 = Special_states_matrix();
-
+#H_eff_G_0 = Special_states_matrix();
+#=
 # Calculate the matrix B in sigma_y basis.
 function B_matrix_y_basis()
     N = 2^L
@@ -377,14 +377,14 @@ function B_matrix_y_basis()
     return [[(I_11*y_s_n'*H_eff_G_0*y_s_n) (I_12*y_s_n'*H_eff_G_0*y_s_p)];
             [(I_21*y_s_p'*H_eff_G_0*y_s_n) (I_22*y_s_p'*H_eff_G_0*y_s_p)]]
 end;
-
+=#
 #=
 Basis transformation matrix from sigma_y to sigma_z.
 =#
-sigma_y_to_sigma_z(Matrix) = ((1/sqrt(2))*[[1,1] [-1im, 1im]])*Matrix*inv((1/sqrt(2))*[[1,1] [-1im,1im]]);
+#sigma_y_to_sigma_z(Matrix) = ((1/sqrt(2))*[[1,1] [-1im, 1im]])*Matrix*inv((1/sqrt(2))*[[1,1] [-1im,1im]]);
 
 # Changing the B matrix from sigma_y basis to sigma_z basis.
-B_matrix_z_basis = sigma_y_to_sigma_z(B_matrix_y_basis());
+#B_matrix_z_basis = sigma_y_to_sigma_z(B_matrix_y_basis());
 
 #=
 Write the matrix B as B = B_0 * sigma_0 + B_1 * sigma_1 + B_2 * sigma_2 + B_3 * sigma_3.
@@ -415,7 +415,8 @@ def Write_file_Pauli(b_0, b_1, b_2, b_3):
     f.write(str(b_0) +'\t'+ str(b_1)+ '\t' + str(b_2) +'\t' + str(b_3) +'\n')
 """
 
-PC = Pauli_coefficients(B_matrix_z_basis)
+H_EFF_MATRIX = Special_states_matrix(0.01)
+PC = Pauli_coefficients(H_EFF_MATRIX)
 py"Write_file_Pauli"(PC[1],PC[2],PC[3],PC[4])
 
 py"""
@@ -426,6 +427,6 @@ def Write_file(eigenvalue_1, eigenvalue_2):
 """
 
 # Diagonalize the special state matrix.
-Special_eigenvalues = eigvals(B_matrix_z_basis)
+Special_eigenvalues = eigvals(H_EFF_MATRIX)
 # Write the two eigenvalue to the data file.
 py"Write_file"(Special_eigenvalues[1],Special_eigenvalues[2])
