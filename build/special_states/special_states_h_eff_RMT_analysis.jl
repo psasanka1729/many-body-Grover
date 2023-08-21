@@ -254,7 +254,7 @@ function h_eff_special_states(DELTA,h)
    
     phi = atan(2*sqrt(N-1)/(2-N))
     # h_eff as 2x2 block matrix.
-    h_eff_block_matrix = pi*[1 0;0 1] + phi*[0 -1im; 1im 0] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
+    h_eff_block_matrix = 3.1415*[1 0;0 1] + phi*[0 -1im; 1im 0] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
     
     
     # Making the h_spec matrix tracelss to write it in terms of Pauli matrices.
@@ -283,7 +283,7 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
 end;
 
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
-h_spec_y_basis           = h_eff_special_states(0.05,1.e-8)
+h_spec_z_basis           = h_eff_special_states(0.05,1.e-8)
 #h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
 
 #=
@@ -309,7 +309,7 @@ function Pauli_coefficients(B)
 end;
 
 pauli_coefficients_file  = open("pauli_coefficients.txt", "w")
-PC = Pauli_coefficients(h_spec_y_basis)
+PC = Pauli_coefficients(h_spec_z_basis)
 write(pauli_coefficients_file , string(real(PC[1])))
 write(pauli_coefficients_file, "\t")
 write(pauli_coefficients_file , string(real(PC[2])))
@@ -320,7 +320,7 @@ write(pauli_coefficients_file , string(real(PC[4])))
 
 
 h_spec_eigenvalues_file  = open("h_spec_eigenvalues.txt", "w")
-h_spec_eigenvalues = eigvals(h_spec_y_basis)
+h_spec_eigenvalues = eigvals(h_spec_z_basis)
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[1])))
 write(h_spec_eigenvalues_file, "\t")
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[2])))
