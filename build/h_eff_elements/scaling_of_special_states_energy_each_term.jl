@@ -304,8 +304,8 @@ N = 2^L
 ket_x    = (1/sqrt(N))   * ones(N)
 ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
 
-eigenstate_1 = (ket_0-1im*ket_xbar)/sqrt(2)
-eigenstate_2 = (ket_0+1im*ket_xbar)/sqrt(2)
+eigenstate_1 = ket_0#(ket_0-1im*ket_xbar)/sqrt(2)
+eigenstate_2 = ket_xbar#(ket_0+1im*ket_xbar)/sqrt(2)
 h_00 = eigenstate_1'*H_EFF_MATRIX*eigenstate_1
 h_0x = eigenstate_1'*H_EFF_MATRIX*eigenstate_2
 h_x0 = eigenstate_2'*H_EFF_MATRIX*eigenstate_1
