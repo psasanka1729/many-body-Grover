@@ -177,7 +177,6 @@ function x_bar(n)
     return s/sqrt(2^L-1)
 end;
 
-#=
 function sigma_z_to_x_bar_basis_change_matrix(L)
     V     = spzeros(2^L,2^L)
     ket_0 = spzeros(2^L)
@@ -194,7 +193,7 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
     V = V+ ket_0*(eigenstate_1')
     V = V+ ket_1*(eigenstate_2')
     
-    # The buk.
+    # The bulk.
     for n=2:2^L-1
         # ket_n has n+1 th position as 1 in computational basis.
         ket_n    = spzeros(2^L);
@@ -206,7 +205,6 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
 end;
 
 basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
-=#
 
 function Grover_delta(DELTA)
 
@@ -290,13 +288,14 @@ end;
 function h_eff_from_derivative(h)
     #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
     h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
-    # h_eff_xbar = V * h_eff_z * V^{\dagger}.
-    #h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
-    return h_eff_matrix#_xbar_basis
+    #= h_eff_xbar = V * h_eff_z * V^{\dagger}.=#
+    h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
+    return h_eff_matrix_xbar_basis
 end;
 
 H_EFF_MATRIX = h_eff_from_derivative(1.e-8);
 
+#=
 ket_0 = spzeros(2^L)
 ket_0[1] = 1
 # Defining the state |x_bar> in sigma_z basis.
@@ -310,8 +309,11 @@ h_00 = eigenstate_1'*H_EFF_MATRIX*eigenstate_1
 h_0x = eigenstate_1'*H_EFF_MATRIX*eigenstate_2
 h_x0 = eigenstate_2'*H_EFF_MATRIX*eigenstate_1
 h_xx = eigenstate_2'*H_EFF_MATRIX*eigenstate_2
+=#
 
-#save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)
+save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)
+
+#=
 h_eff_block_matrix = [h_00 h_0x; h_x0 h_xx]
 
 h_eff_elements_file       = open("h_eff_elements.txt", "w")
@@ -330,3 +332,4 @@ h_spec_eigenvalues = eigvals(h_eff_block_matrix)
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[1])))
 write(h_spec_eigenvalues_file, "\t")
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[2])))
+=#
