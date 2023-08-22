@@ -188,8 +188,8 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
     N = 2^L
     ket_x    = (1/sqrt(N))   * ones(N)
     ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
-    eigenstate_1 = (ket_0-1im*ket_xbar)/sqrt(2)
-    eigenstate_2 = (ket_0+1im*ket_xbar)/sqrt(2)
+    eigenstate_1 = ket_0 #(ket_0-1im*ket_xbar)/sqrt(2)
+    eigenstate_2 = ket_xbar#(ket_0+1im*ket_xbar)/sqrt(2)
     V = V+ ket_0*(eigenstate_1')
     V = V+ ket_1*(eigenstate_2')
     
