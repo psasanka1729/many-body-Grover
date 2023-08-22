@@ -1,5 +1,5 @@
 L = 10;
-
+using JLD
 using Random
 using LinearAlgebra
 using SparseArrays
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1000+parse(Int64,ARGS[1])
+SEED = 8000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -352,9 +352,10 @@ function Special_states_matrix(DELTA)
     #N = 2^L
     #G_0_block = [2/N-1 -2*sqrt(N-1)/N;2*sqrt(N-1)/N 2/N-1]
     
-    return  h_eff_block_matrix - [1 0;0 1]*tr(h_eff_block_matrix)/2# h_eff * G_0.
+    return  h_eff#h_eff_block_matrix - [1 0;0 1]*tr(h_eff_block_matrix)/2# h_eff * G_0.
 end;
 
+save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)   
 # Calculate the 2x2 matrix in the basis |0> and |x_bar>.
 #H_eff_G_0 = Special_states_matrix();
 #=
@@ -408,6 +409,7 @@ function Pauli_coefficients(B)
     return B_0,B_1,B_2,B_3
 end;
 
+#=
 py"""
 f = open('Pauli_coefficients_data'+'.txt', 'w')
 def Write_file_Pauli(b_0, b_1, b_2, b_3):
@@ -430,3 +432,4 @@ def Write_file(eigenvalue_1, eigenvalue_2):
 Special_eigenvalues = eigvals(H_EFF_MATRIX)
 # Write the two eigenvalue to the data file.
 py"Write_file"(Special_eigenvalues[1],Special_eigenvalues[2])
+=#
