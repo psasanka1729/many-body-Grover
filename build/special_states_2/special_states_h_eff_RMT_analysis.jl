@@ -34,7 +34,7 @@ NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
 I2 = sparse([1 0; 0 1]);
 Z  = sparse([1 0;0 -1]);
-X  = sparse([0 1;1 0])=
+X  = sparse([0 1;1 0])
 H  = (1/sqrt(2))*[1 1;1 -1]
 Rx(theta)       = sparse(exp(-1im*(theta/2)*collect(I2-X)));
 Hadamard(noise) = sparse(exp(-1im*(pi/2+noise)*collect(I2-H))) #Ry(pi/2+noise)*Pauli_Z;
