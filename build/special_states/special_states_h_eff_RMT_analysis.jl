@@ -29,7 +29,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 #DELTA = 0.01
-SEED = 4000+parse(Int64,ARGS[1])
+SEED = 8000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -226,7 +226,7 @@ function h_eff_special_states(DELTA,h)
     function h_eff_from_derivative(h::Float64)
         #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
         h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
-        return h_eff_matrix
+        return h_eff_matrix 
     end;    
 
     #= Construction of block 2x2 H_eff matrix.=#
@@ -254,7 +254,7 @@ function h_eff_special_states(DELTA,h)
    
     phi = atan(2*sqrt(N-1)/(2-N))
     # h_eff as 2x2 block matrix.
-    h_eff_block_matrix = 3.1415*[1 0;0 1] + phi*[0 -1im; 1im 0] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
+    h_eff_block_matrix = #=3.1415*[1 0;0 1] + =# phi*[0 -1im; 1im 0] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
     
     
     # Making the h_spec matrix tracelss to write it in terms of Pauli matrices.
@@ -272,7 +272,7 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
     
     sigma_z_n = [0 ; 1]                   # corresponding to -1 eigenvalue.
     sigma_z_p = [1 ; 0]                   # corresponding to +1 eigenvalue.
-    
+   
     V = spzeros(2,2)
     
     V = V + sigma_z_n * sigma_y_n'
