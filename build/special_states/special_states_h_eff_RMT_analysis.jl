@@ -279,7 +279,7 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
     V = V + sigma_z_p * sigma_y_p'
     =#
     V = (1/sqrt(2))*[1 -1im;1 1im]
-    return V*Matrix*V'
+    return V'*Matrix*V
 end;
 
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
