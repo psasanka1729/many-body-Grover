@@ -355,6 +355,7 @@ function Special_states_matrix(DELTA)
     return  h_eff#h_eff_block_matrix - [1 0;0 1]*tr(h_eff_block_matrix)/2# h_eff * G_0.
 end;
 
+H_EFF_MATRIX = Special_states_matrix(0.05)
 save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)   
 # Calculate the 2x2 matrix in the basis |0> and |x_bar>.
 #H_eff_G_0 = Special_states_matrix();
