@@ -29,7 +29,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 #DELTA = 0.01
-SEED = 8000+parse(Int64,ARGS[1])
+SEED = 10000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -254,7 +254,7 @@ function h_eff_special_states(DELTA,h)
    
     phi = atan(2*sqrt(N-1)/(2-N))
     # h_eff as 2x2 block matrix.
-    h_eff_block_matrix = #=3.1415*[1 0;0 1] + =# phi*[0 -1im; 1im 0] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
+    h_eff_block_matrix = 3.1415*[1 0;0 1] +  phi*[0 -1im; 1im 0] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
     
     
     # Making the h_spec matrix tracelss to write it in terms of Pauli matrices.
@@ -263,7 +263,7 @@ function h_eff_special_states(DELTA,h)
     =#
     return (h_eff_block_matrix) - [1 0;0 1]*tr(h_eff_block_matrix)/2#+phi*[1 0;0 -1] + 
 end;
-
+#=
 function sigma_y_to_sigma_z_basis_change(Matrix)
    
     #=
@@ -281,7 +281,7 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
     V = (1/sqrt(2))*[1 -1im;1 1im]
     return V'*Matrix*V
 end;
-
+=#
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
 h_spec_z_basis           = h_eff_special_states(0.05,1.e-8)
 #h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
@@ -325,9 +325,29 @@ write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[1])))
 write(h_spec_eigenvalues_file, "\t")
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[2])))
 
-#=
-h_spec_energy_file  = open("h_spec_energy.txt", "w")
-phi = -atan(2/sqrt(2^L-1))
-lambda = sqrt(phi^2+2*phi*PC[3]+DELTA^2*(PC[1]^2+PC[2]^2+PC[3]^2))
-write(h_spec_energy_file , string(real(lambda)))
-=#
+ket_0 = spzeros(2^L)
+ket_0[1] = 1
+# Defining the state |x_bar> in sigma_z basis.
+N = 2^L
+ket_x    = (1/sqrt(N))   * ones(N)
+ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
+#
+eigenstate_1 = ket_0#(ket_0-1im*ket_xbar)/sqrt(2)
+eigenstate_2 = ket_xbar#(ket_0+1im*ket_xbar)/sqrt(2)
+h_00 = eigenstate_1'*h_spec_z_basis*eigenstate_1
+h_0x = eigenstate_1'*h_spec_z_basis*eigenstate_2
+h_x0 = eigenstate_2'*h_spec_z_basis*eigenstate_1
+h_xx = eigenstate_2'*h_spec_z_basis*eigenstate_2
+#
+#save("h_eff_matrix.jld","h_eff",h_spec_z_basis)
+#
+h_eff_elements_file       = open("h_eff_elements.txt", "w")
+write(h_eff_elements_file , string(h_00))
+write(h_eff_elements_file , "\n")
+write(h_eff_elements_file , string(h_0x))
+write(h_eff_elements_file , "\n")
+write(h_eff_elements_file , string(h_x0))
+write(h_eff_elements_file , "\n")
+write(h_eff_elements_file , string(h_xx))
+write(h_eff_elements_file , "\n")
+close(h_eff_elements_file)
