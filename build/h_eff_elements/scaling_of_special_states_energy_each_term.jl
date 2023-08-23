@@ -1,4 +1,4 @@
-L = 12;
+L = 10;
 using JLD
 using PyCall
 using Random
@@ -295,7 +295,6 @@ end;
 
 H_EFF_MATRIX = h_eff_from_derivative(1.e-8);
 
-#=
 ket_0 = spzeros(2^L)
 ket_0[1] = 1
 # Defining the state |x_bar> in sigma_z basis.
@@ -309,11 +308,9 @@ h_00 = eigenstate_1'*H_EFF_MATRIX*eigenstate_1
 h_0x = eigenstate_1'*H_EFF_MATRIX*eigenstate_2
 h_x0 = eigenstate_2'*H_EFF_MATRIX*eigenstate_1
 h_xx = eigenstate_2'*H_EFF_MATRIX*eigenstate_2
-=#
 
-save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)
+#save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)
 
-#=
 h_eff_block_matrix = [h_00 h_0x; h_x0 h_xx]
 
 h_eff_elements_file       = open("h_eff_elements.txt", "w")
@@ -327,6 +324,7 @@ write(h_eff_elements_file , string(h_xx))
 write(h_eff_elements_file , "\n")
 close(h_eff_elements_file)
 
+#=
 h_spec_eigenvalues_file  = open("h_spec_eigenvalues.txt", "w")
 h_spec_eigenvalues = eigvals(h_eff_block_matrix)
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[1])))
