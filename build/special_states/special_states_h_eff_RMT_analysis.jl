@@ -328,10 +328,10 @@ write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[2])))
 
 #save("h_eff_matrix.jld","h_eff",h_spec_z_basis)
 h_eff_spec = H_EFF_MATRIX
-h_00 = h_eff_spec[1,1]
-h_0x = h_eff_spec[1,2]
-h_x0 = h_eff_spec[2,1]
-h_xx = h_eff_spec[2,2]
+h_00 = abs(h_eff_spec[1,1])
+h_0x = abs(h_eff_spec[1,2])
+h_x0 = abs(h_eff_spec[2,1])
+h_xx = abs(h_eff_spec[2,2])
 h_eff_elements_file       = open("h_eff_elements.txt", "w")
 write(h_eff_elements_file , string(h_00))
 write(h_eff_elements_file , "\n")
