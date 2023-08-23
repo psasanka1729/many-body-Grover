@@ -283,7 +283,7 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
 end;
 =#
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
-H_EFF_MATRIX = h_eff_special_states(0.1,1.e-8)
+H_EFF_MATRIX = h_eff_special_states(0.2,1.e-8)
 h_spec_z_basis = H_EFF_MATRIX
 #h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
 
