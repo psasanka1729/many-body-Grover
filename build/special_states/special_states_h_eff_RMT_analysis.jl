@@ -261,7 +261,7 @@ function h_eff_special_states(DELTA,h)
     #=
         If M is any matrix, then M' = M-tr(M)/2 is a tracelss matrix.
     =#
-    return (h_eff_block_matrix) - [1 0;0 1]*tr(h_eff_block_matrix)/2#+phi*[1 0;0 -1] + 
+    return (h_eff_block_matrix) - [1 0;0 1]*tr(h_eff_block_matrix)/2,[h_1_1 h_1_2; h_2_1 h_2_2]#+phi*[1 0;0 -1] + 
 end;
 #=
 function sigma_y_to_sigma_z_basis_change(Matrix)
@@ -283,7 +283,8 @@ function sigma_y_to_sigma_z_basis_change(Matrix)
 end;
 =#
 # Changing the H_spec matrix from sigma_y basis to sigma_z basis.
-h_spec_z_basis           = h_eff_special_states(0.05,1.e-8)
+H_EFF_MATRIX = h_eff_special_states(0.05,1.e-8)
+h_spec_z_basis = H_EFF_MATRIX[1]
 #h_spec_z_basis           = sigma_y_to_sigma_z_basis_change(h_spec_y_basis);
 
 #=
@@ -325,22 +326,12 @@ write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[1])))
 write(h_spec_eigenvalues_file, "\t")
 write(h_spec_eigenvalues_file , string(real(h_spec_eigenvalues[2])))
 
-ket_0 = spzeros(2^L)
-ket_0[1] = 1
-# Defining the state |x_bar> in sigma_z basis.
-N = 2^L
-ket_x    = (1/sqrt(N))   * ones(N)
-ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
-#
-eigenstate_1 = ket_0#(ket_0-1im*ket_xbar)/sqrt(2)
-eigenstate_2 = ket_xbar#(ket_0+1im*ket_xbar)/sqrt(2)
-h_00 = eigenstate_1'*h_spec_z_basis*eigenstate_1
-h_0x = eigenstate_1'*h_spec_z_basis*eigenstate_2
-h_x0 = eigenstate_2'*h_spec_z_basis*eigenstate_1
-h_xx = eigenstate_2'*h_spec_z_basis*eigenstate_2
-#
 #save("h_eff_matrix.jld","h_eff",h_spec_z_basis)
-#
+h_eff_spec = H_EFF_MATRIX[2]
+h_00 = h_eff_spec[1,1]
+h_0x = h_eff_spec[1,2]
+h_x0 = h_eff_spec[2,1]
+h_xx = h_eff_spec[2,2]
 h_eff_elements_file       = open("h_eff_elements.txt", "w")
 write(h_eff_elements_file , string(h_00))
 write(h_eff_elements_file , "\n")

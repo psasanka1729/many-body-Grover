@@ -9,7 +9,7 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=faster_special_states_h_eff.jl #special_states_h_eff_RMT_analysis.jl
+EXEC=special_states_h_eff_RMT_analysis.jl
 HELPER="10_new_Grover_gates_data.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
