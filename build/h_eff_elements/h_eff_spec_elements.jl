@@ -1,4 +1,4 @@
-L = 10;
+L = 8;
 
 using PyCall
 using Random
@@ -484,67 +484,11 @@ end;
 G_delta_h_eff_matrix = grover_effective_Hamiltonian_matrix(0.0);
 h_eff_computational_basis = G_delta_h_eff_matrix[2]
 h_eff_0_xbar_basis = (basis_change_matrix)*G_delta_h_eff_matrix[2]*(basis_change_matrix')
-h_eff_diag = [h_eff_0_xbar_basis[i, i] for i in 1:2^L];
-histogram(real(h_eff_diag))
-using Distributions
-diag_real_fit = fit(Normal{Float64}, real(h_eff_diag))
-h_eff_diag_file       = open("h_eff_diag.txt", "w")
-write(h_eff_diag_file , string(mean(diag_real_fit)))
-write(h_eff_diag_file , "\t")
-write(h_eff_diag_file , string(var(diag_real_fit)))
-close(h_eff_diag_file)
-function off_diag_elements(matrix)
-        off_diag_element_lst = []
-        for i = 1:size(matrix)[1]-1
-            for j = i+1:size(matrix)[1]
-                push!(off_diag_element_lst,matrix[i,j])
-            end
-        end
-        return off_diag_element_lst     
-end;
-off_diag_h_eff = off_diag_elements(h_eff_0_xbar_basis);
 
-off_diag_real_fit = fit(Normal{Float64}, real(off_diag_h_eff))
-off_diag_imag_fit = fit(Normal{Float64}, imag(off_diag_h_eff))
-h_eff_off_diag_file = open("h_eff_off_diag.txt","w")
-write(h_eff_off_diag_file,string(mean(off_diag_real_fit)))
-write(h_eff_off_diag_file,"\t")
-write(h_eff_off_diag_file,string(var(off_diag_real_fit)))
-write(h_eff_off_diag_file,"\n")
-write(h_eff_off_diag_file,string(mean(off_diag_imag_fit)))
-write(h_eff_off_diag_file,"\t")
-write(h_eff_off_diag_file,string(var(off_diag_imag_fit)))
-close(h_eff_off_diag_file)
-
+save("h_eff_matrix.jld","h_eff",h_eff_0_xbar_basis)
 #=
-ket_0    = zeros(2^L)
-ket_0[1] = 1
-
-# Defining the state |x_bar> in sigma_z basis.
-N = 2^L
-ket_x    = (1/sqrt(N))   * ones(N)
-ket_xbar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
-
-basis_1 = ket_0
-basis_2 = ket_xbar;
-
-DELTA = 0.0
-h_eff_matrix_whole = grover_effective_Hamiltonian_matrix(DELTA)[2]
-
-h_1_1 = basis_1' * h_eff_matrix_whole * basis_1
-h_1_2 = basis_1' * h_eff_matrix_whole * basis_2
-h_2_1 = basis_2' * h_eff_matrix_whole * basis_1
-h_2_2 = basis_2' * h_eff_matrix_whole * basis_2;
-
-
-#phi = atan(2*sqrt(N-1)/(2-N))
-# h_eff as 2x2 block matrix.
-##h_eff_block_matrix = pi*[1 0;0 1]+phi*[0 -1im; 1im 0] - DELTA*[ h_1_1 h_1_2; h_2_1 h_2_2]
-#h_eff_block_matrix_traceless = h_eff_block_matrix .- [1 0;0 1]*tr(h_eff_block_matrix)/2
-
-
 h_spec_elements_file  = open("h_spec_elements.txt", "w")
-write(h_spec_elements_file , string(real(h_1_1)))
+write(h_spec_elements_file , string(real(h_eff_0_xbar_basis[1,1])))
 write(h_spec_elements_file, "\t")
 write(h_spec_elements_file , string(real(h_1_2)))
 write(h_spec_elements_file, "\t")
