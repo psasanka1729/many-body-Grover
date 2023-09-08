@@ -1,4 +1,4 @@
-L = 10;
+L = 12;
 
 using JLD
 using PyCall
@@ -272,16 +272,18 @@ end;
 
 basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
 
+
+
 function grover_effective_Hamiltonian_matrix(DELTA)
     
     U_list = [];
     U_x_delta = sparse(Identity(2^L));
     #ux_list = []
-    NOISE_list = []
+    #NOISE_list = []
 
-    Gates_data_new_1 = []
-    Gates_data_new_2 = []
-    Gates_data_new_3 = []
+    #Gates_data_new_1 = []
+    #Gates_data_new_2 = []
+    #Gates_data_new_3 = []
     
     # U_x
     for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
@@ -289,59 +291,59 @@ function grover_effective_Hamiltonian_matrix(DELTA)
             
             
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)
+            #push!(NOISE_list,epsilon)
             h_matrix = single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])
             U_x_delta *= h_matrix
         
-            push!(Gates_data_new_1,"H")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i])
+            #push!(Gates_data_new_1,"H")
+            #push!(Gates_data_new_2,0.0)
+            #push!(Gates_data_new_3,Gates_data_3[i])
         
         
-            push!(U_list,single_qubit_gate_matrix(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
+            #push!(U_list,single_qubit_gate_matrix(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
             
         elseif Gates_data_1[i] == "X"
         
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
+            #push!(NOISE_list,epsilon)        
             x_matrix = single_qubit_gate_matrix(X(DELTA*epsilon),Gates_data_3[i])
             U_x_delta *= x_matrix
         
-            push!(Gates_data_new_1,"X")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
+            #push!(Gates_data_new_1,"X")
+            #push!(Gates_data_new_2,0.0)
+            #push!(Gates_data_new_3,Gates_data_3[i]) 
         
         
-            push!(U_list,single_qubit_gate_matrix(X(0.0),Gates_data_3[i])) # Noiseless.
+           # push!(U_list,single_qubit_gate_matrix(X(0.0),Gates_data_3[i])) # Noiseless.
             
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
+            #push!(NOISE_list,epsilon)        
             z_matrix = single_qubit_gate_matrix(Z(DELTA*epsilon),Gates_data_3[i])
             U_x_delta *= z_matrix
         
-            push!(Gates_data_new_1,"Z")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
+            #push!(Gates_data_new_1,"Z")
+            #push!(Gates_data_new_2,0.0)
+            #push!(Gates_data_new_3,Gates_data_3[i]) 
         
         
-            push!(U_list,single_qubit_gate_matrix(Z(0.0),Gates_data_3[i])) # Noiseless.
+           # push!(U_list,single_qubit_gate_matrix(Z(0.0),Gates_data_3[i])) # Noiseless.
             
         else
             #push!(ux_list,"CRX")
         
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
+            #push!(NOISE_list,epsilon)        
             rx_matrix = single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
             U_x_delta *= rx_matrix
         
-            push!(Gates_data_new_1,Gates_data_1[i])
-            push!(Gates_data_new_2,Gates_data_2[i])
-            push!(Gates_data_new_3,Gates_data_3[i])
+            #push!(Gates_data_new_1,Gates_data_1[i])
+            #push!(Gates_data_new_2,Gates_data_2[i])
+            #push!(Gates_data_new_3,Gates_data_3[i])
         
         
-            push!(U_list,single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiselss.
+            #push!(U_list,single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiselss.
             
         end
     end
@@ -354,66 +356,66 @@ function grover_effective_Hamiltonian_matrix(DELTA)
         if Gates_data_1[i] == "H"
         
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
+            #push!(NOISE_list,epsilon)        
             h_matrix = single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])
             U_0_delta *= h_matrix
         
-            push!(Gates_data_new_1,"H")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i])
+            #push!(Gates_data_new_1,"H")
+            #push!(Gates_data_new_2,0.0)
+            #push!(Gates_data_new_3,Gates_data_3[i])
         
         
-            push!(U_list,single_qubit_gate_matrix(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
+            #push!(U_list,single_qubit_gate_matrix(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
             
         elseif Gates_data_1[i] == "X"
 
         
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
+            #push!(NOISE_list,epsilon)        
             x_matrix = single_qubit_gate_matrix(X(DELTA*epsilon),Gates_data_3[i])
             U_0_delta *= x_matrix
         
-            push!(Gates_data_new_1,"X")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
+            #push!(Gates_data_new_1,"X")
+            #push!(Gates_data_new_2,0.0)
+            #push!(Gates_data_new_3,Gates_data_3[i]) 
         
         
-            push!(U_list,single_qubit_gate_matrix(X(0.0),Gates_data_3[i])) # Noiseless.
+            #push!(U_list,single_qubit_gate_matrix(X(0.0),Gates_data_3[i])) # Noiseless.
             
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
+            #push!(NOISE_list,epsilon)        
             z_matrix = single_qubit_gate_matrix(Z(DELTA*epsilon),Gates_data_3[i])
             U_x_delta *= z_matrix
         
-            push!(Gates_data_new_1,"Z")
-            push!(Gates_data_new_2,0.0)
-            push!(Gates_data_new_3,Gates_data_3[i]) 
+            #push!(Gates_data_new_1,"Z")
+            #push!(Gates_data_new_2,0.0)
+            #push!(Gates_data_new_3,Gates_data_3[i]) 
         
         
-            push!(U_list,single_qubit_gate_matrix(Z(0.0),Gates_data_3[i])) # Noiseless.
+            #push!(U_list,single_qubit_gate_matrix(Z(0.0),Gates_data_3[i])) # Noiseless.
             
         else
             #push!(u0_list,"CRX")
         
             epsilon = NOISE[i]
-            push!(NOISE_list,epsilon)        
+            #push!(NOISE_list,epsilon)        
             rx_matrix = single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
             U_0_delta *= rx_matrix
         
-            push!(Gates_data_new_1,Gates_data_1[i])
-            push!(Gates_data_new_2,Gates_data_2[i])
-            push!(Gates_data_new_3,Gates_data_3[i])
+            #push!(Gates_data_new_1,Gates_data_1[i])
+            #push!(Gates_data_new_2,Gates_data_2[i])
+            #push!(Gates_data_new_3,Gates_data_3[i])
         
         
-            push!(U_list,single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiseless.
+            #push!(U_list,single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiseless.
             
         end
     end
         
     GROVER_DELTA = U_x_delta*U_0_delta
-    
+    #=
     function kth_term(k)
 
             f_k = Identity(2^L);
@@ -462,7 +464,7 @@ function grover_effective_Hamiltonian_matrix(DELTA)
     for i = 1:length(U_list)
         h_eff += NOISE_list[i]*kth_term(i)
     end        
-
+    =#
     #=
     h_eff = DELTA * h_eff # Matrix in Z basis.
     h_eff_D = (basis_change_matrix)*h_eff*(basis_change_matrix') # Matrix in |0> and |xbar> basis.
@@ -479,12 +481,21 @@ function grover_effective_Hamiltonian_matrix(DELTA)
     
     =#
     #return E_exact, E_eff_D_sorted
-    return GROVER_DELTA, h_eff
+    return GROVER_DELTA#, h_eff
 end;
 
+#=
 G_delta_h_eff_matrix = grover_effective_Hamiltonian_matrix(0.0);
 h_eff_computational_basis = G_delta_h_eff_matrix[2]
-h_eff_0_xbar_basis = (basis_change_matrix)*G_delta_h_eff_matrix[2]*(basis_change_matrix')
+=#
+function h_eff_from_derivative(h)
+        #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+        h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
+        return h_eff_matrix_xbar_basis
+end;
+h_eff_compt_basis = h_eff_from_derivative(1.e-10) 
+#h_eff_0_xbar_basis = (basis_change_matrix)*G_delta_h_eff_matrix[2]*(basis_change_matrix')
+h_eff_0_xbar_basis = (basis_change_matrix)*h_eff_compt_basis*(basis_change_matrix')
 
 save("h_eff_matrix.jld","h_eff",h_eff_0_xbar_basis)
 #=
