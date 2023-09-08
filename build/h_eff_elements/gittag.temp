@@ -1,3 +1,15 @@
+commit aa0a55283426308b9cf61086b4580d40ebc0da35
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Sep 8 09:36:16 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit dc1708fb34502fbbe3b8e9c755dc7e0c4fd5dd64
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Sep 3 18:11:42 2023 -0500
+
+    elements of h_eff plotted as histogram
+
 commit c030a3f8bf2cf9409dc7fa628ec99b96c15f123e
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sun Sep 3 18:10:50 2023 -0500
