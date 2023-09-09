@@ -1,4 +1,4 @@
-L = 14;
+L = 12;
 
 using JLD
 using PyCall
