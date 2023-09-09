@@ -492,7 +492,7 @@ function h_eff_from_derivative(h)
         Grover_delta(h) = grover_effective_Hamiltonian_matrix(h)
         #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
         h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
-        return h_eff_matrix_xbar_basis
+        return h_eff_matrix
 end;
 h_eff_compt_basis = h_eff_from_derivative(1.e-10) 
 #h_eff_0_xbar_basis = (basis_change_matrix)*G_delta_h_eff_matrix[2]*(basis_change_matrix')
