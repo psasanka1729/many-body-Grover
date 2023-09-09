@@ -489,6 +489,7 @@ G_delta_h_eff_matrix = grover_effective_Hamiltonian_matrix(0.0);
 h_eff_computational_basis = G_delta_h_eff_matrix[2]
 =#
 function h_eff_from_derivative(h)
+        Grover_delta(h) = grover_effective_Hamiltonian_matrix(h)
         #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
         h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
         return h_eff_matrix_xbar_basis
