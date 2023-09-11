@@ -1,4 +1,4 @@
-L = 12;
+L = 6;
 
 using JLD
 using PyCall
@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 10000+parse(Int64,ARGS[1])
+SEED = 14000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -494,20 +494,30 @@ function h_eff_from_derivative(h)
         h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
         return h_eff_matrix
 end;
-h_eff_compt_basis = h_eff_from_derivative(1.e-10) 
+h_eff_compt_basis = h_eff_from_derivative(1.e-6) 
 #h_eff_0_xbar_basis = (basis_change_matrix)*G_delta_h_eff_matrix[2]*(basis_change_matrix')
 h_eff_0_xbar_basis = (basis_change_matrix)*h_eff_compt_basis*(basis_change_matrix')
 
 save("h_eff_matrix.jld","h_eff",h_eff_0_xbar_basis)
-#=
 h_spec_elements_file  = open("h_spec_elements.txt", "w")
-write(h_spec_elements_file , string(real(h_eff_0_xbar_basis[1,1])))
+write(h_spec_elements_file, string(real(h_eff_0_xbar_basis[1,1])))
 write(h_spec_elements_file, "\t")
-write(h_spec_elements_file , string(real(h_1_2)))
+write(h_spec_elements_file, string(imag(h_eff_0_xbar_basis[1,1])))
+write(h_spec_elements_file, "\n")
+write(h_spec_elements_file, string(real(h_eff_0_xbar_basis[2,2)))
 write(h_spec_elements_file, "\t")
-write(h_spec_elements_file , string(imag(h_1_2)))
+write(h_spec_elements_file, string(imag(h_eff_0_xbar_basis[2,2])))
+write(h_spec_elements_file, "\n")
+write(h_spec_elements_file, string(real(h_eff_0_xbar_basis[1,3])))
 write(h_spec_elements_file, "\t")
-write(h_spec_elements_file , string(real(h_2_2)))
+write(h_spec_elements_file, string(imag(h_eff_0_xbar_basis[1,3])))
+write(h_spec_elements_file, "\n")
+write(h_spec_elements_file, string(real(h_eff_0_xbar_basis[3,4])))
+write(h_spec_elements_file, "\t")
+write(h_spec_elements_file, string(imag(h_eff_0_xbar_basis[3,4])))
+write(h_spec_elements_file, "\n")
+write(h_spec_elements_file, string(real(h_eff_0_xbar_basis[3,3])))
+write(h_spec_elements_file, "\t")
+write(h_spec_elements_file, string(imag(h_eff_0_xbar_basis[3,3])))
 close(h_spec_elements_file)
-=#
 
