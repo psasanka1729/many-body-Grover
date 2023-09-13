@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "./GUE_TenPy.py", line 11, in <module>
-    import tenpy
-ImportError: No module named tenpy
-
-real	0m2.517s
-user	0m0.066s
-sys	0m0.155s
