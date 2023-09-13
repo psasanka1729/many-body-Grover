@@ -15,7 +15,7 @@ import tenpy
 
 
 # Number of qubits.
-L = 10
+L = 12
 
 
 # In[11]:
