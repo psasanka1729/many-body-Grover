@@ -15,7 +15,7 @@ import tenpy
 
 
 # Number of qubits.
-L = 14
+L = 6
 
 
 # In[11]:
@@ -24,30 +24,4 @@ L = 14
 # Generating a random GUE.
 X = tenpy.linalg.random_matrix.GUE((2**L,2**L))
 
-
-# In[12]:
-
-#X = X/np.sqrt(2**L)
-
-# Diagonalzing the random matrix.
-w, v = LA.eigh(X)
-
-
-def KLd(Eigenvector_matrix):
-    KL = []
-    for n in range(2**L-1): # Eigenvector index goes from 0 to dim(H)-1.
-        KLd_sum = 0.0
-        for i in range(2**L): # The sum goes from 0 to dim(H) i.e length of an eigenvector.
-            p = LA.norm(Eigenvector_matrix[0:2**L,n:n+1][i])**2 + 1.e-9
-            q = LA.norm(Eigenvector_matrix[0:2**L,n+1:n+2][i])**2 + 1.e-9
-            KLd_sum += p*(np.log(p/q))
-        KL.append(KLd_sum)
-    return KL
-
-f_KLd = open('KLd_data'+'.txt', 'w')
-KLd_calculated = KLd(v)
-for k in range(1,2**L-1):
-    f_KLd = open('KLd_data'+'.txt', 'a')
-    f_KLd.write(str(k) + '\t'+ str(KLd_calculated[k]) +'\n')
-f_KLd.close()
-
+np.savetxt('gue.txt',X.view(float))
