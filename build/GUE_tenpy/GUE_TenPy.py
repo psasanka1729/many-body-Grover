@@ -24,4 +24,4 @@ L = 8
 # Generating a random GUE.
 X = tenpy.linalg.random_matrix.GUE((2**L,2**L))
 
-np.savetxt('gue.txt',X.view(float))
+np.save('gue.npy',X)
