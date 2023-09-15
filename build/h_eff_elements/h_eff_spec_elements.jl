@@ -495,7 +495,7 @@ function h_eff_from_derivative(h)
         return h_eff_matrix
 end;
 h_eff_compt_basis = h_eff_from_derivative(1.e-6)
-h_eff_compt_basis_no_trace = h_eff_compt_basis - (1/2^L)*tr(h_eff_compt_basis)
+h_eff_compt_basis_no_trace = h_eff_compt_basis - Identity(2^L)*(1/2^L)*tr(h_eff_compt_basis)
 #h_eff_0_xbar_basis = (basis_change_matrix)*G_delta_h_eff_matrix[2]*(basis_change_matrix')
 h_eff_0_xbar_basis = (basis_change_matrix)*h_eff_compt_basis_no_trace*(basis_change_matrix')
 
