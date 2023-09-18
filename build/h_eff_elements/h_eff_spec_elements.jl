@@ -1,4 +1,4 @@
-L = 6;
+L = 8;
 
 using JLD
 using PyCall
@@ -462,7 +462,7 @@ function grover_effective_Hamiltonian_matrix(DELTA)
     #= The following loop sums over all epsilon to get H_eff. =#
     h_eff = zeros(2^L,2^L);
     for i = 1:length(U_list)
-        h_eff += NOISE_list[i]*kth_term(i)
+        h_eff += (NOISE_list[i]-1/L)*kth_term(i)
     end        
   
     #=
