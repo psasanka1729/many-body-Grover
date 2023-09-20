@@ -41,13 +41,14 @@ template_contents=open(template_file,'r').read()
 
 vnum=0
 
-for L in xrange(64):
+lamb_lst = [0.99,0.97,0.96,0.95,0.9,0.85,0.83,0.81,0.75,0.7,0.65,0.6,0.5,0.4,0.2,0.1]
+for L in xrange(16):
 	qsub_file=template_file.replace('.template','_'+str(vnum)+'.qsub')
 	fout=open(qsub_file,'w')
 
 	contents=template_contents.replace('###',str(vnum))
 	contents=contents.replace('*project*',project_name)
-	contents=contents.replace('*111*',str(L))
+	contents=contents.replace('*111*',str(lamb_lst[L]))
 	out_file_base='data_'+str(L)+'_*lll*.out'
 	contents=contents.replace('*111*',out_file_base.replace('*lll*','python'))
 	vmap_file.write(str(vnum)+'\t'+str(L)+'\n')
