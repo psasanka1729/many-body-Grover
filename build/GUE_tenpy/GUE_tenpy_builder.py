@@ -41,8 +41,9 @@ template_contents=open(template_file,'r').read()
 
 vnum=0
 
-lamb_lst = [0.99,0.97,0.96,0.95,0.9,0.85,0.83,0.81,0.75,0.7,0.65,0.6,0.5,0.4,0.2,0.1]
-for L in xrange(16):
+import numpy as np
+lamb_lst = np.linspace(1.6,2,64)
+for L in xrange(64):
 	qsub_file=template_file.replace('.template','_'+str(vnum)+'.qsub')
 	fout=open(qsub_file,'w')
 
