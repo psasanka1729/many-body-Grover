@@ -9,7 +9,7 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=GUE_TenPy.py
+EXEC=ground_state_simulation.py
 HELPER=""
 
 cd $LOCAL_DIR/$RUN_NAME
@@ -20,7 +20,7 @@ then
 fi
 cd $SCRATCH_DIR/
 
-{ time python ./$EXEC 52; } > temp.out 2> error.err
+{ time python ./$EXEC 1.9301587301587302; } > temp.out 2> error.err
 
 if [ "$(pwd)" == $SCRATCH_DIR ]; then
     echo "Removing files"

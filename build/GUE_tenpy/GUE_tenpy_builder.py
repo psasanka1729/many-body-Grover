@@ -42,7 +42,7 @@ template_contents=open(template_file,'r').read()
 vnum=0
 
 import numpy as np
-lamb_lst = np.linspace(1.6,2,64)
+lamb_lst = np.linspace(0.1,1,64)
 for L in xrange(64):
 	qsub_file=template_file.replace('.template','_'+str(vnum)+'.qsub')
 	fout=open(qsub_file,'w')
