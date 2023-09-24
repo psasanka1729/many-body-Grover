@@ -252,7 +252,7 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
     ket_0[1] = 1
     ket_1    = spzeros(2^L);
     ket_1[2] = 1
-    ket_xbar = x_bar(1)
+    ket_xbar = x_bar(0)
     eigenstate_1 = (ket_0-1im*ket_xbar)/sqrt(2)
     eigenstate_2 = (ket_0+1im*ket_xbar)/sqrt(2)
     V = V+ ket_1*(eigenstate_1')
@@ -269,7 +269,7 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
     return V
 end;
 
-basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
+#basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
 
 function grover_effective_Hamiltonian_matrix(DELTA)
     
@@ -317,7 +317,7 @@ function grover_effective_Hamiltonian_matrix(DELTA)
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            z_matrix = single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])
+            z_matrix = single_qubit_gate_matrix(Z(DELTA*epsilon),Gates_data_3[i])
             U_x_delta *= z_matrix
         
             #push!(Gates_data_new_1,"Z")
@@ -383,7 +383,7 @@ function grover_effective_Hamiltonian_matrix(DELTA)
         
             epsilon = NOISE[i]
             push!(NOISE_list,epsilon)        
-            z_matrix = single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])
+            z_matrix = single_qubit_gate_matrix(Z(DELTA*epsilon),Gates_data_3[i])
             U_x_delta *= z_matrix
         
             #push!(Gates_data_new_1,"Z")
@@ -483,4 +483,16 @@ function grover_effective_Hamiltonian_matrix(DELTA)
 end;
 
 
+function h_eff_from_derivative(h)
+      Grover_delta(h) = grover_effective_Hamiltonian_matrix(h)
+      Grover_delta(-h) = grover_effective_Hamiltonian_matrix(-h)
+      #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
+      h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
+      return h_eff_matrix
+ end;
 
+ h_eff_compt_basis = h_eff_from_derivative(1.e-6)
+
+ h_eff_compt_basis_no_trace = h_eff_compt_basis - (1/2^L)*tr(h_eff_compt_basis)*Identity(2^L)
+ h_eff_eigvals = eigvals(h_eff_compt_basis_no_trace)
+ save("h_eff_eigvals.jld","h_eff",h_eff_eigvals)
