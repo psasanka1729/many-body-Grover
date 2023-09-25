@@ -1,4 +1,4 @@
-L = 14;
+L = 10;
 
 using JLD
 using Random
@@ -212,7 +212,7 @@ function sigma_z_to_x_bar_basis_change_matrix(L)
     return V
 end;
 
-basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
+#basis_change_matrix = sigma_z_to_x_bar_basis_change_matrix(L);
 
 function grover_effective_Hamiltonian_matrix(DELTA)
     
