@@ -537,7 +537,7 @@ delta_index = parse(Int64,ARGS[1])
 Delta = LinRange(0.0,0.3,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 4
+Num = 6
 
 #=
 Arrays to hold delta, energy and entropy before they are written into the file.              
