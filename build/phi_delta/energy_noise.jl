@@ -220,7 +220,7 @@ function Grover_delta(DELTA)
         end 
     end
     GROVER_DELTA = U_x_delta*U_0_delta
-    return -GROVER_DELTA
+    return GROVER_DELTA
 end;
 
 #=
