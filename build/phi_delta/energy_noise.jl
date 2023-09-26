@@ -551,18 +551,18 @@ for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
     Op = Grover_delta(delta)
     EIGU = eigu(collect(Op))
-    X = string(delta)
+    #delta = string(delta)
     Y = real(1im*log.(EIGU[1]))
     V = EIGU[2]
     
     for j=1:2^L
         #py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
-        write(h_spec_elements_file, string(delta))
-        write(h_spec_elements_file, "\t")
-        write(h_spec_elements_file, string(real(Y[j])))
-        write(h_spec_elements_file, "\t")    
-        write(h_spec_elements_file, string(average_entanglement_entropy(V[1:2^L,j:j])))
-        write(h_spec_elements_file, "\n")              
+        write(quasienergy_disorder_file, string(delta))
+        write(quasienergy_disorder_file, "\t")
+        write(quasienergy_disorder_file, string(real(Y[j])))
+        write(quasienergy_disorder_file, "\t")    
+        write(quasienergy_disorder_file, string(average_entanglement_entropy(V[1:2^L,j:j])))
+        write(quasienergy_disorder_file, "\n")              
     end
 end
 close(quasienergy_disorder_file)
