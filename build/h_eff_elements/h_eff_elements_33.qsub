@@ -9,7 +9,8 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=h_eff_spec_elements.jl
+#EXEC=h_eff_spec_elements.jl
+EXEC=scaling_of_special_states_energy_each_term.jl
 HELPER="8_new_Grover_gates_data.txt"
 
 cd $LOCAL_DIR/$RUN_NAME
