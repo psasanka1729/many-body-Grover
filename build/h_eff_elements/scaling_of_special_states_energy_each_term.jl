@@ -1,4 +1,4 @@
-L = 10;
+L = 8;
 using JLD
 using PyCall
 using Random
@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 10000+parse(Int64,ARGS[1])
+SEED = 14000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -290,11 +290,14 @@ function h_eff_from_derivative(h)
     h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
     #= h_eff_xbar = V * h_eff_z * V^{\dagger}.=#
     #h_eff_matrix_xbar_basis = (basis_change_matrix)*h_eff_matrix *(basis_change_matrix') # Matrix in |0> and |xbar> basis.
-    return h_eff_matrix_xbar_basis
+    return h_eff_matrix
 end;
 
 H_EFF_MATRIX = h_eff_from_derivative(1.e-8);
 
+save("h_eff_matrix.jld","h_eff",H_EFF_MATRIX)
+
+#=
 ket_0 = spzeros(2^L)
 ket_0[1] = 1
 # Defining the state |x_bar> in sigma_z basis.
@@ -323,7 +326,7 @@ write(h_eff_elements_file , "\n")
 write(h_eff_elements_file , string(h_xx))
 write(h_eff_elements_file , "\n")
 close(h_eff_elements_file)
-
+=#
 #=
 h_spec_eigenvalues_file  = open("h_spec_eigenvalues.txt", "w")
 h_spec_eigenvalues = eigvals(h_eff_block_matrix)
