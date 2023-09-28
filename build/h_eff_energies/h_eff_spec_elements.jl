@@ -268,7 +268,7 @@ function grover_effective_Hamiltonian_matrix(DELTA)
             push!(Gates_data_new_3,Gates_data_3[i]) 
         
         
-            push!(U_list,single_qubit_gate_matrix(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            push!(U_list,single_qubit_gate_matrix(Z(0.0),Gates_data_3[i])) # Noiseless.
             
         else
             #push!(ux_list,"CRX")
@@ -334,7 +334,7 @@ function grover_effective_Hamiltonian_matrix(DELTA)
             push!(Gates_data_new_3,Gates_data_3[i]) 
         
         
-            push!(U_list,single_qubit_gate_matrix(Z_gate(0.0),Gates_data_3[i])) # Noiseless.
+            push!(U_list,single_qubit_gate_matrix(Z(0.0),Gates_data_3[i])) # Noiseless.
             
         else
             #push!(u0_list,"CRX")
