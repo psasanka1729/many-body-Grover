@@ -29,7 +29,7 @@ Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 
 # Good seeds = 10,14, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 1945
+SEED = 1917
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -537,7 +537,7 @@ delta_index = parse(Int64,ARGS[1])
 Delta = LinRange(0.0,0.3,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 6
+Num = 10
 
 #=
 Arrays to hold delta, energy and entropy before they are written into the file.              
