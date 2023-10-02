@@ -1,3 +1,15 @@
+commit aa2496355f69b1906d8ed82804284c281d8f407e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Oct 1 19:03:31 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 6075fff891f70bb33cc1dd5fb9f56fecb04ebb2b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Oct 1 15:55:11 2023 -0500
+
+    Commit before run h_eff_elements
+
 commit 0e9c3b493d4a8dee9fef972bfc6cc268623fe625
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sun Oct 1 12:53:29 2023 -0500
