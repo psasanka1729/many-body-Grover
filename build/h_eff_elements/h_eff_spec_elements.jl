@@ -1,4 +1,4 @@
-L = 12;
+L = 8;
 
 using JLD
 using PyCall
@@ -34,6 +34,7 @@ NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
 I2 = sparse([1 0; 0 1]);
 Pauli_Z  = sparse([1 0;0 -1]);
+Pauli_Y  = sparse([0 -1im;1im 0]);
 Pauli_X  = sparse([0 1;1 0])
 H  = (1/sqrt(2))*[1 1;1 -1]
 Rx(theta)       = sparse(exp(-1im*(theta/2)*collect(I2-Pauli_X)));
@@ -490,22 +491,24 @@ end;
 #=
 G_delta_h_eff_matrix = grover_effective_Hamiltonian_matrix(0.0);
 h_eff_computational_basis = G_delta_h_eff_matrix[2]
-=#
+
 function h_eff_from_derivative(h)
         Grover_delta(h) = grover_effective_Hamiltonian_matrix(h)
         #h_eff_matrix = 1im*((Grover_delta(h)*(-G_exact)')-Identity(2^L))/h
         h_eff_matrix = 1im*((Grover_delta(h)-Grover_delta(-h))/(2*h))*(-G_exact)'
         return h_eff_matrix
 end;
+=#
+
 #h_eff_compt_basis = h_eff_from_derivative(1.e-6)
 h_eff_compt_basis = grover_effective_Hamiltonian_matrix(0.0)
-#h_eff_compt_basis_no_trace = h_eff_compt_basis - Identity(2^L)*(1/2^L)*tr(h_eff_compt_basis)
+h_eff_compt_basis = h_eff_compt_basis - Identity(2^L)*(1/2^L)*tr(h_eff_compt_basis)
 #h_eff_0_xbar_basis = (basis_change_matrix)*G_delta_h_eff_matrix[2]*(basis_change_matrix')
 #h_eff_0_xbar_basis = (basis_change_matrix)*h_eff_compt_basis_no_trace*(basis_change_matrix')
 
 #h_eff_eigvals = eigvals(h_eff_compt_basis_no_trace)
 #save("h_eff_eigvals.jld","h_eff",h_eff_eigvals)
-save("h_eff_matrix.jld","h_eff",h_eff_compt_basis)
+#save("h_eff_matrix.jld","h_eff",h_eff_compt_basis)
 #=
 h_spec_elements_file  = open("h_spec_elements.txt", "w")
 write(h_spec_elements_file, string(real(h_eff_0_xbar_basis[1,1])))
@@ -528,3 +531,42 @@ write(h_spec_elements_file, string(real(h_eff_0_xbar_basis[3,3])))
 write(h_spec_elements_file, "\t")
 write(h_spec_elements_file, string(imag(h_eff_0_xbar_basis[3,3])))
 close(h_spec_elements_file)=#
+
+# special states analysis
+function h_eff_special_states_block_matrix()
+        ket_0 = zeros(2^L)
+        ket_0[1] = 1
+
+        N = 2^L
+        ket_x = (1/sqrt(N))*ones(N)
+        ket_xbar = sqrt(N/(N-1))*ket_x - (1/sqrt(N-1))*ket_0
+
+        basis_1 = ket_0
+        basis_2 = ket_xbar
+
+       h_11 = basis_1' * h_eff_compt_basis * bassi_1
+       h_12 = basis_1' * h_eff_compt_basis * basis_2
+       h_21 = h_12'
+       h_22 = basis_2' * h_eff_compt_basis * basis_2
+
+       theta = atan(2*sqrt(N-1)/(N-2))
+
+       #h_eff_block = theta*[ 0 -1im;1im 0] - Delta*[h_11 h_12;h_21 h_22]
+       h_eff_block = [h_11 h_12;h_21 h_22]
+       return h_eff_block
+end
+
+H_spec_eff = h_eff_special_states_block_matrix()
+B_I = tr(H_spec_eff)/2
+B_x = tr(Pauli_X*H_spec_eff)/2
+B_y = tr(Pauli_Y*H_spec_eff)/2
+B_z = tr(Pauli_Z*H_spec_eff)/2
+
+pauli_coefficients_file  = open("pauli_coefficients.txt", "w")
+write(pauli_coefficients_file , string(real(B_I)))
+write(pauli_coefficients_file, "\t")
+write(pauli_coefficients_file , string(real(B_x)))
+write(pauli_coefficients_file, "\t")
+write(pauli_coefficients_file , string(real(B_y)))
+write(pauli_coefficients_file, "\t")
+write(pauli_coefficients_file , string(real(B_z)))
