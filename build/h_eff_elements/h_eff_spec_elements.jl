@@ -553,7 +553,7 @@ function h_eff_special_states_block_matrix()
 
        #h_eff_block = theta*[ 0 -1im;1im 0] - Delta*[h_11 h_12;h_21 h_22]
        h_eff_block = [h_11 h_12;h_21 h_22]
-       return h_eff_block
+       return h_eff_block-Identity(2)*tr(h_eff_block)/2
 end
 
 H_spec_eff = h_eff_special_states_block_matrix()
