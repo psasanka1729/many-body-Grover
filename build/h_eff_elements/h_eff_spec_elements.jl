@@ -544,7 +544,7 @@ function h_eff_special_states_block_matrix()
         basis_1 = ket_0
         basis_2 = ket_xbar
 
-       h_11 = basis_1' * h_eff_compt_basis * bassi_1
+       h_11 = basis_1' * h_eff_compt_basis * basis_1
        h_12 = basis_1' * h_eff_compt_basis * basis_2
        h_21 = h_12'
        h_22 = basis_2' * h_eff_compt_basis * basis_2
