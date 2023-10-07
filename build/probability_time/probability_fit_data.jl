@@ -194,7 +194,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-G_delta = Grover_operator(0.07);
+G_delta = Grover_operator(0.01);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 ket_0    = zeros(2^L)
