@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 100000+parse(Int64,ARGS[1])
+SEED = 14000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -34,7 +34,7 @@ NOISE = 2*rand(Float64,Number_of_Gates).-1;
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
 H = (1/sqrt(2))*[1 1;1 -1]
-:x(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
+Rx(theta)= exp(-1im*(theta/2)*([1 0;0 1]-[0 1;1 0]));
 Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise) = exp(-1im*((pi/2+noise))*([1 0;0 1]-[0 1;1 0])); # This is X gate.
 Z_gate(noise) = Hadamard(noise)*CX(noise)*Hadamard(noise); # noise # noise
@@ -177,14 +177,14 @@ function Grover_operator(DELTA)
     
     return GROVER_DELTA
 end;
-
+#=
 py"""
 f = open('probability_data'+'.txt', 'w')
 def Write_file(p1, p2, i):
     f = open('probability_data'+'.txt', 'a')
     f.write(str(p1) +'\t'+ str(p2)+ '\t' + str(i) +'\n')
 """
-
+=#
 function Pxbar(full_wavefunction)
     #= full wavefunction = \sum_{j=0 to 2^{L}-1} \alpha_{j} |j>.
     x_bar_wavefunction =  \sum_{j=0 to 2^{L}-1} \alpha_{j} |j> - \alpha_{0}|0>.
@@ -194,25 +194,44 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-U = Grover_operator(0.07);
+G_delta = Grover_operator(0.07);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
+ket_0    = zeros(2^L)
+ket_0[1] = 1
+N = 2^L
+ket_x    = (1/sqrt(N))   * ones(N)
+ket_x_bar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
 p_0l = []
-p_x_barl = []
-psi = Psi_0(L);
+p_xbar_l = [abs(ket_x_bar'*Psi_0(L))^2]
+
+p_0l = []
+#p_x_barl = []
+ket_psi = Psi_0(L);
 p_0 = psi[1]*conj.(psi[1])
-p_xbar = Pxbar(psi)
-py"Write_file"(real(p_0),real(p_xbar),0)
+p_xbar = Pxbar(ket_psi)
+probability_time_file = open("probability_time_file.txt", "w")
+#py"Write_file"(real(p_0),real(p_xbar),0)
+write(probability_time_file,string(real(p_0),real(p_xbar),0))
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
 for i=1:150
-    global psi = U*psi
+    global ket_psi = G_delta*ket_psi
     p_0 = abs(psi[1])^2
-    p_xbar = Pxbar(psi)
-    py"Write_file"(real(p_0),real(p_xbar),i)
+    p_xbar = abs(ket_x_bar'*psi)^2
+    #p_xbar = Pxbar(psi)
+    #py"Write_file"(real(p_0),real(p_xbar),i)
+    write(probability_time_file, string(real(p_0)))
+    write(probability_time_file, "\t")
+    write(probability_time_file, string(real(p_xbar)))
+    write(probability_time_file, "\t")
+    write(probability_time_file, string(i))
+    write(probability_time_file, "\n")
     push!(p_0l,p_0)
     push!(p_x_barl,p_xbar)
 end;
+
+close(probability_time_file)
 
 using LsqFit
 
@@ -254,11 +273,24 @@ phi_2 = fit.param[4]
 
 #scatter(xdata,ydata)
 #plot!(xdata,A_2 .+ B_2 .* cos.(omega_2 .* xdata .+ phi_2))
-
+#=
 py"""
 f = open('fitted_data'+'.txt', 'w')
 def Write_file_fit(A, B, omega, phi, error):
     f = open('fitted_data'+'.txt', 'a')
     f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) + '\t' +str(error) + '\n')
 """
-py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[100]-(A_2+B_2*cos(omega_2*100+phi_2)))
+py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[100]-(A_2+B_2*cos(omega_2*100+phi_2)))=#
+
+probability_fit_file = open("probability_fit_file.txt","w")
+write(probability_fit_file,string(A_2))
+write(probability_fit_file,"\t")
+write(probability_fit_file,string(B_2))
+write(probability_fit_file,"\t")
+write(probability_fit_file,string(omega_2))
+write(probability_fit_file,"\t")
+write(probability_fit_file,string(phi_2))
+write(probability_fit_file,"\t")
+write(probability_fit_file,string(p_0l[100]-A_2+B_2*cos(omega_2*100+phi_2)))
+write(probability_fit_file,"\n")
+
