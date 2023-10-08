@@ -1,4 +1,4 @@
-L = 8;
+L = 10;
 
 using JLD
 using PyCall
@@ -28,7 +28,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1000+parse(Int64,ARGS[1])
+SEED = 14064+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -532,7 +532,6 @@ write(h_spec_elements_file, "\t")
 write(h_spec_elements_file, string(imag(h_eff_0_xbar_basis[3,3])))
 close(h_spec_elements_file)=#
 
-#=
 # special states analysis
 function h_eff_special_states_block_matrix()
         ket_0 = zeros(2^L)
@@ -570,4 +569,4 @@ write(pauli_coefficients_file , string(real(B_x)))
 write(pauli_coefficients_file, "\t")
 write(pauli_coefficients_file , string(real(B_y)))
 write(pauli_coefficients_file, "\t")
-write(pauli_coefficients_file , string(real(B_z)))=#
+write(pauli_coefficients_file , string(real(B_z)))
