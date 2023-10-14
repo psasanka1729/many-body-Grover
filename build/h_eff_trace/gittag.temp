@@ -1,3 +1,339 @@
+commit 702a836fed69b441a41905149a8872e921d6b89d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Oct 14 17:21:49 2023 -0500
+
+    Commit before run h_eff_trace
+
+commit 65bba278a78a1c2bc2e6b89e1d8a37837ba9ff08
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Oct 14 17:19:56 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 8b13cc4793a32228c8352da76ef428a754eeff13
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Oct 14 17:17:32 2023 -0500
+
+    Add files via upload
+
+commit 475609241dfd0f36fb0652325d0532a3f8a90c31
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Oct 14 17:16:07 2023 -0500
+
+    cluster backup
+
+commit 66960f5aec0867ef7ebe64b8209221bc2cdfbcd3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Oct 14 10:21:47 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit f014d50bfa3f812e29d2cb782ae19466cd9fcd3b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Oct 13 23:04:43 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit c7e5ced9829db16f67290975d3d23293de9f636e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Oct 13 23:03:39 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit d5ef138602cc7a05109c1846892a2d1307a60ad0
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Oct 13 22:58:56 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit d077d393a295e41d292304dccaae7163e615086f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Oct 13 22:28:15 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit ea2dbaa43f32b7966122f5209e6ae72d7963e572
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Fri Oct 13 22:19:22 2023 -0500
+
+    new effective Hamiltonian code
+
+commit ed0edbcd6df4de0778435e636d0c2523a764b80e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Oct 13 22:18:37 2023 -0500
+
+    cluster baclup
+
+commit 4ef2bab76e257e82f5827716fdda5177433bae4f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Oct 12 09:28:21 2023 -0500
+
+    Commit before run phi_delta
+
+commit 0cdf2787fe7ee118b421a42304ad4905ca4d15c9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Oct 9 13:14:01 2023 -0500
+
+    Commit before run phi_delta
+
+commit 62496d723ff719ff5dd8053f114476b85978fd8b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Oct 9 13:01:31 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 235122692f813ccec0e09fce1a01a673874cb0b6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Oct 8 15:38:32 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit bc3940264231be5cbddf06fbf3838abf9979934c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Oct 6 21:30:30 2023 -0500
+
+    Commit before run probability_time
+
+commit 8dd9cefbb50e1380bb599076f29c70d1c5c8ae6c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Oct 6 21:28:09 2023 -0500
+
+    Commit before run probability_time
+
+commit b8c0f7ee03eb6b9d1a95bdcca1ca037a27ef7cfc
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Oct 5 10:21:08 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit 38fa2de9274387da137df8574a32bceb798fd409
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Oct 5 09:45:06 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit 6572e4f0e7262a50394216a10adac794ff23beff
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Oct 4 22:15:26 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 867b48bdafb73a4fc191c83cfc22ef37475084b3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Oct 4 22:03:47 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit 34ffb44e9482449bdd52b797e7d7f6f78d7425c7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Oct 4 11:40:15 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit f1a594822ec73ced10f2afaca70729960483e16c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Oct 4 11:27:16 2023 -0500
+
+    cluster backup
+
+commit fd93edcd515e8491370f918b7b208ec39bdbb1a6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Oct 4 11:22:53 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit 02def0f607ef3668abe5defc718ab8a49be2fdbc
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Oct 4 11:14:51 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit c3ca4740ddd08d075c3e04da44bb1ca5a51d9e3b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Oct 4 11:09:20 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit a2933f9dc26f8ca3fa7febdbaa29494c8692e2d2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Oct 4 11:08:49 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit 760a1626cd8c0bf63a98b1e45d738868058c61a5
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Oct 4 11:07:26 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit cfe2f8e6ede70eb9337725e0bbb187ab1ff6d619
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Oct 3 13:07:11 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit a34e7ef3e54117101821c92e766ec646a9f3c02c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Oct 1 20:12:07 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit dc26929970ccb9d40b5dccc5df46453234674df4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Oct 1 20:08:38 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 77be6ad2db6bdec7851764e50bc0e2b0bd7a8c04
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Oct 1 20:08:30 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit aa2496355f69b1906d8ed82804284c281d8f407e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Oct 1 19:03:31 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 6075fff891f70bb33cc1dd5fb9f56fecb04ebb2b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Oct 1 15:55:11 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit 0e9c3b493d4a8dee9fef972bfc6cc268623fe625
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Oct 1 12:53:29 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 73a23099daea8fa46c5f3804633afdc6c308ab52
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Sep 29 09:29:18 2023 -0500
+
+    Commit before run phi_delta
+
+commit 2f889185b23bd197344ebbc212280553c6aedcf5
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Sep 29 09:28:04 2023 -0500
+
+    Commit before run phi_delta
+
+commit 7bd15355f259165548aeac5bf338d239e4a183d9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 28 20:41:30 2023 -0500
+
+    Commit before run phi_delta
+
+commit bdcce3fe5cc2c507780f5cabfcdc6756959eca25
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 28 11:26:49 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit e2598c9c5c8318cd1ab23c32a0f101b19118e5dc
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 27 21:44:53 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 4061bd56d1ced8d02587ee11ced36bf34fcd2869
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 27 21:36:26 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 89fbd055eec0588fb7e7cc689f2133f3be91df1f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 27 21:34:13 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit b7f83cd04729f3ae7da2366dd640939b4a55ca32
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 27 21:31:34 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit cf9151eea0bc12af6df6378544ba61fb25a1a9ec
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 27 16:51:59 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit 750dc690e2c163b8120a348e1991100c36676e98
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 27 16:51:44 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit c02c74ecc98ddda1a5944f25ad0ab7d7a4d01fcb
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 27 15:55:01 2023 -0500
+
+    Commit before run h_eff_elements
+
+commit dbea472979de81a52b105ea2fd41bfe2e94e1d42
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 26 12:30:42 2023 -0500
+
+    Commit before run phi_delta
+
+commit 5cb11482a8b98c9e4566fc0789a48a1de3a9de8d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 26 12:30:18 2023 -0500
+
+    Commit before run phi_delta
+
+commit 37555df0397df25f3b402ab8acf788b0ce6129bb
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 26 09:54:00 2023 -0500
+
+    Commit before run phi_delta
+
+commit 369a24939a215970bd1dfc745790c990283b389e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Sep 25 23:11:36 2023 -0500
+
+    Commit before run phi_delta
+
+commit b0bf2e2183e00d116bccf44790cbca0fd92c07e4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Sep 25 23:05:06 2023 -0500
+
+    Commit before run phi_delta
+
+commit 9408b1da27a6cccf8322f47ed8dfe59bb18c82ba
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Mon Sep 25 23:02:57 2023 -0500
+
+    uses eigu in Julia
+
+commit 22a7ff449a40c49d97d9547a3d5e83c64bc15ea8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Sep 25 23:01:53 2023 -0500
+
+    cluster backup all
+
+commit 10df8d217d402010b92e49e542bd54450ef750d1
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Sep 25 12:37:29 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 7017ddda02008cd023f6704aa4560e4040df6b9c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Sep 25 12:29:02 2023 -0500
+
+    Commit before run h_eff_energies
+
+commit 8b18f2e88b3a6ee7b3f993fbe3adb66aa3722bc6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Sep 24 13:48:48 2023 -0500
+
+    Commit before run h_eff_elements
+
 commit f8b96fcd940daa98ecb7244b133ce79b1a7d2653
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sun Sep 24 13:46:23 2023 -0500
