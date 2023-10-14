@@ -3,7 +3,7 @@
 #SBATCH --job-name=h_eff_trace
 #
 # Partition:
-#SBATCH --partition=128s
+#SBATCH --partition=256h
 #
 # Processors:
 #SBATCH --ntasks=64
