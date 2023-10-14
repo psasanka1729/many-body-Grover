@@ -1,4 +1,4 @@
-L = 8;
+L = 7;
 
 #using PyCall
 using Random
