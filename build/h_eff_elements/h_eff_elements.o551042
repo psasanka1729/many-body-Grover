@@ -129,3 +129,8 @@ Launcher: Task 20 running job 21 on compute-2-6-13 (bash h_eff_elements_20.qsub)
 Launcher: Task 29 running job 30 on compute-2-6-13 (bash h_eff_elements_29.qsub)
 Launcher: Task 17 running job 18 on compute-2-6-13 (bash h_eff_elements_17.qsub)
 Launcher: Task 22 running job 23 on compute-2-6-13 (bash h_eff_elements_22.qsub)
+slurmstepd: error: *** JOB 551042 ON compute-2-6-12 CANCELLED AT 2023-10-14T17:32:48 ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.

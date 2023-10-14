@@ -133,3 +133,8 @@ Launcher: Task 9 running job 10 on compute-2-6-2 (bash h_eff_trace_9.qsub)
 Launcher: Task 11 running job 12 on compute-2-6-2 (bash h_eff_trace_11.qsub)
 Launcher: Task 7 running job 8 on compute-2-6-2 (bash h_eff_trace_7.qsub)
 Launcher: Task 10 running job 11 on compute-2-6-2 (bash h_eff_trace_10.qsub)
+slurmstepd: error: *** JOB 551053 ON compute-2-6-2 CANCELLED AT 2023-10-14T17:30:12 DUE TO NODE FAILURE, SEE SLURMCTLD LOG FOR DETAILS ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
