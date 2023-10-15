@@ -129,3 +129,8 @@ Launcher: Task 38 running job 39 on compute-2-6-19 (bash h_eff_energies_38.qsub)
 Launcher: Task 42 running job 43 on compute-2-6-19 (bash h_eff_energies_42.qsub)
 Launcher: Task 37 running job 38 on compute-2-6-19 (bash h_eff_energies_37.qsub)
 Launcher: Task 40 running job 41 on compute-2-6-19 (bash h_eff_energies_40.qsub)
+slurmstepd: error: *** JOB 551054 ON compute-2-6-16 CANCELLED AT 2023-10-14T23:07:31 ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
