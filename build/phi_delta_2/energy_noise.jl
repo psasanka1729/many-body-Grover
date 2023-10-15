@@ -4,8 +4,8 @@ using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-using PyCall
-file = raw"6_new_Grover_gates_data.txt" # Change for every L.
+
+file = raw"12_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -23,16 +23,15 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + 2*L^2-6*L+5  # MCX gate
                   + 1            # Z gate on right of MCX
                   + L-1          # L-1 H gate on right of MCX   
-                  + L-1)          # L-1 X gate on right of MCX)             
+                  + L-1)          # L-1 X gate on right of MCX)       
+                        
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 
 # Good seeds = 10,14, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 14
+SEED = 10
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
-
-
 
 I2 = sparse([1 0; 0 1]);
 Z  = sparse([1 0;0 -1]);
@@ -105,67 +104,51 @@ function single_qubit_controlled_gate_matrix(single_qubit_gate,c,t)
     return PI_0_matrix + PI_1_matrix     
 end;
 
-using PyCall
-py"""
-import numpy
-import numpy.linalg
-def adjoint(psi):
-    return psi.conjugate().transpose()
-def psi_to_rho(psi):
-    return numpy.outer(psi,psi.conjugate())
-def exp_val(psi, op):
-    return numpy.real(numpy.dot(adjoint(psi),op.dot(psi)))
-def norm_sq(psi):
-    return numpy.real(numpy.dot(adjoint(psi),psi))
-def normalize(psi,tol=1e-9):
-    ns=norm_sq(psi)**0.5
-    if ns < tol:
-        raise ValueError
-    return psi/ns
-def is_herm(M,tol=1e-9):
-    if M.shape[0]!=M.shape[1]:
-        return False
-    diff=M-adjoint(M)
-    return max(numpy.abs(diff.flatten())) < tol
-def is_unitary(M,tol=1e-9):
-    if M.shape[0]!=M.shape[1]:
-        return False
-    diff=M.dot(adjoint(M))-numpy.identity((M.shape[0]))
-    return max(numpy.abs(diff.flatten())) < tol
-def eigu(U,tol=1e-9):
-    (E_1,V_1)=numpy.linalg.eigh(U+adjoint(U))
-    U_1=adjoint(V_1).dot(U).dot(V_1)
-    H_1=adjoint(V_1).dot(U+adjoint(U)).dot(V_1)
+
+function eigu(U,tol=1.e-9)
+    (E_1,V_1) = eigvals(U + U'),eigvecs(U + U')
+    U_1=V_1'*U*V_1
+    #H_1=V_1*(U+U')*V_1
     non_diag_lst=[]
-    j=0
-    while j < U_1.shape[0]:
-        k=0
-        while k < U_1.shape[0]:
-            if j!=k and abs(U_1[j,k]) > tol:
-                if j not in non_diag_lst:
-                    non_diag_lst.append(j)
-                if k not in non_diag_lst:
-                    non_diag_lst.append(k)
-            k+=1
-        j+=1
-    if len(non_diag_lst) > 0:
-        non_diag_lst=numpy.sort(numpy.array(non_diag_lst))
-        U_1_cut=U_1[non_diag_lst,:][:,non_diag_lst]
-        (E_2_cut,V_2_cut)=numpy.linalg.eigh(1.j*(U_1_cut-adjoint(U_1_cut)))
-        V_2=numpy.identity((U.shape[0]),dtype=V_2_cut.dtype)
-        for j in range(len(non_diag_lst)):
-            V_2[non_diag_lst[j],non_diag_lst]=V_2_cut[j,:]
-        V_1=V_1.dot(V_2)
-        U_1=adjoint(V_2).dot(U_1).dot(V_2)
-    # Sort by phase
-    U_1=numpy.diag(U_1)
-    inds=numpy.argsort(numpy.imag(numpy.log(U_1)))
-    return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
-"""
+    j=1
+    while j <= size(U_1)[1]
+        k=1
+        while k <= size(U_1)[1]
+            #println(j,k)
+            if j!=k && abs(U_1[j,k])>tol
+                if !(j in non_diag_lst)
+                    push!(non_diag_lst,j)
+                end
+                if !(k in non_diag_lst)
+                    push!(non_diag_lst,k)
+                end   
+            end
+            k += 1 
+        end
+        j += 1
+    end
+    if length(non_diag_lst)>0
+        non_diag_lst=sort(non_diag_lst)
+        U_1_cut=U_1[non_diag_lst, non_diag_lst]
+        (E_2_cut,V_2_cut)=eigvals(1im*(U_1_cut-U_1_cut')),eigvecs(1im*(U_1_cut-U_1_cut'))
+        V_2=Identity(size(U)[1])
+        V_2 = convert(Matrix{ComplexF64}, V_2)
+        for j = 1:length(non_diag_lst)
+             V_2[non_diag_lst[j], non_diag_lst] = V_2_cut[j, :]
+        end
+        V_1=V_1*V_2
+        U_1=V_2'*U_1*V_2
+    end
+    U_1=diag(U_1)
+    inds=sortperm(imag(log.(Complex.(U_1))))    
+    return (U_1[inds, :], V_1[:, inds])
+end;
+
+
+
 
 function Grover_delta(DELTA)
 
-    noise_sum = 0
     U_x_delta = Identity(2^L)
     # U_x
     for i = U_0_gate_number+1: U_0_gate_number+U_x_gate_number
@@ -175,28 +158,27 @@ function Grover_delta(DELTA)
             epsilon = NOISE[i]
             U_x_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])
                       
-            noise_sum += epsilon
             
         elseif Gates_data_1[i] == "X"
         
             epsilon = NOISE[i]       
             U_x_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])   
 
-            noise_sum += epsilon
+
             
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]       
             U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])
  
-            noise_sum += epsilon
             
         else
         
             epsilon = NOISE[i]       
-            U_x_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+            U_x_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), 
+            Gates_data_2[i], Gates_data_3[i])
             
-            noise_sum += epsilon/4
+
             
         end
     end
@@ -210,7 +192,7 @@ function Grover_delta(DELTA)
             epsilon = NOISE[i]      
             U_0_delta *= single_qubit_gate_matrix(Hadamard(DELTA*epsilon), Gates_data_3[i])          
             
-            noise_sum += epsilon
+       
             
         elseif Gates_data_1[i] == "X"
 
@@ -218,21 +200,22 @@ function Grover_delta(DELTA)
             epsilon = NOISE[i]       
             U_0_delta *= single_qubit_gate_matrix(CX(DELTA*epsilon),Gates_data_3[i])
             
-            noise_sum += epsilon
+  
             
         elseif Gates_data_1[i] == "Z"
         
             epsilon = NOISE[i]     
             U_x_delta *= single_qubit_gate_matrix(Z_gate(DELTA*epsilon),Gates_data_3[i])          
             
-            noise_sum += epsilon
+  
             
         else
 
             epsilon = NOISE[i]     
-            U_0_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+            U_0_delta *= single_qubit_controlled_gate_matrix(Rx(Gates_data_1[i]+DELTA*epsilon),
+             Gates_data_2[i], Gates_data_3[i])
             
-            noise_sum += epsilon/4
+         
             
         end 
     end
@@ -539,20 +522,22 @@ function average_entanglement_entropy(initial_wavefunction)
     return sum(rolled_entropies)/L
 end;
 
+#=
 py"""
 f = open('plot_data'+'.txt', 'w')
 def Write_file(Noise, Energy, Entropy):
     f = open('plot_data'+'.txt', 'a')
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
+=#
 
 # delta_index runs from 0 to 128.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.16,128+1)
+Delta = LinRange(0.0,0.3,64+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 1
+Num = 10
 
 #=
 Arrays to hold delta, energy and entropy before they are written into the file.              
@@ -560,70 +545,24 @@ Arrays to hold delta, energy and entropy before they are written into the file.
 deltas = []
 Ys = []
 Entropies = []
-              
+quasienergy_disorder_file  = open("quasienergy_disorder.txt", "w")
+
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
     Op = Grover_delta(delta)
-    EIGU = py"eigu"(Op)
-    X = string(delta)
+    EIGU = eigu(collect(Op))
+    #delta = string(delta)
     Y = real(1im*log.(EIGU[1]))
     V = EIGU[2]
     
     for j=1:2^L
-        py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
+        #py"Write_file"(delta, real(Y[j]), average_entanglement_entropy(V[1:2^L,j:j]))
+        write(quasienergy_disorder_file, string(delta))
+        write(quasienergy_disorder_file, "\t")
+        write(quasienergy_disorder_file, string(real(Y[j])))
+        write(quasienergy_disorder_file, "\t")    
+        write(quasienergy_disorder_file, string(average_entanglement_entropy(V[1:2^L,j:j])))
+        write(quasienergy_disorder_file, "\n")              
     end
 end
-
-#=
-using Plots
-using DelimitedFiles
-using ColorSchemes
-#using CSV
-using LaTeXStrings
-#using PyPlot
-file = raw"plot_data.txt"
-M = readdlm(file)
-delta = M[:,1]; # index
-energy = M[:,2]; # eigenvalue
-entropy = M[:,3]; # entropy
-S_Page = 0.5*L*log(2)-0.5
-quasienergy = pi-atan(2/sqrt(2^L-1));
-gr()
-plot_font = "Computer Modern"
-default(fontfamily=plot_font)
-MyTitle = "L = "*string(L)*", Page Value = "*string(round(0.5*L*log(2)-0.5;digits = 2))*" ";
-p = plot(delta,energy,
-    seriestype = :scatter,
-    markerstrokecolor = "grey30",
-    markerstrokewidth=0.0,
-    markersize=2,
-    thickness_scaling = 1.4,
-    xlims=(0,0.4), 
-    ylims=(-3.14,3.14),
-    title = MyTitle,
-    label = "",
-    #legend = :bottomleft,
-    dpi=600,
-    zcolor = entropy,
-    grid = false,
-    #colorbar_title = "Average entanglement entropy",
-    font="CMU Serif",
-    color = :jet1,
-    #:linear_bmy_10_95_c78_n256,#:diverging_rainbow_bgymr_45_85_c67_n256,#:linear_bmy_10_95_c78_n256,#:rainbow1,
-    right_margin = 5Plots.mm,
-    left_margin = Plots.mm,
-    titlefontsize=16,
-    guidefontsize=16,
-    tickfontsize=16,
-    legendfontsize=16,
-    framestyle = :box
-    )
-plot!(size=(900,700))
-#plot!(yticks = ([(-pi) : (-pi/2): (-pi/4): 0: (pi/4) : (pi/2) : pi;], ["-\\pi", "-\\pi/2", "-\\pi/4","0","\\pi/4","\\pi/2","\\pi"]))
-hline!([[-quasienergy]],lc=:magenta,linestyle= :dashdotdot,legend=false)
-hline!([ [0]],lc=:magenta,linestyle= :dashdotdot,legend=false)
-hline!([ [quasienergy]],lc=:magenta,linestyle= :dashdotdot,legend=false)
-xlabel!("Noise \$\\delta\$")
-ylabel!("Energy \$\\phi_{F}\$")
-savefig(string(L)*"_delta_energy_"*string(SEED)*".png")
-=#
+close(quasienergy_disorder_file)
