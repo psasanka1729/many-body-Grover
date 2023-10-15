@@ -3,7 +3,7 @@
 #SBATCH --job-name=h_eff_energies
 #
 # Partition:
-#SBATCH --partition=128s
+#SBATCH --partition=CMT
 #
 # Processors:
 #SBATCH --ntasks=64

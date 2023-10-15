@@ -1,11 +1,11 @@
-L = 14;
+L = 12;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"14_new_Grover_gates_data.txt" # Change for every L.
+file = raw"6_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -28,9 +28,11 @@ Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 
 # Good seeds = 10,14, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 23398
+SEED = 14
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
+
+
 
 I2 = sparse([1 0; 0 1]);
 Z  = sparse([1 0;0 -1]);
@@ -547,10 +549,10 @@ def Write_file(Noise, Energy, Entropy):
 # delta_index runs from 0 to 128.
 delta_index = parse(Int64,ARGS[1])
 
-Delta = LinRange(0.0,0.18,64+1)
+Delta = LinRange(0.0,0.16,128+1)
 delta_start = Delta[delta_index+1]
 delta_end = Delta[delta_index+2]
-Num = 4
+Num = 1
 
 #=
 Arrays to hold delta, energy and entropy before they are written into the file.              
@@ -562,7 +564,7 @@ Entropies = []
 for i=0:Num
     delta = delta_start+(i/Num)*(delta_end-delta_start)
     Op = Grover_delta(delta)
-    EIGU = py"eigu"(collect(Op))
+    EIGU = py"eigu"(Op)
     X = string(delta)
     Y = real(1im*log.(EIGU[1]))
     V = EIGU[2]
