@@ -1,4 +1,4 @@
-L = 11;
+L = 10;
 
 using JLD
 using Random
@@ -522,3 +522,53 @@ g_h_eff = collect(grover_effective_Hamiltonian_matrix(0.0));
 h_eff_compt_basis = (g_h_eff[2])
 #h_eff_compt_basis_traceless = h_eff_compt_basis - Identity(2^L)*(1/2^L)*tr(h_eff_compt_basis)
 save("h_eff_matrix.jld","h_eff",h_eff_compt_basis)
+
+function Level_Statistics(n,Es)
+        return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
+end;
+
+bulk_energies = eigvals(h_eff_compt_basis)
+h_eff_level_statistics = Array{Float64, 1}(undef, 0)
+for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
+     push!(h_eff_level_statistics,Level_Statistics(i,bulk_energies))
+end
+
+
+for i = 1:2^L-4
+   write(level_statistics_file, string(i))
+   write(level_statistics_file, "\t")  # Add a tab indentation between the columns
+   write(level_statistics_file, string(h_eff_level_statistics[i]))
+   write(level_statistics_file, "\n")  # Add a newline character to start a new line
+ end
+
+# Close the file
+close(level_statistics_file)
+
+
+h_eff_eigenvectors = eigvecs(h_eff_compt_basis)
+
+function KLd(Eigenvectors_Matrix)
+    KL = []
+    for n = 1:2^L-1 # Eigenvector index goes from 1 to dim(H)-1.
+        KLd_sum = 0.0
+        eigenvector_1_z_basis = Eigenvectors_Matrix[:,n]
+        eigenvector_2_z_basis = Eigenvectors_Matrix[:,n+1]
+        for i = 1:2^L
+                p = abs(eigenvector_1_z_basis[i])^2 + 1.e-9
+                q = abs(eigenvector_2_z_basis[i])^2 + 1.e-9  
+                KLd_sum += p*log(p/q)
+        end
+        push!(KL,KLd_sum) 
+   end
+   return KL
+end;
+
+KLd_calculated = KLd(h_eff_eigenvectors)
+for i = 1:2^L-1
+    write(KLd_file , string(i))
+    write(KLd_file , "\t")
+    write(KLd_file , string(KLd_calculated[i]))
+    write(KLd_file , "\n") 
+end
+
+close(KLd_file)
