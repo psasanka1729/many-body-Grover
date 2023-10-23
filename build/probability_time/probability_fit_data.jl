@@ -242,7 +242,7 @@ xdata = [i for i = 50:70];
 ydata = p_0l[50:70]
 
 # Define an initial guess for the parameters
-p0 = [  0.07,   0.07,   0.31, 15]
+p0 = [  0.07,   0.07,   0.17, 1]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
