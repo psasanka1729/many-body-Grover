@@ -194,7 +194,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-G_delta = Grover_operator(0.01);
+G_delta = Grover_operator(0.05);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 ket_0    = zeros(2^L)
@@ -217,8 +217,8 @@ push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
 for i=1:150
     global ket_psi = G_delta*ket_psi
-    p_0 = abs(ket_psi[1])^2
-    p_xbar = abs(ket_x_bar'*ket_psi)^2
+    global p_0 = abs(ket_psi[1])^2
+    global p_xbar = abs(ket_x_bar'*ket_psi)^2
     #p_xbar = Pxbar(psi)
     #py"Write_file"(real(p_0),real(p_xbar),i)
     write(probability_time_file, string(real(p_0)))
