@@ -3,7 +3,7 @@
 #SBATCH --job-name=probability_time
 #
 # Partition:
-#SBATCH --partition=256i
+#SBATCH --partition=CMT
 #
 # Processors:
 #SBATCH --ntasks=64
