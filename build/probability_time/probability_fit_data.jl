@@ -1,11 +1,11 @@
-L = 11;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"11_new_Grover_gates_data.txt" # Change for every L.
+file = raw"10_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -242,7 +242,7 @@ xdata = [i for i = 50:70];
 ydata = p_0l[50:70]
 
 # Define an initial guess for the parameters
-p0 = [  0.07,   0.07,   0.17, 1]
+p0 = [  0.015,   0.015,   0.7, 10]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
