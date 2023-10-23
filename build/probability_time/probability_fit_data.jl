@@ -206,7 +206,7 @@ p_0l = []
 p_xbar_l = [abs(ket_x_bar'*Psi_0(L))^2]
 
 p_0l = []
-#p_x_barl = []
+p_x_barl = []
 ket_psi = Psi_0(L);
 p_0 = ket_psi[1]*conj.(ket_psi[1])
 p_xbar = Pxbar(ket_psi)
