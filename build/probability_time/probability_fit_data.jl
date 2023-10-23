@@ -208,7 +208,7 @@ p_xbar_l = [abs(ket_x_bar'*Psi_0(L))^2]
 p_0l = []
 #p_x_barl = []
 ket_psi = Psi_0(L);
-p_0 = psi[1]*conj.(psi[1])
+p_0 = ket_psi[1]*conj.(ket_psi[1])
 p_xbar = Pxbar(ket_psi)
 probability_time_file = open("probability_time_file.txt", "w")
 #py"Write_file"(real(p_0),real(p_xbar),0)
@@ -217,8 +217,8 @@ push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
 for i=1:150
     global ket_psi = G_delta*ket_psi
-    p_0 = abs(psi[1])^2
-    p_xbar = abs(ket_x_bar'*psi)^2
+    p_0 = abs(ket_psi[1])^2
+    p_xbar = abs(ket_x_bar'*ket_psi)^2
     #p_xbar = Pxbar(psi)
     #py"Write_file"(real(p_0),real(p_xbar),i)
     write(probability_time_file, string(real(p_0)))
