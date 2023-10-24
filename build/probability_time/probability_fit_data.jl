@@ -1,11 +1,11 @@
-L = 12;
+L = 11;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"12_new_Grover_gates_data.txt" # Change for every L.
+file = raw"11_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -194,7 +194,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-G_delta = Grover_operator(0.03);
+G_delta = Grover_operator(0.02);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 ket_0    = zeros(2^L)
@@ -242,7 +242,7 @@ xdata = [i for i = 50:70];
 ydata = p_0l[50:70]
 
 # Define an initial guess for the parameters
-p0 = [  0.02,   0.02,   0.40, 10]
+p0 = [  0.18,   0.18,   0.13, 10]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
