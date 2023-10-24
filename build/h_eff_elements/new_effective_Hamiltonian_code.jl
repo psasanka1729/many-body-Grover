@@ -1,4 +1,4 @@
-L = 10;
+L = 9;
 
 using JLD
 using Random
@@ -523,6 +523,7 @@ h_eff_compt_basis = (g_h_eff[2])
 #h_eff_compt_basis_traceless = h_eff_compt_basis - Identity(2^L)*(1/2^L)*tr(h_eff_compt_basis)
 save("h_eff_matrix.jld","h_eff",h_eff_compt_basis)
 
+#=
 function Level_Statistics(n,Es)
         return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
 end;
@@ -571,4 +572,4 @@ for i = 1:2^L-1
     write(KLd_file , "\n") 
 end
 
-close(KLd_file)
+close(KLd_file)=#
