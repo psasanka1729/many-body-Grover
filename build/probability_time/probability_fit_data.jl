@@ -1,4 +1,4 @@
-L = 11;
+L = 7;
 
 using Random
 using LinearAlgebra
@@ -194,7 +194,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-G_delta = Grover_operator(0.03);
+G_delta = Grover_operator(0.01);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 ket_0    = zeros(2^L)
@@ -242,7 +242,7 @@ xdata = [i for i = 50:70];
 ydata = p_0l[50:70]
 
 # Define an initial guess for the parameters
-p0 = [  0.1,   0.1,   0.18, 10]
+p0 = [  0.5,   0.5,   0.4, 10]
 
 # Call the curve_fit function
 fit = curve_fit(model, xdata, ydata, p0)
