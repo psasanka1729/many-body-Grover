@@ -3,7 +3,7 @@
 #SBATCH --job-name=h_eff_elements
 #
 # Partition:
-#SBATCH --partition=256i
+#SBATCH --partition=CMT
 #
 # Processors:
 #SBATCH --ntasks=64

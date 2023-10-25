@@ -1,11 +1,11 @@
-L = 7;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"7_new_Grover_gates_data.txt" # Change for every L.
+file = raw"10_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -194,7 +194,7 @@ function Pxbar(full_wavefunction)
     return abs(p_xbar)^2/(2^L-1)
 end
 
-G_delta = Grover_operator(0.03);
+G_delta = Grover_operator(0.01);
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 ket_0    = zeros(2^L)
@@ -212,10 +212,15 @@ p_0 = ket_psi[1]*conj.(ket_psi[1])
 p_xbar = Pxbar(ket_psi)
 probability_time_file = open("probability_time_file.txt", "w")
 #py"Write_file"(real(p_0),real(p_xbar),0)
-write(probability_time_file,string(real(p_0),real(p_xbar),0))
+write(probability_time_file,string(real(p_0)))
+write(probability_time_file,"\t")
+write(probability_time_file,string(real(p_xbar)))
+write(probability_time_file,"\t")
+write(probability_time_file,string(0))
+write(probability_time_file,"\n")
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:150
+for i=1:200
     global ket_psi = G_delta*ket_psi
     global p_0 = abs(ket_psi[1])^2
     global p_xbar = abs(ket_x_bar'*ket_psi)^2
@@ -233,6 +238,7 @@ end;
 
 close(probability_time_file)
 
+#=
 using LsqFit
 
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
@@ -292,5 +298,5 @@ write(probability_fit_file,"\t")
 write(probability_fit_file,string(phi_2))
 write(probability_fit_file,"\t")
 write(probability_fit_file,string(p_0l[100]-A_2+B_2*cos(omega_2*100+phi_2)))
-write(probability_fit_file,"\n")
+write(probability_fit_file,"\n")=#
 
