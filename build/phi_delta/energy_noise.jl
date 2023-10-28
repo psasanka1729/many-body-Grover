@@ -29,7 +29,7 @@ Number_of_Gates = U_0_gate_number+U_x_gate_number
 
 
 # Good seeds = 10,14, 1945, 1337, 141421, 1414, 173205075, 1642, 1942.
-SEED = 141421
+SEED  173205075
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
