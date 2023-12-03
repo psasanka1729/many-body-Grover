@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 1000+parse(Int64,ARGS[1])
+SEED = 10000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -186,9 +186,15 @@ end
 
 #delta_index = 1+parse(Int64,ARGS[1])
 #DELTAS = [0.0,0.01,0.02,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.15,0.2,0.21,0.24,0.3,0.4]
-Delta = 0.2#DELTAS[delta_index]
+Delta = 0.01#DELTAS[delta_index]
 
-U = Grover_operator(Delta);
+G_delta = Grover_operator(Delta);
+
+ket_0    = zeros(2^L)
+ket_0[1] = 1
+N = 2^L
+ket_x    = (1/sqrt(N))   * ones(N)
+ket_x_bar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
 
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 p_0l = []
@@ -207,10 +213,13 @@ write(probability_time_file, "\n")
 
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:1000
-    global psi = U*psi
-    global p_0 = abs(psi[1])^2
-    global p_xbar = Pxbar(psi)
+for i=1:5000
+    global ket_psi = G_delta*ket_psi
+    global p_0 = abs(ket_psi[1])^2
+    global p_xbar = abs(ket_x_bar'*ket_psi)^2
+    #global psi = U*psi
+    #global p_0 = abs(psi[1])^2
+    #global p_xbar = Pxbar(psi)
     #py"Write_file"(real(p_0),real(p_xbar),i)
     push!(p_0l,p_0)
     push!(p_x_barl,p_xbar)
@@ -221,6 +230,8 @@ for i=1:1000
     write(probability_time_file, string(i))
     write(probability_time_file, "\n")
 end;
+
+#=
 #using Plots
 #plot(p_0l,label="p0")
 #plot!(p_x_barl,label="p_x_bar")
@@ -273,4 +284,5 @@ def Write_file_fit(A, B, omega, phi, error):
     f.write(str(A) +'\t'+ str(B)+ '\t' + str(omega)+'\t' + str(phi) + '\t' +str(error) + '\n')
  """
 py"Write_file_fit"(A_2,B_2,omega_2,phi_2,p_0l[215]-(A_2+B_2*cos(omega_2*215+phi_2)))
+=#
 =#
