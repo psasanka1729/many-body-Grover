@@ -3,14 +3,14 @@
 #SBATCH --job-name=phi_delta
 #
 # Partition:
-#SBATCH --partition=256i
+#SBATCH --partition=CMT
 #
 # Processors:
-#SBATCH --ntasks=64
-#SBATCH --nodes=4
+#SBATCH --ntasks=16
+#SBATCH --nodes=1
 #
 # Wall clock limit:
-#SBATCH --time=4-00:00:00
+#SBATCH --time=2-00:00:00
 #
 # Email at end:
 #SBATCH --mail-user=sxd190113@utdallas.edu
