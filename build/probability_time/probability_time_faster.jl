@@ -199,9 +199,9 @@ ket_x_bar = sqrt(N/(N-1)) * ket_x - 1/sqrt(N-1)*ket_0 # Normalization checked.
 Psi_0(L) = sparse((1/sqrt(2^L))*ones(ComplexF64,2^L));
 p_0l = []
 p_x_barl = []
-psi = Psi_0(L);
-p_0 = psi[1]*conj.(psi[1])
-p_xbar = Pxbar(psi)
+ket_psi = Psi_0(L);
+p_0 = ket_psi[1]*conj.(ket_psi[1])
+p_xbar = Pxbar(ket_psi)
 
 #py"Write_file"(real(p_0),real(p_xbar),0)
 write(probability_time_file, string(real(p_0)))
