@@ -1,4 +1,4 @@
-L = 12;
+L = 14;
 
 using Random
 using LinearAlgebra
