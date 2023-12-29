@@ -1,11 +1,11 @@
-L = 6;
+L = 7;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-file = raw"6_new_Grover_gates_data.txt" # Change for every L.
+file = raw"7_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
