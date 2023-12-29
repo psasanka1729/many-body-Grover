@@ -1,11 +1,11 @@
-L = 10;
+L = 6;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 
-file = raw"10_new_Grover_gates_data.txt" # Change for every L.
+file = raw"6_new_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -537,7 +537,7 @@ def Write_file(Noise, Energy, Entropy):
 #Delta = LinRange(0.0,0.4,64+1)
 #delta_start = Delta[delta_index+1]
 #delta_end = Delta[delta_index+2]
-Num = 100
+Num = 200
 
 #=
 Arrays to hold delta, energy and entropy before they are written into the file.              
@@ -548,7 +548,7 @@ Entropies = []
 quasienergy_disorder_file  = open("quasienergy_disorder.txt", "w")
 
 for i=0:Num
-    delta = 0.3*i/Num
+    delta = 0.5*i/Num
     #delta = delta_start+(i/Num)*(delta_end-delta_start)
     Op = Grover_delta(delta)
     EIGU = eigu(collect(Op))
