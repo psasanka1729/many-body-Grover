@@ -1,4 +1,4 @@
-L = 10;
+L = 6;
 
 using JLD
 using Random
@@ -9,7 +9,7 @@ using Statistics
 #using Plots
 #using LaTeXStrings
 
-file = raw""*string(L)*"_new__Grover_gates_data.txt" # Change for every L.
+file = raw""*string(L)*"__Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
