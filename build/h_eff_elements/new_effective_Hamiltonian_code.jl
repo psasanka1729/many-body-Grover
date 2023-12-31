@@ -30,7 +30,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 number_of_gates = U_0_gate_number+U_x_gate_number
 
-SEED = 3000+parse(Int64,ARGS[1])
+SEED = 6000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,number_of_gates).-1;
 
