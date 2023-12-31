@@ -1,4 +1,4 @@
-L = 8;
+L = 10;
 
 using Random
 using LinearAlgebra
@@ -27,7 +27,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 3000+parse(Int64,ARGS[1])
+SEED = 6000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -186,7 +186,7 @@ end
 
 #delta_index = 1+parse(Int64,ARGS[1])
 #DELTAS = [0.0,0.01,0.02,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.15,0.2,0.21,0.24,0.3,0.4]
-Delta = 0.06#DELTAS[delta_index]
+Delta = 0.02#DELTAS[delta_index]
 
 G_delta = Grover_operator(Delta);
 
@@ -213,7 +213,7 @@ write(probability_time_file, "\n")
 
 push!(p_0l,p_0)
 push!(p_x_barl,p_xbar)
-for i=1:500
+for i=1:1000
     global ket_psi = G_delta*ket_psi
     global p_0 = abs(ket_psi[1])^2
     global p_xbar = abs(ket_x_bar'*ket_psi)^2
@@ -234,6 +234,7 @@ end;
 #using Plots
 #plot(p_0l,label="p0")
 #plot!(p_x_barl,label="p_x_bar")
+#=
 using LsqFit
 model(t, p) = p[1] .+ p[2] * cos.(p[3] .* t .+ p[4])
 # Define the first order data set.
@@ -275,4 +276,4 @@ write(fit_data_file, "\t")
 write(fit_data_file, string(phi_2))
 write(fit_data_file, "\t")
 write(fit_data_file, string(p_0l[200]-(A_2+B_2*cos(omega_2*200+phi_2))))
-close(fit_data_file)
+close(fit_data_file)=#
