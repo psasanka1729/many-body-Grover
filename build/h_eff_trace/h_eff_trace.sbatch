@@ -3,11 +3,11 @@
 #SBATCH --job-name=h_eff_trace
 #
 # Partition:
-#SBATCH --partition=256i
+#SBATCH --partition=normal
 #
 # Processors:
-#SBATCH --ntasks=128
-#SBATCH --nodes=8
+#SBATCH --ntasks=256
+#SBATCH --nodes=16
 #
 # Wall clock limit:
 #SBATCH --time=4-00:00:00

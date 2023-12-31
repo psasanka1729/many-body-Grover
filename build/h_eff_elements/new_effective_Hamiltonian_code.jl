@@ -1,4 +1,4 @@
-L = 8;
+L = 9;
 
 using JLD
 using Random
