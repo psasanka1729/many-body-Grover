@@ -3,11 +3,11 @@
 #SBATCH --job-name=h_eff_elements
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=normal
 #
 # Processors:
-#SBATCH --ntasks=64
-#SBATCH --nodes=4
+#SBATCH --ntasks=256
+#SBATCH --nodes=16
 #
 # Wall clock limit:
 #SBATCH --time=4-00:00:00
