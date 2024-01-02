@@ -1,0 +1,2 @@
+slurmstepd: error: *** JOB 552348 ON compute-2-6-3 CANCELLED AT 2023-10-31T08:19:36 DUE TO NODE FAILURE, SEE SLURMCTLD LOG FOR DETAILS ***
+slurmstepd: error: unlink(/var/spool/slurm/d/job552348/slurm_script): No such file or directory
