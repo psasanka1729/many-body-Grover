@@ -366,7 +366,7 @@ end
 
 special_states_energy_file  = open("special_states_energy.txt", "w")
 Num = 100
-for i = 1:Num
+for i = 0:Num
         disorder_delta = 0.2*(i/Num)
         G_delta = Grover_delta(disorder_delta)
         phi_F = 1im*log.(eigu(collect(G_delta))[1])
