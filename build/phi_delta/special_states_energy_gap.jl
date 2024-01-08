@@ -329,10 +329,19 @@ A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0;=#
 
-disorder_delta = 0.1
-Op = Grover_delta(disorder_delta);
+#=+
+Num = 100
+for i = 1:Num
+       disorder_delta = 0.2*(i/Num)
+       G_delta = Grover_delta(disorder_delta)
+       phi_F = 1im*log.(eigu(collect(Op))[1])
+end=#
 
-phi_F = 1im*log.(eigu(collect(Op))[1]);
+
+#disorder_delta = 0.1
+#Op = Grover_delta(disorder_delta);
+
+#phi_F = 1im*log.(eigu(collect(Op))[1]);
 
 using Statistics
 function find_far_numbers(x)
@@ -355,6 +364,15 @@ function find_far_numbers(x)
     return abs(far_numbers[1] - far_numbers[2])
 end
 
+
+Num = 100
+for i = 1:Num
+        disorder_delta = 0.2*(i/Num)
+        G_delta = Grover_delta(disorder_delta)
+        phi_F = 1im*log.(eigu(collect(G_delta))[1])
+
+
+end
 special_states_energy_file  = open("special_states_energy.txt", "w")
 write(special_states_energy_file, string(2*pi-mod2pi(find_far_numbers((real(phi_F))))))
 write(special_states_energy_file, "\t")
