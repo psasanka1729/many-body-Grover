@@ -329,7 +329,7 @@ A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0;=#
 
-disorder_delta = 0.06
+disorder_delta = 0.05
 Op = Grover_delta(disorder_delta);
 
 phi_F = 1im*log.(eigu(collect(Op))[1]);

@@ -477,3 +477,4 @@ Launcher: Task 218 running job 219 on compute-7-3-26 (bash h_eff_trace_218.qsub)
 Launcher: Task 214 running job 215 on compute-7-3-26 (bash h_eff_trace_214.qsub)
 Launcher: Task 222 running job 223 on compute-7-3-26 (bash h_eff_trace_222.qsub)
 Launcher: Task 215 running job 216 on compute-7-3-26 (bash h_eff_trace_215.qsub)
+slurmstepd: error: *** JOB 563601 ON compute-7-2-20 CANCELLED AT 2024-01-08T13:50:13 ***
