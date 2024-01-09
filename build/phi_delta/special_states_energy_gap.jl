@@ -143,7 +143,7 @@ function eigu(U,tol=1.e-9)
     return (U_1[inds, :], V_1[:, inds])
 end;
 
-using PyCall
+#using PyCall
 py"""
 import numpy
 import numpy.linalg
