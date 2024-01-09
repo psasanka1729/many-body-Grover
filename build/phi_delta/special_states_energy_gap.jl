@@ -362,7 +362,7 @@ function find_far_numbers(x)
     far_numbers = x[sorted_indices]
 
     # Print the difference between the far numbers
-    return far_numbers[1],far_numbers[2]
+    return real(far_numbers[1]),real(far_numbers[2])
 end
 
 special_states_energy_file  = open("special_states_energy.txt", "w")
@@ -373,9 +373,9 @@ for i = 0:Num
         phi_F = 1im*log.(eigu(collect(G_delta))[1]).real
         write(special_states_energy_file, string(disorder_delta))
         write(special_states_energy_file, "\t")
-        write(special_states_energy_file, string(find_far_numbers(real(phi_F)))[1])
+        write(special_states_energy_file, string(find_far_numbers(real.(phi_F)))[1])
         write(special_states_energy_file, "\t")
-        write(special_states_energy_file, string(find_far_numbers(real(phi_F)))[2])
+        write(special_states_energy_file, string(find_far_numbers(real.(phi_F)))[2])
         write(special_states_energy_file, "\n")
 end
 close(special_states_energy_file)
