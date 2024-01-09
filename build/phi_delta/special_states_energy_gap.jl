@@ -369,11 +369,12 @@ Num = 100
 for i = 0:Num
         disorder_delta = 0.2*(i/Num)
         G_delta = Grover_delta(disorder_delta)
-        phi_F = 1im*log.(eigu(collect(G_delta))[1])
+        phi_F = 1im*log.(eigu(collect(G_delta))[1]).real
         write(special_states_energy_file, string(disorder_delta))
-        write(special_states_energy_file, string(find_far_numbers((real(phi_F))))[1])
         write(special_states_energy_file, "\t")
-        write(special_states_energy_file, string(find_far_numbers((real(phi_F))))[2])
+        write(special_states_energy_file, string(find_far_numbers(real(phi_F)))[1])
+        write(special_states_energy_file, "\t")
+        write(special_states_energy_file, string(find_far_numbers(real(phi_F)))[2])
         write(special_states_energy_file, "\n")
 end
 close(special_states_energy_file)
