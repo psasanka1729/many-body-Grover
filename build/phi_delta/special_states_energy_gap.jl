@@ -144,6 +144,7 @@ function eigu(U,tol=1.e-9)
 end;
 
 #using PyCall
+#=
 py"""
 import numpy
 import numpy.linalg
@@ -199,7 +200,7 @@ def eigu(U,tol=1e-9):
     U_1=numpy.diag(U_1)
     inds=numpy.argsort(numpy.imag(numpy.log(U_1)))
     return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
-"""
+"""=#
 
 # n is from 0 to 2^L-2.
 function x_bar(n)
