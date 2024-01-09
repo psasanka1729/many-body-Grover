@@ -1,3 +1,15 @@
+commit 57162c9506538304263e7b70eab4f02aa53f0a73
+Author: Sasanka Dowarah <sxd190113@login-01.localdomain>
+Date:   Tue Jan 9 14:30:42 2024 -0600
+
+    Commit before run phi_delta
+
+commit d8908c36c8290d1b91b44511c74f35715d75cc34
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Jan 9 14:27:00 2024 -0600
+
+    cluster backup before migration to ganymede2
+
 commit 5bede7518aea022b5c14945267a3064041ec8ff1
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Mon Jan 8 14:17:04 2024 -0600
@@ -3623,7 +3635,7 @@ Date:   Thu Jun 15 23:32:35 2023 -0500
     Commit before run phi_delta
 
 commit d6b13ff7da5f2317cc28e6553a5f93a18e203d02
-Merge: 079b947 96b2b84
+Merge: 079b9477 96b2b847
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Thu Jun 15 23:29:13 2023 -0500
 
@@ -9600,7 +9612,7 @@ Date:   Sat Feb 11 22:47:45 2023 -0600
     Commit before run compare_energies
 
 commit decb79a230b59bca22681d2b0f68859bb15e5e43
-Merge: 3ee6876 7610c15
+Merge: 3ee6876a 7610c151
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sat Feb 11 22:42:53 2023 -0600
 
@@ -9853,7 +9865,7 @@ Date:   Tue Feb 7 12:28:36 2023 -0600
     Commit before run h_eff_energies
 
 commit 32c97ef26413a0f9c516108e7dbb401edb6b1296
-Merge: 9ecd2ef 83cbadd
+Merge: 9ecd2ef2 83cbaddb
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Tue Feb 7 12:27:28 2023 -0600
 
@@ -9866,7 +9878,7 @@ Date:   Tue Feb 7 12:26:50 2023 -0600
     Update h_eff_normalized_energies.jl
 
 commit 9ecd2ef249639af0396e11d47861839f8dbb59cf
-Merge: be014ee 98c7f1f
+Merge: be014ee2 98c7f1ff
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Tue Feb 7 12:23:24 2023 -0600
 
@@ -10059,7 +10071,7 @@ Date:   Tue Jan 17 23:43:49 2023 -0600
     Commit before run h_eff_energies
 
 commit 719362047fc32df9ba83fb724a862ef65e774eb5
-Merge: f37b289 5ca1a00
+Merge: f37b2893 5ca1a008
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Tue Jan 17 23:40:03 2023 -0600
 
@@ -10264,7 +10276,7 @@ Date:   Thu Jan 5 23:18:12 2023 -0600
     Commit before run phi_delta
 
 commit e62864e09dce9f8442912c5c436923a6c6f73a8a
-Merge: f4d327a 8d840da
+Merge: f4d327a8 8d840da5
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Thu Jan 5 15:57:33 2023 -0600
 
@@ -10277,7 +10289,7 @@ Date:   Thu Jan 5 15:56:53 2023 -0600
     writes Pauli coefficients and eigenvalues
 
 commit f4d327a8315e897cb81cfd002ebb0ea66d051dcc
-Merge: bc5de11 b263268
+Merge: bc5de114 b263268d
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Wed Jan 4 22:49:58 2023 -0600
 
@@ -10296,7 +10308,7 @@ Date:   Wed Jan 4 20:22:33 2023 -0600
     Delete special_states.jl
 
 commit bc5de114f11eb6e068df80e252728563c3c0ebce
-Merge: d199aa4 3cfaaa6
+Merge: d199aa40 3cfaaa6e
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Wed Jan 4 20:16:16 2023 -0600
 
@@ -10327,7 +10339,7 @@ Date:   Wed Jan 4 20:12:30 2023 -0600
     special state analysis
 
 commit d199aa405be5ce2573d67a6914a118dbb50ef6ad
-Merge: 74ac92e 769f5d6
+Merge: 74ac92e9 769f5d6d
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Wed Jan 4 14:57:15 2023 -0600
 
@@ -10346,7 +10358,7 @@ Date:   Wed Jan 4 12:26:56 2023 -0600
     Commit before run GUE_tenpy
 
 commit a9d68b3be415c34fd81f2795c900547b872a870e
-Merge: 7e979c9 374b3a2
+Merge: 7e979c97 374b3a25
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Wed Jan 4 12:19:41 2023 -0600
 
@@ -10401,7 +10413,7 @@ Date:   Mon Jan 2 23:22:19 2023 -0600
     Commit before run KLd
 
 commit 066e9925c66ae9518b8f058d52a84a8fdcb1bf94
-Merge: b5d595f 61189b8
+Merge: b5d595fb 61189b8c
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Mon Jan 2 23:19:05 2023 -0600
 
