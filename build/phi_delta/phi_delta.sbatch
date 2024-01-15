@@ -3,7 +3,7 @@
 #SBATCH --job-name=phi_delta
 #
 # Partition:
-#SBATCH --partition=gpu-preempt
+#SBATCH --partition=cmt
 #
 # Processors:
 #SBATCH --ntasks=64
