@@ -26,7 +26,7 @@ U_x_gate_number =  (L-1          # L-1 H gate on left of MCX
                   + L-1)          # L-1 X gate on right of MCX)             
 Number_of_Gates = U_0_gate_number+U_x_gate_number
 
-SEED = 10000+parse(Int64,ARGS[1])
+SEED = 9000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -211,7 +211,6 @@ ket_psi = Psi_0(L);
 p_0 = ket_psi[1]*conj.(ket_psi[1])
 p_xbar = Pxbar(ket_psi)
 probability_time_file = open("probability_time_file.txt", "w")
-#py"Write_file"(real(p_0),real(p_xbar),0)
 write(probability_time_file,string(real(p_0)))
 write(probability_time_file,"\t")
 write(probability_time_file,string(real(p_xbar)))
@@ -224,8 +223,6 @@ for i=1:200
     global ket_psi = G_delta*ket_psi
     global p_0 = abs(ket_psi[1])^2
     global p_xbar = abs(ket_x_bar'*ket_psi)^2
-    #p_xbar = Pxbar(psi)
-    #py"Write_file"(real(p_0),real(p_xbar),i)
     write(probability_time_file, string(real(p_0)))
     write(probability_time_file, "\t")
     write(probability_time_file, string(real(p_xbar)))

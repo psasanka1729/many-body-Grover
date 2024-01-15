@@ -366,14 +366,15 @@ function find_far_numbers(x)
     return real(far_numbers[1]),real(far_numbers[2])
 end
 
+
 special_states_energy_file  = open("special_states_energy.txt", "w")
-Num = 100
-for i = 0:Num
-        disorder_delta = 0.2*(i/Num)
+#Num = 100
+delta_lst = [0.01,0.05,0.1,0.15,0.2,0.25]
+for i = 1:6
+        disorder_delta = delta_lst[i] #0.2*(i/Num)
         G_delta = Grover_delta(disorder_delta)
-        phi_F = real(.1im*log.(eigu(collect(G_delta))[1]))
+        phi_F = real.(1im*log.(eigu(collect(G_delta))[1]))
         
-        #save("quasienergy.jld","quasienergy",phi_F)
         write(special_states_energy_file, string(disorder_delta))
         write(special_states_energy_file, "\t")
         write(special_states_energy_file, string(find_far_numbers(phi_F)[1]))
@@ -382,6 +383,7 @@ for i = 0:Num
         write(special_states_energy_file, "\n")
 end
 close(special_states_energy_file)
+
 #=
 function Entropy(Psi)   
     
